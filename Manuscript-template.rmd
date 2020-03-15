@@ -15,16 +15,15 @@ bibliography: bibliography.bib
 header-includes:
   - \usepackage{setspace}\doublespacing
   - \usepackage{lineno}\linenumbers
-  
 
 ---
-# A multivariate equivalency and general test for Rensch's Rule: Implications for the evolution of sexual shape dimorphism
+# Misuses and Inaccuracies of Pagel's Lambda ML Estimation Methods
 
 \hfill\break
 
-**Keywords**: Sexual dimorphism, multivariate, morphological evolution \hfill\break
+**Keywords**: Pagel's lambda, phylogenetic signal \hfill\break
 
-**Short Title**: Multivariate Test of Rensch's Rule \hfill\break
+**Short Title**: Problems with Pagel's lambda \hfill\break
 
 ```{r setup, include=FALSE}
   library(knitr)
