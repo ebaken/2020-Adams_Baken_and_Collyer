@@ -18,7 +18,7 @@ header-includes:
 
 ---
 \begin{center}
-\textbf{Dean C. Adams$^{1*}$ and Erica K. Baken$^{1}$}
+\textbf{Dean C. Adams$^{1,*}$ and Erica K. Baken$^{1}$}
 \end{center}
 
 \begin{center}`r format(Sys.time(), '%d %B, %Y')`\end{center}
