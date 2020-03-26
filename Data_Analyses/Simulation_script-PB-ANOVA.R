@@ -98,19 +98,7 @@ for (i in 3:length(lambdas_expanded)) {
 DataTableMat_lambda_ml <- as.data.frame(DataTableMat_lambda_ml)
 DataTableMat_lambda_ml$beta <- rep(beta,(length(lambdas)*nsim))
 
-
-
-
-
-
-
-
 plot(DataTableMat_lambda_ml$lambda.est ~ DataTableMat_lambda_ml$lambda.input, pch = 19)
-
-
-
-
-
 
 # writing files
 file_name <- paste("Data_Analyses/Sim_Data/PB_lambda_ml-", n, "-ANOVA.csv", sep = "")
@@ -118,40 +106,3 @@ write.csv(DataTableMat_lambda_ml, file_name, row.names = F)
 
 file_name <- paste("Data_Analyses/Sim_Data/PB_lambda_0-", n, "-ANOVA.csv", sep = "")
 write.csv(DataTableMat_lambda_0, file_name, row.names = F)
-
-
-# 32 
-# 64 
-# 128  
-# 256 
-# 512 
-# 1024 
-
-data <- read.csv("Data_Analyses/Sim_Data/PB_lambda_ml-512-ANOVA.csv") # run another example where you make lmanba input onto y instead of x
-# go reread liams paper on lambda input on both x and y and both
-data <- read.csv("Data_Analyses/Sim_Data/PB_lambda_0-32.csv") # this is producing same correlation, fix
-
-data_beta <- subset(data, data$beta == 0)
-
-plot(data_beta$lambda.est ~ data_beta$lambda.input, pch = 19)
-
-cor(data_beta$lambda.est, data_beta$lambda.input)
-
-
-plot(data$slope ~ data$beta, pch = 19)
-abline(a=c(0,1)) # parameter estimate in the phylo regression outputs an expected value, with broad range of accuracy. 
-# that distribution decreases with increasing phylo size
-# look at how the range mean std of slope estimates changes with ml vs 0 lambda inputs
-# incorporating lambda does not affect inference in the 
-# error rates (x axis = f in pgls lambda 0, y axis = f in pgls labmda ml)
-
-data0 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_0-32.csv")
-dataml <- read.csv("Data_Analyses/Sim_Data/PB_lambda_ml-32.csv")
-
-plot(dataml$'F'~data0$'F')
-plot(dataml$'P'~data0$'P')
-plot(dataml$slope~data0$slope)
-# conclusion holds: interpreting the regression is not appreciably different (in terms of slopes and f values)
-
-
-plot(DataTableMat_lambda_0$slope ~ DataTableMat_lambda_0$beta)

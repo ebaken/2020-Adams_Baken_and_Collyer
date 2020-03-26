@@ -17,7 +17,7 @@ beta <- c(0, .25, .5, .75, 1) # true slope
 fullsimlength <- length(lambdas_expanded)
 
 
-n <- treesizes[5] # number of tips (not simulations)
+n <- treesizes[5] # number of tips: adjust each iteration
 
 DataTable_lambda_0 <- array(NA, dim=c(length(beta), 6, length(lambdas)*nsim), 
                    dimnames = list(beta, c("Rsq", "F", "P", "lambda.input", "lambda.est", "slope")))
@@ -96,16 +96,7 @@ for (i in 3:length(lambdas_expanded)) {
 DataTableMat_lambda_ml <- as.data.frame(DataTableMat_lambda_ml)
 DataTableMat_lambda_ml$beta <- rep(beta,(length(lambdas)*nsim))
 
-
-
 plot(DataTableMat_lambda_ml$lambda.est ~ DataTableMat_lambda_ml$lambda.input, pch = 19)
-
-
-
-
-
-
-
 
 # writing files
 file_name <- paste("Data_Analyses/Sim_Data/PB_lambda_ml-", n, ".csv", sep = "")
@@ -113,13 +104,3 @@ write.csv(DataTableMat_lambda_ml, file_name, row.names = F)
 
 file_name <- paste("Data_Analyses/Sim_Data/PB_lambda_0-", n, ".csv", sep = "")
 write.csv(DataTableMat_lambda_0, file_name, row.names = F)
-
-
-# 32 done
-# 64 done
-# 128 done
-# 256 done
-# 512 
-# 1024 
-
-plot(DataTableMat_lambda_ml$slope ~ DataTableMat_lambda_ml$beta, pch = 19)
