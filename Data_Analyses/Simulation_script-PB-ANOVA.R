@@ -10,11 +10,12 @@ library(svMisc)
 library(caper)
 
 treesizes <-  2^(5:10) # 32,64,128,256,512,1024
-n <- treesizes[5] # number of tips (not simulations)
 nsim <- 50 # number of simulations
 lambdas <- seq(0,1,.05) # starting with just 3 lambda values
 lambdas_expanded <- rep(lambdas, each = nsim)
 beta <- c(0, .25, .5, .75, 1) # true slope
+
+n <- treesizes[4] # number of tips (not simulations)
 
 DataTable_lambda_0 <- array(NA, dim=c(length(beta), 6, length(lambdas)*nsim), 
                    dimnames = list(beta, c("Rsq", "F", "P", "lambda.input", "lambda.est", "slope")))
@@ -99,6 +100,13 @@ DataTableMat_lambda_ml <- as.data.frame(DataTableMat_lambda_ml)
 DataTableMat_lambda_ml$beta <- rep(beta,(length(lambdas)*nsim))
 
 plot(DataTableMat_lambda_ml$lambda.est ~ DataTableMat_lambda_ml$lambda.input, pch = 19)
+
+data_beta0 <- subset(DataTableMat_lambda_ml, DataTableMat_lambda_ml$beta == 0)
+plot(data_beta0$lambda.est ~ data_beta0$lambda.input, pch = 19) # should be flat line
+
+data_beta1 <- subset(DataTableMat_lambda_ml, DataTableMat_lambda_ml$beta == 1)
+plot(data_beta1$lambda.est ~ data_beta1$lambda.input, pch = 19) # should be positive relationship
+
 
 # writing files
 file_name <- paste("Data_Analyses/Sim_Data/PB_lambda_ml-", n, "-ANOVA.csv", sep = "")
