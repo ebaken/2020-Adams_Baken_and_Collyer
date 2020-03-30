@@ -15,7 +15,7 @@ lambdas <- seq(0,1,.05) # starting with just 3 lambda values
 lambdas_expanded <- rep(lambdas, each = nsim)
 beta <- c(0, .25, .5, .75, 1) # true slope
 
-n <- treesizes[4] # number of tips (not simulations)
+n <- treesizes[1] # number of tips (not simulations)
 
 DataTable_lambda_0 <- array(NA, dim=c(length(beta), 6, length(lambdas)*nsim), 
                    dimnames = list(beta, c("Rsq", "F", "P", "lambda.input", "lambda.est", "slope")))
@@ -43,9 +43,6 @@ for (j in 1:(length(lambdas_expanded))) {
     }
     
     X <- rTraitDisc(tree_scaled, model = "ER", states = c(0,1))
-    #X <- sim.char(trees_scaled, par = 1, nsim = 1)[,,1] # simmap for binary? email from dean, luke harmon
-           # We need to simulate a discrete variable:https://lukejharmon.github.io/pcm/chapter7_introdiscrete/
-            # Threshold model: http://blog.phytools.org/2013/09/threshold-character-evolution.html
     #comp_data_x <- comparative.data(tree, data.frame(X=X, Species = names(X)), Species, vcv = F, vcv.dim = 2)
     
     #pgls_x_lambda_0 <- try(pgls(X ~ 1, comp_data_x, lambda=0.01), silent = T)
@@ -63,11 +60,12 @@ for (j in 1:(length(lambdas_expanded))) {
     if(#!is(pgls_x_lambda_0, 'try-error') & !is(pgls_x_lambda_ml, 'try-error') &
        !is(pgls_xy_lambda_0, 'try-error') & !is(pgls_xy_lambda_ml, 'try-error')) break  }
   
+  
+DataTable_lambda_0[,5,j] <- unlist(lapply(1:length(beta), function(i) pgls_xy_lambda_0[[i]]$param[2])) # estimated lambdas of x and y
+DataTable_lambda_ml[,5,j] <- unlist(lapply(1:length(beta), function(i) pgls_xy_lambda_ml[[i]]$param[2])) # estimated lambdas of x and y
+ 
 DataTable_lambda_0[,6,j] <- unlist(lapply(1:length(beta), function(i) pgls_xy_lambda_0[[i]]$model$coef[2,1])) # slopes
 DataTable_lambda_ml[,6,j] <- unlist(lapply(1:length(beta), function(i) pgls_xy_lambda_ml[[i]]$model$coef[2,1])) # slopes
-
-DataTable_lambda_0[,5,j] <- unlist(lapply(1:length(beta), function(i) pgls_xy_lambda_0[[i]]$param[2])) # estimated lambdas
-DataTable_lambda_ml[,5,j] <- unlist(lapply(1:length(beta), function(i) pgls_xy_lambda_ml[[i]]$param[2])) # estimated lambdas
 
 DataTable_lambda_0[,3,j] <- unlist(lapply(1:length(beta), function(i) summary(pgls_xy_lambda_0[[i]])$coefficients[2,4])) # p values on slope
 DataTable_lambda_ml[,3,j] <- unlist(lapply(1:length(beta), function(i) summary(pgls_xy_lambda_ml[[i]])$coefficients[2,4])) # p values on slope
@@ -99,13 +97,8 @@ for (i in 3:length(lambdas_expanded)) {
 DataTableMat_lambda_ml <- as.data.frame(DataTableMat_lambda_ml)
 DataTableMat_lambda_ml$beta <- rep(beta,(length(lambdas)*nsim))
 
-plot(DataTableMat_lambda_ml$lambda.est ~ DataTableMat_lambda_ml$lambda.input, pch = 19)
 
-data_beta0 <- subset(DataTableMat_lambda_ml, DataTableMat_lambda_ml$beta == 0)
-plot(data_beta0$lambda.est ~ data_beta0$lambda.input, pch = 19) # should be flat line
-
-data_beta1 <- subset(DataTableMat_lambda_ml, DataTableMat_lambda_ml$beta == 1)
-plot(data_beta1$lambda.est ~ data_beta1$lambda.input, pch = 19) # should be positive relationship
+plot(DataTableMat_lambda_ml$lambda.est.xy ~ DataTableMat_lambda_ml$lambda.input, pch = 19)
 
 
 # writing files

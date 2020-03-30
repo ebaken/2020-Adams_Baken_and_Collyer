@@ -33,14 +33,15 @@ treesizes <-  2^(5:10)
 ## Figure 1 ######
 
 library(cowplot)
+library(ggplot2)
 
-DataArray <- array(data_reg_32, data_reg_64, data_reg_128,
+DataArray <- list(data_reg_32, data_reg_64, data_reg_128,
                    data_reg_256, data_reg_512, data_reg_1028)
 
 PlotList <- lapply(1:6, function(j){
    ggplot(DataArray[[j]], aes(x = lambda.input, y = lambda.est)) +
       geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
-      xlab("Input Lambda") + ylab("Estimated Lambda") + ggtitle(TreeSizeLabel)
+      xlab("Input Lambda") + ylab("Estimated Lambda") + ggtitle(treesizes[[j]])
 })
 
 jpeg("Figures/Fig1.jpeg", res = 120, quality = 100, width = 1000, height = 660)
@@ -48,19 +49,60 @@ plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
           PlotList[[4]], PlotList[[5]], PlotList[[6]])
 dev.off()
 
+jpeg("Manuscript/Fig1.jpeg", res = 120, quality = 100, width = 1000, height = 660)
+plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
+          PlotList[[4]], PlotList[[5]], PlotList[[6]])
+dev.off()
 
-## Figure 2 #######
+## Figure 2 ######
+data_reg_32_combo <- cbind(data_reg_32, data_reg_32_0)
+colnames(data_reg_32_combo) <- c(colnames(data_reg_32), "Rsq_0", "F_0", "P_0", "lambda.input_0", "lambda.est_0", "slope_0", "beta_0")
+
+data_reg_64_combo <- cbind(data_reg_64, data_reg_64_0)
+colnames(data_reg_64_combo) <- c(colnames(data_reg_64), "Rsq_0", "F_0", "P_0", "lambda.input_0", "lambda.est_0", "slope_0", "beta_0")
+
+data_reg_128_combo <- cbind(data_reg_128, data_reg_128_0)
+colnames(data_reg_128_combo) <- c(colnames(data_reg_128), "Rsq_0", "F_0", "P_0", "lambda.input_0", "lambda.est_0", "slope_0", "beta_0")
+
+data_reg_256_combo <- cbind(data_reg_256, data_reg_256_0)
+colnames(data_reg_256_combo) <- c(colnames(data_reg_256), "Rsq_0", "F_0", "P_0", "lambda.input_0", "lambda.est_0", "slope_0", "beta_0")
+
+data_reg_512_combo <- cbind(data_reg_512, data_reg_512_0)
+colnames(data_reg_512_combo) <- c(colnames(data_reg_512), "Rsq_0", "F_0", "P_0", "lambda.input_0", "lambda.est_0", "slope_0", "beta_0")
+
+data_reg_1028_combo <- cbind(data_reg_1028, data_reg_1028_0)
+colnames(data_reg_1028_combo) <- c(colnames(data_reg_1028), "Rsq_0", "F_0", "P_0", "lambda.input_0", "lambda.est_0", "slope_0", "beta_0")
+
+
+
+DataArray <- list(data_reg_32_combo, data_reg_64_combo, data_reg_128_combo,
+                   data_reg_256_combo, data_reg_512_combo, data_reg_512_combo)
+
+plot(DataArray[[1]]$'P'~DataArray[[1]]$'P_0')
+
+ggplot(DataArray[[1]], aes(x = 'F_0', y = 'F')) +
+      geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
+      xlab("F no signal") + ylab("F ml signal") + ggtitle(treesizes[[1]])
+
+PlotList <- lapply(1:6, function(j){
+   ggplot(DataArray[[j]], aes(x = 'P_0', y = 'P')) +
+      geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
+      xlab("F no signal") + ylab("F ml signal") + ggtitle(treesizes[[j]])
+})
+
+PlotList[[1]]
+
+plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
+          PlotList[[4]], PlotList[[5]], PlotList[[6]])
 
 
 
 
 
-
-
-## Figure 3 ######
-
-
-
+jpeg("Figures/Fig2.jpeg", res = 120, quality = 100, width = 1000, height = 660)
+plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
+          PlotList[[4]], PlotList[[5]], PlotList[[6]])
+dev.off()
 
 plot(dataml$'F'~data0$'F')
 plot(dataml$'P'~data0$'P')
@@ -68,3 +110,21 @@ plot(dataml$slope~data0$slope)
 
 
 plot(DataTableMat_lambda_0$slope ~ DataTableMat_lambda_0$beta)
+
+
+
+
+## Figure 3 #####
+
+
+
+
+
+## Figure S1 #####
+
+
+
+
+# Rmarkdown PDF rendering ####
+
+rmarkdown::render("Manuscript/Manuscript.Rmd", output_dir = "Manuscript/")
