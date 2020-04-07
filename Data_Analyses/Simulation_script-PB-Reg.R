@@ -6,7 +6,7 @@ setwd("/Users/ericabaken/Documents/School/Projects/Lambda_Eval/Manuscript/2020-A
 library(phytools)
 library(geomorph)
 library(geiger)
-library(svMisc)
+#library(svMisc)
 library(caper)
 
 treesizes <-  2^(5:10) # 32,64,128,256,512,1024
