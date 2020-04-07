@@ -11,10 +11,11 @@ Regression.data <- as.data.frame(Regression.data)
 
 library(cowplot)
 library(ggplot2)
+Regression.data.ml <- Regression.data[(Regression.data$method == "ml"),]
 
 PlotList <- lapply(1:6, function(j){
-   reduced.data <- Regression.data[which(Regression.data$tree.size == treesizes[[j]]),]
-   ggplot(reduced.data, aes(x = lambda.input, y = lambda.est)) +
+   reduced.data <- Regression.data.ml[which(Regression.data.ml$tree.size == treesizes[[j]]),]
+   ggplot(reduced.data, aes(x = lambda.input, y = lambda.est.x)) +
       geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
       xlab("Input Lambda") + ylab("Estimated Lambda") + ggtitle(treesizes[[j]])
 })
@@ -75,24 +76,61 @@ plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
 ## Figure 3 #####
 library(readxl)
 review <- read_excel("Literature_Review/1Summary.xlsx", sheet = "Since 2019 Lambda Vals", col_types = "numeric")
-
-published.lambdas <- review$`Estimated Lambdas Simple`
-published.lambdas.pruned <- published.lambdas[-which(published.lambdas > 1 | published.lambdas < 0)]
+colnames(review)
+published.lambdas <- review[,c(3,4)]
+published.lambdas.pruned <- published.lambdas[-which(published.lambdas > 1 | published.lambdas < 0),]
 published.lambdas.df <- as.data.frame(published.lambdas.pruned)
-colnames(published.lambdas.df) <- "Published_Lambdas"
+colnames(published.lambdas.df) <- c("Published_Lambdas", "Taxa")
 
-jpeg("Figures/Fig3.jpeg", res = 120, quality = 100, width = 1000, height = 660)
+jpeg("Figures/Fig3_bw.jpeg", res = 120, quality = 100, width = 1000, height = 660)
     ggplot(published.lambdas.df, aes(Published_Lambdas)) + 
       geom_histogram(binwidth = 0.02) + theme_bw() +
       xlab("Published Lambda Values") + ylab("Frequency")
+dev.off()
+
+
+# Combining published data to simulated data
+
+published.lambdas.df$Taxa_Bins <- as.character(published.lambdas.df$Taxa)
+published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa<=tree.sizes[[1]])] <- "Up To 32"
+published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa>tree.sizes[[1]] & published.lambdas.df$Taxa<=tree.sizes[[2]])] <- "33 to 64"
+published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa>tree.sizes[[2]] & published.lambdas.df$Taxa<=tree.sizes[[3]])] <- "65 to 128"
+published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa>tree.sizes[[3]] & published.lambdas.df$Taxa<=tree.sizes[[4]])] <- "129 to 256"
+published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa>tree.sizes[[4]] & published.lambdas.df$Taxa<=tree.sizes[[5]])] <- "257 to 512"
+published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa>tree.sizes[[5]] & published.lambdas.df$Taxa<=tree.sizes[[6]])] <- "513 to 1024"
+published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa>tree.sizes[[6]])] <- "Over 1024"
+
+published.lambdas.df$Taxa_Bins <- as.factor(published.lambdas.df$Taxa_Bins)
+published.lambdas.df$Taxa_Bins <- relevel(published.lambdas.df$Taxa_Bins, "513 to 1024")
+published.lambdas.df$Taxa_Bins <- relevel(published.lambdas.df$Taxa_Bins, "257 to 512")
+published.lambdas.df$Taxa_Bins <- relevel(published.lambdas.df$Taxa_Bins, "129 to 256")
+published.lambdas.df$Taxa_Bins <- relevel(published.lambdas.df$Taxa_Bins, "65 to 128")
+published.lambdas.df$Taxa_Bins <- relevel(published.lambdas.df$Taxa_Bins, "33 to 64")
+published.lambdas.df$Taxa_Bins <- relevel(published.lambdas.df$Taxa_Bins, "Up To 32")
+
+
+length(which(published.lambdas.df$Published_Lambdas > 0.95))/nrow(published.lambdas.pruned)*100 # 18.23%
+length(which(published.lambdas.df$Published_Lambdas < 0.05))/nrow(published.lambdas.pruned)*100 # 25.32%
+
+library(RColorBrewer)
+
+jpeg("Figures/Fig3_col.jpeg", res = 120, quality = 100, width = 1000, height = 660)
+ggplot(published.lambdas.df, aes(x = Published_Lambdas, fill = Taxa_Bins)) + 
+      geom_histogram(binwidth = 0.02) + labs(fill='Tree Size') + 
+      theme(legend.position = c(.85,.77), legend.background = element_rect(fill = "white", color = "grey50"),
+            panel.background = element_rect(fill = "white"), panel.grid.major = element_line(colour = "grey80")) +
+      xlab("Published Lambda Values") + ylab("Frequency") + 
+      scale_fill_manual(values = brewer.pal(7, "YlOrRd")[7:1]) 
 dev.off()
 
 jpeg("Manuscript/Fig3.jpeg", res = 120, quality = 100, width = 1000, height = 660)
-    ggplot(published.lambdas.df, aes(Published_Lambdas)) + 
-      geom_histogram(binwidth = 0.02) + theme_bw() +
-      xlab("Published Lambda Values") + ylab("Frequency")
+ggplot(published.lambdas.df, aes(x = Published_Lambdas, fill = Taxa_Bins)) + 
+      geom_histogram(binwidth = 0.02) + labs(fill='Tree Size') + 
+      theme(legend.position = c(.85,.77), legend.background = element_rect(fill = "white", color = "grey50"),
+            panel.background = element_rect(fill = "white"), panel.grid.major = element_line(colour = "grey80")) +
+      xlab("Published Lambda Values") + ylab("Frequency") + 
+      scale_fill_manual(values = brewer.pal(7, "YlOrRd")[7:1]) 
 dev.off()
-
 
 ## Figure S1 #####
 

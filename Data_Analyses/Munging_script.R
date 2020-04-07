@@ -30,10 +30,15 @@ reg.fulldata <- rbind(data_reg_32, data_reg_64, data_reg_128, data_reg_256, data
                       data_reg_1024_1, data_reg_1024_2, data_reg_1024_3, data_reg_1024_4, data_reg_1024_5,
                       data_reg_32_0, data_reg_64_0, data_reg_128_0, data_reg_256_0, data_reg_512_0, 
                       data_reg_1024_0_1, data_reg_1024_0_2, data_reg_1024_0_3, data_reg_1024_0_4, data_reg_1024_0_5)
+# this following line is just a place holder
+                reg.fulldata <- rbind(data_reg_32, data_reg_64, data_reg_128, data_reg_256, data_reg_512, data_reg_512,
+                                      data_reg_32_0, data_reg_64_0, data_reg_128_0, data_reg_256_0, data_reg_512_0, data_reg_512_0)
+#
+        
 reg.fulldata <- as.data.frame(reg.fulldata)
 
 reg.fulldata$tree.size <- rep(rep(as.character(tree.sizes), each = 5250), 2)
-reg.fulldata$method <- rep(c("ml", "0"), each = 5250*2)
+reg.fulldata$method <- rep(c("ml", "0"), each = length(reg.fulldata$tree.size)/2)
 
 write.csv(reg.fulldata, "Data_Analyses/Munged_Data/Regression.fulldataset.csv", row.names = F)
 
@@ -68,6 +73,6 @@ anova.fulldata <- rbind(data_anova_32, data_anova_64, data_anova_128, data_anova
 anova.fulldata <- as.data.frame(anova.fulldata)
 
 anova.fulldata$tree.size <- rep(rep(as.character(tree.sizes), each = 5250), 2)
-anova.fulldata$method <- rep(c("ml", "0"), each = 5250*2)
+reg.fulldata$method <- rep(c("ml", "0"), each = length(reg.fulldata$tree.size)/2)
 
 write.csv(anova.fulldata, "Data_Analyses/Munged_Data/ANOVA.fulldataset.csv", row.names = F)
