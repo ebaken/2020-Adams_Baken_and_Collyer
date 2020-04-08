@@ -112,14 +112,14 @@ different (in terms of slopes and f values)\}
 Investigating macroevolutionary patterns requires a phylogenetic
 approach as species are non-independent by nature of their shared
 ancestry. Since the first appropriate method was introduced by
-Felsenstein (phylogenetic independent contrasts; (Felsenstein 1985)),
+Felsenstein (phylogenetic independent contrasts; Felsenstein (1985)),
 dozens of other methods have been developed and applied to increasingly
-complex questions in macroevolutionary biology (e.g. (Grafen 1989);
-(Harvey and Pagel 1991); (Rohlf 2001); ({\textbf{???}})). A particularly
+complex questions in macroevolutionary biology (e.g. Grafen (1989);
+Harvey and Pagel (1991); Rohlf (2001); ({\textbf{???}})). A particularly
 useful measure in this field is phylogenetic signal, a quantification of
 a trait's correspondence with the clade's phylogenic history.
 Understanding the degree of phylogenetic signal present in a dataset is
-paramount and identifies the mode with which a trait has evolved; high
+paramount and identifies the mode under which a trait has evolved; high
 measures of phylogenetic signal indicate a Brownian motion process,
 whereas lower levels of phylogenetic signal indicate natural selection
 or some other evolutionary force has influenced the traits evolutionary
@@ -148,14 +148,14 @@ misused in recent macroevolutionary studies. Here we take a
 comprehensive approach to demonstrate the scenarios under which
 estimated Pagel's lambdas accurately reflect known lambdas. We then
 demonstrate the effect of these, at times, dubious estimation methods on
-significance testing when used in a pgls framework. Finally, we perform
+significance testing when used in a PGLS framework. Finally, we perform
 a meta-analysis of research published in 2019 employing Pagel's lambda
 estimation methods to demonstrate the uses and misuses of this method in
 the literature. This investigation provides evidence for the
 circumstances under which estimating Pagel's lambda can be informative,
 and which interpretations or uses are misleading with the hope of moving
-the field towards more appropriate employment of our methodological
-toolbox.
+the field towards more appropriate employment of phylogenetic
+comparative methods.
 
 \section{Methods and Results}\label{methods-and-results}
 
@@ -163,72 +163,129 @@ toolbox.
 trait}}{Simulated trait}}\label{simulated-trait}
 
 To assess the accuracy of Pagel's lambda estimations, we simulated
-pure-birth phylogenies of increasing size, ranging in tip number from 32
-to 1028. We then scaled the phylogenies by known lambda values ranging
-from 0 to 1 (0.05 intervals; 50 trees per lambda value per tree size)
-and generated trait data by simulating a single continuous variable on
-each scaled phylogeny under Brownian motion. With the generated
-datasets, we used phylogenetic generalized least squares (PGLS) to
-estimate lambda values and extracted the model fit likelihood values.
-Finally, we calculated model fit likelihood values of PGLS models using
-the known lambdas as the input lambdas in the model and using ordinary
-least squares models (OLS; lambda = 0). \hfill\break
+pure-birth phylogenies of variable size, ranging in tip number from 32
+to 1024. We then scaled the simulated phylogenies by lambda values
+ranging from 0 to 1 (0.05 intervals; 50 trees per lambda value per tree
+size) with which we generated trait data with known lambdas by
+simulating a continuous variable on each scaled phylogeny under Brownian
+motion. We then estimated lambda values from these data using
+phylogenetic generalized least squares (PGLS) to compare against the
+known lambda values. \hfill\break
 
 To visualize the accuracy of the lambda estimation methods, we first
-plotted known lambdas (input lambdas) against the estimated lambdas. We
-also calculated rates of model misspecification for each phylogeny size,
-quantifying the rate at which models with known lambdas of 0 incorrectly
-define a significant phylogenetic signal as well as the rate at which
-models with known lambdas \textgreater{} 0 incorrectly estimate lambda
-as not significantly different from 0. \hfill\break
+plotted known lambdas (input lambdas) against the estimated lambdas
+(Figure 1). This plot demonstrates the rampant inaccuracy of estimating
+lambdas on phylogenies with fewer than 200 tips, as the spread of data
+in the upper panels in Figure 1 is remarkably wide. We also see that the
+widest spread of estimated lambdas is observed near the center of each
+plot corresponding to intermediate values of known lambda. Lastly, we
+see a slight tendency for the PGLS estimation methods to underestimate
+lambda, especially for known lambda values below 0.5 as can be seen by
+the numerous data points along the x axis for the smaller phylogenies
+analyzed (n tips \textless{} 200). \hfill\break
 
-Results from these data (Figure 1).
+{[}insert Figure 1 here{]}
 
 \subsection{\texorpdfstring{\emph{Simulated ANOVA and
 Regressions}}{Simulated ANOVA and Regressions}}\label{simulated-anova-and-regressions}
 
-To ascertain the statistical performance of PGLS lambda estimation
-methods, we generated datasets with two trait variables across a range
-of known lambda values and correlation strengths. First, the independent
-variable (both continuous and binary) was generated in the same manner
-as the simulation procedures above. For each independent variable, we
-then generated a continuous dependent variable with input slopes ranging
-from 0 to 1 (0.25 intervals). From these data, used PGLS to estimate
-slope as well as F-values to assess the accuracy and error rates of
-these regression and ANOVA analyses while estimating lambdas. Finally,
-we again fit the dependent variable to the independent variable,
-estimated the slope and F-values using PGLS with the known lambdas as
-the input lambdas as well as under OLS. \hfill\break
+To measure the statistical performance of PGLS lambda estimation methods
+when applied to ANOVA and regression analyses, we used the above
+generated data (independent variables) to simulate a second set of trait
+variables (depedendent variables) across the range of correlation
+strengths (betas ranging from 0 to 1 at intervales of 0.25). We then
+used PGLS to estimate phylogenetic signal of the dependent variable and
+the slope coefficient for the regression between the dependent and
+independent variables. We also calculated F- and p-values from the
+regression analyses. Finally, we again fit the dependent variable to the
+independent variable while holding the lambda value at 0 to approximate
+an ordinary least squares (OLS) apprach. \hfill\break
 
-We calculated error rates \ldots{} \hfill\break
+We compared the estimated slope coefficients across variable input beta
+values to assess the ability of PGLS to identify significant
+correlations (Figure 2). All distribution groups center around the 1:1
+relationship between input beta values and estimated slopes. However the
+variance around that mean is substantial, with estimates ranging from
+approximately -2 to 4 in datasets with 32 taxa and a known relationship
+of (beta = 1). This variance of the estimated slopes only becomes
+reasonable when phylogenies have over 200 tips, similarly to what we saw
+in the first simulation analysis in this study. \hfill\break
 
-Scaling and trait generation procedures for both simulation methods was
-repeated with symmetrical and ladder phylogeny shapes. Results of these
-phylogeny shapes were consistent with pure-birth phylogeny results and
-can be found in the Supplemental Materials. All analyses were performed
-in R v3.6.0 ({\textbf{???}}) using the packages \texttt{geiger}
-({\textbf{???}}) and \texttt{caper} ({\textbf{???}}), and the
-corresponding scripts can be found in the Supplemental Materials.
-\hfill\break
+{[}insert Figure 2 here{]} \hfill\break 
 
-Results from these data (Figure 2).
+Surprisingly, the estimated lambda values of the dependent variable do
+not correspond with input lambda values that characterize the
+independent variable (Figure S1). This disconnect then resulted in no
+appreciable difference of slope estimates across input lambda values
+(Figure S2), nor do we see substantial differences in slope estimates
+between the PGLS and OLS analyses (results not shown). Thus, we show
+that phylogenetic signal present in one variable does not translate to
+phylogenetic signal in a second, even highly correlated, dependent
+variable. \hfill\break
+
+Scaling and trait generation procedures for all simulation methods were
+repeated with symmetrical and ladder phylogenies of variable size.
+Results generated using these variable phylogeny shapes were consistent
+with the pure-birth phylogeny results presented above and can be found
+in the Supplemental Materials. All analyses were performed in R v3.6.0
+({\textbf{???}}) using the packages \texttt{geiger} ({\textbf{???}}) and
+\texttt{caper} ({\textbf{???}}), and the corresponding scripts can be
+found in the Supplemental Materials.
 
 \subsection{\texorpdfstring{\emph{Meta-Analysis of Empirical
 Results}}{Meta-Analysis of Empirical Results}}\label{meta-analysis-of-empirical-results}
 
-Despite the urging of Boettiger and colleagues to publish confidence
-intervals with all lambda parameter estimates, only 18\% of papers
-published in 2019 do so. \hfill\break
+To understand the extent of this problematic estimation method in
+application, we performed a meta-analysis of studies published in 2019
+that cited Pagel's 1997 manuscript ({\textbf{???}}). The list of
+manuscripts was compiled through Google Scholar on Jan 23, 2020 and
+totaled 341 manuscripts. For each study, we extracted any published
+lambda estimates, along with the size of the phylogeny used in the
+analysis. We also noted whether authors reported confidence intervals,
+significance tests assessing difference of the lambda estimate from 0 or
+1, and whether authors interpreted biological meaning from the magnitude
+of the estimated lambda. For studies that reported more than one lambda
+estimate, we also noted if the authors compared the lambdas against one
+another, and whether that was accompanied with an appropriate
+statistical test between the estimated lambda values. \hfill\break
 
-More methods paragraphs \hfill\break
+We found 182 manuscripts from 2019 that estimated and reported Pagel's
+lambda values using PGLS methods. These papers averaged 8.527 lambda
+values, ranging from a single lambda estimate up to 71 estimated
+lambdas. Almost exactly half of the published lambda estimates were
+either below 0.05 (25.32\%) or above 0.9 (24.74\%; Figure 3). 73.32\% of
+the published lambdas were estimated using phylogenies with fewer than
+200 tips, and 348 lambda estimates (8.57\% of all published estimates)
+came from phylogenies with fewer than 30 tips. \hfill\break
 
-Results from these dta (Figure 3).
+{[}insert Figure 3 here{]} \hfill\break
+
+Many of the reviewed manuscripts liberally interpreted the magnitude of
+the estimate lambda, using phrases such as ``strong'' or ``weak''
+phylogentic signal when statistically, all that was clear was a
+difference between the estimated lambda and 0 or 1 respectively. We
+estimated that about 20.49\% of the manuscripts revealed some sort of
+biological interpretation of the magnitude of estimated phylogenetic
+signal that overreached the statistical findings. We also identified
+seven manuscripts as having inappropriately interpreted differences in
+lambda values, indicating that some traits had stronger or weaker signal
+than other traits without the appropriate statistical tests.
+\hfill\break
+
+As is evidenced by macroevolutionary papers published in 2019 papers,
+Pagel's lambda estimation methods are often misused and
+over-interpretted. Despite the urging of Boettiger and colleagues to
+publish confidence intervals with all lambda parameter estimates, only
+18\% of papers published in 2019 do so.
 
 \section{Discussion}\label{discussion}
 
-Using the estimated lambda values from pgls are not useful. The
-questions of whether or not signal exists is appropriate, but inferring
-more from lambda \emph{magnitude} is inappropriate. \hfill\break
+{[}This part is obviously not written yet{]} \hfill\break
+
+General conclusions :Using the estimated lambda values from pgls are not
+useful. The questions of whether or not signal exists is appropriate,
+but inferring more from lambda \emph{magnitude} is inappropriate.
+\hfill\break
 
 More discussion paragraphs
 
@@ -268,18 +325,18 @@ variables: Geometric interpretations. Evolution 55:2143--2160.
 lambda inputs on various tree sizes. As trees increase in size, the
 estimates more closely resemble the input lambdas, however considerable
 and concerning variation is apparent in trees smaller than those with
-256 tips.
+200 tips. \hfill\break
 
 \textbf{Figure 2}. Estimated ANOVA slopes under PGLS. Across tree sizes,
 the mean estimated slope matches the input slope, and as trees increase
 in size, the variance around this mean estimate decreases. However, for
-trees with fewer than 512 tips, the error around the estimated slope is
+trees with fewer than 200 tips, the error around the estimated slope is
 considerable, where these analyses frequently estimate slopes in the
-opposite direction of the known pattern.
+opposite direction of the known pattern. \hfill\break
 
 \textbf{Figure 3}. Frequency of estimated lambda values published in
-manuscripts in 2019. The vast majority of these values were close to 0
-or 1.
+manuscripts in 2019. The majority of these values were close to 0 or 1,
+and from phylogenies with fewer than 200 taxa.
 
 \newpage
 
@@ -289,7 +346,7 @@ or 1.
 across known lambda inputs on various tree sizes. As trees increase in
 size, the estimates more closely resemble the input lambdas, however
 considerable and concerning variation is apparent in trees smaller than
-those with 256 tips. \hfill\break
+those with 200 tips. \hfill\break
 
 \newpage
 
@@ -298,7 +355,7 @@ those with 256 tips. \hfill\break
 \singlespacing \textbf{Figure 2}. Estimated ANOVA slopes under PGLS.
 Across tree sizes, the mean estimated slope matches the input slope, and
 as trees increase in size, the variance around this mean estimate
-decreases. However, for trees with fewer than 512 tips, the error around
+decreases. However, for trees with fewer than 200 tips, the error around
 the estimated slope is considerable, where these analyses frequently
 estimate slopes in the opposite direction of the known pattern.
 \hfill\break
@@ -308,7 +365,7 @@ estimate slopes in the opposite direction of the known pattern.
 \includegraphics[width=0.95\linewidth]{Fig3}
 
 \singlespacing \textbf{Figure 3}. Frequency of estimated lambda values
-published in manuscripts in 2019. The vast majority of these values were
-close to 0 or 1.
+published in manuscripts in 2019. The majority of these values were
+close to 0 or 1, and from phylogenies with fewer than 200 taxa.
 
 \end{document}

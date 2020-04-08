@@ -30,6 +30,7 @@ plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
           PlotList[[4]], PlotList[[5]], PlotList[[6]])
 dev.off()
 
+
 ## Figure 2 ######
 
 ANOVA.data$beta <- as.factor(ANOVA.data$beta)
@@ -53,7 +54,23 @@ plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
           PlotList[[4]], PlotList[[5]], PlotList[[6]])
 dev.off()
 
-# other plot options for Figure 2 
+# other plot options for Figure 2 - alt1
+
+
+PlotList <- lapply(1:6, function(j){
+   reduced.data <- ANOVA.data[which(ANOVA.data$tree.size == treesizes[[j]]),]
+   ggplot(reduced.data, aes(x = beta, y = slope, fill = method)) + #geom_abline(intercept = 0, slope = .2) +
+      geom_boxplot() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
+      xlab("Input Slope") + ylab("Estimated Slope") + ggtitle(treesizes[[j]]) + expand_limits(y=c(-3.5,4))
+})
+
+jpeg("Figures/Fig2_alt.jpeg", res = 120, quality = 100, width = 1000, height = 660)
+plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
+          PlotList[[4]], PlotList[[5]], PlotList[[6]])
+dev.off()
+
+
+# another plot options for Figure 2 -alt2
 
 ANOVA.data.0 <- ANOVA.data[which(ANOVA.data$method == "0"),]
  
@@ -69,8 +86,11 @@ PlotList <- lapply(1:6, function(j){
       xlab("F from PGLS (est lambda)") + ylab("F from OLS") + ggtitle(treesizes[[j]]) 
 })
 
+jpeg("Figures/Fig2_alt2.jpeg", res = 120, quality = 100, width = 1000, height = 660)
 plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
           PlotList[[4]], PlotList[[5]], PlotList[[6]])
+dev.off()
+
 
 
 ## Figure 3 #####
@@ -142,6 +162,28 @@ PlotList <- lapply(1:6, function(j){
 })
 
 jpeg("Figures/FigS1.jpeg", res = 120, quality = 100, width = 1000, height = 660)
+plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
+          PlotList[[4]], PlotList[[5]], PlotList[[6]])
+dev.off()
+
+
+## Figure S2 #####
+
+ANOVA.data.ml$lambda.input.bins <- ANOVA.data.ml$lambda.input
+ANOVA.data.ml$lambda.input.bins[ANOVA.data.ml$lambda.input < .31] <- "Low"
+ANOVA.data.ml$lambda.input.bins[ANOVA.data.ml$lambda.input > .31] <- "Medium"
+ANOVA.data.ml$lambda.input.bins[ANOVA.data.ml$lambda.input > .69] <- "High"
+ANOVA.data.ml$lambda.input.bins <- as.factor(ANOVA.data.ml$lambda.input.bins)
+summary(ANOVA.data.ml$lambda.input.bins)
+
+PlotList <- lapply(1:6, function(j){
+   reduced.data <- ANOVA.data.ml[which(ANOVA.data.ml$tree.size == treesizes[[j]]),]
+   ggplot(reduced.data, aes(x = beta, y = slope, fill = lambda.input.bins)) + #geom_abline(intercept = 0, slope = .2) +
+      geom_boxplot() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
+      xlab("Input Slope") + ylab("Estimated Slope") + ggtitle(treesizes[[j]]) + expand_limits(y=c(-3.5,4))
+})
+
+jpeg("Figures/FigS2.jpeg", res = 120, quality = 100, width = 1000, height = 660)
 plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
           PlotList[[4]], PlotList[[5]], PlotList[[6]])
 dev.off()
