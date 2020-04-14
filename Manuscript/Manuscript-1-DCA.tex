@@ -65,9 +65,9 @@
 
 \begin{document}
 
-\hypertarget{pagels-lambda-estimates-are-often-inaccurate}{%
-\section{Pagel's Lambda Estimates are Often
-Inaccurate}\label{pagels-lambda-estimates-are-often-inaccurate}}
+\hypertarget{estimates-of-phylogenetic-signal-based-on-lambda-are-often-inaccurate}{%
+\section{Estimates of Phylogenetic Signal Based on Lambda are Often
+Inaccurate}\label{estimates-of-phylogenetic-signal-based-on-lambda-are-often-inaccurate}}
 
 \hfill\break
 
@@ -86,53 +86,97 @@ different (in terms of slopes and f values)\}
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-Investigating macroevolutionary patterns requires a phylogenetic
-approach as species are non-independent by nature of their shared
-ancestry. Since the first appropriate method was introduced by
-Felsenstein (phylogenetic independent contrasts; Felsenstein (1985)),
-dozens of other methods have been developed and applied to increasingly
-complex questions in macroevolutionary biology (e.g.~Grafen (1989);
-Harvey and Pagel (1991); Rohlf (2001); ({\textbf{???}})). A particularly
-useful measure in this field is phylogenetic signal, a quantification of
-a trait's correspondence with the clade's phylogenic history.
-Understanding the degree of phylogenetic signal present in a dataset is
-paramount and identifies the mode under which a trait has evolved; high
-measures of phylogenetic signal indicate a Brownian motion process,
-whereas lower levels of phylogenetic signal indicate natural selection
-or some other evolutionary force has influenced the traits evolutionary
-history. \hfill\break
+Investigating macroevolutionary patterns of trait variation requires a
+phylogenetic perspective, because the shared ancestry among species
+generates statistical non-independence (Felsenstein 1985; Harvey and
+Pagel 1991). Accounting for this evolutionary non-independence is the
+purview of \emph{phylogenetic comparative methods} (PCMs); a suite of
+analytical tools that condition the data on the phylogeny through the
+course of statisical evaluations of phenotypic trends (e.g., Grafen
+1989; Garland and Ives 2000; Rohlf 2001; Butler and King 2004). The past
+several decades have witnessed a rapid expansion in the development of
+PCMs to address an ever-growing set of macroevolutionary hypotheses
+(Martins and Hansen 1997; O'Meara et al. 2006; Revell and Harmon 2008;
+Beaulieu et al. 2012; Adams 2014b,a; Adams and Collyer 2018). These
+methods are predicated on the notion that phylogenetic signal -- the
+tendancy for closely related species to display similar trait values --
+is present in cross-species datasets (Abouheif 1999; Pagel 1999;
+Blomberg et al. 2003; Munkemuller et al. 2012). Indeed, under numerous
+evolutionary models, phylogenetic signal is to be expected, as
+stochastic character change along the hierarchical structure of the tree
+of life generates trait covaration among related taxa (see Felsenstein
+1985; Blomberg et al. 2003; Revell et al. 2008). \hfill\break
 
-Several approaches to quantify phylogenetic signal exist. For continuous
-data, the most common parameters used in the literature include Pagel's
-lambda ({\textbf{???}}) and Blomberg's kappa ({\textbf{???}}). Pagel's
-lambda has the advantage of being nested in the likelihood framework and
-thus has also been utilized to simultaneously estimate and account for
-phylogenetic signal while doing phylogenetic regressions or ANOVAs. At
-the development of these estimation methods, clear recommendations on
-the use and interpretation of this parameter were made based on data
-simulations and error evaluations (Revell 2010). However, the accuracy
-of the lambda estiamtion methods have not been fully evaluated, and
-consequently many studies have substantially misused these methods.
-\hfill\break
+In many macroevolutionary studies, it is often of interest to quantify
+the degree to which phylogenetic signal is displayed in continuous
+traits. Several analytical tools have been developed for this purpose
+(e.g., Gittleman and Kot 1990; Abouheif 1999; Pagel 1999; Blomberg et
+al. 2003; Klingenberg and Gidaszewski 2010; Adams 2014a), which differ
+primarily in how they characterize the phylogenetic dependency of trait
+variation among taxa. One commonly used statistical measure,
+\emph{Kappa} (\(K\)), expresses the strength of phylogenetic signal as
+the ratio of observed trait variation to the trait variation conditioned
+on the phylogeny; scaled by what is expected under Brownian motion given
+the phylogeny's size and shape (Blomberg et al. 2003; also Adams 2014a).
+Another approach, Pagel's \(\lambda\) (Pagel 1999), uses maximum
+likelihood to fit the data to the phylogeny under some model of
+evolutionary change (typically Brownian motion). The inclusion of a
+scaling parameter, \(\lambda\), transforms the lengths of the internal
+branches of the phylogeny to improve the fit, and this parameter
+describes the degree of phylogenetic signal in the dataset (Pagel 1999;
+Freckleton et al. 2002). Pagel's \(\lambda\) also has the advantage that
+it may be included when estimating the association of traits in a
+phylogenetic context, meaning that one may account for the degree of
+phylogenetic signal while conducting phylogenetic regression or ANOVA
+(see Freckleton et al. 2002). \hfill\break
 
-An earlier study ({\textbf{???}}), breifly addressed this topic by
-showing how uninformative smaller phylogenies are when estimating
-various evolutionary parameters, such as Pagel's lambda. However, it
-remains unknown the degree to which lambda estimates accurately
-represent degree of phylogenetic signal, and thus we fully explicate the
-extent to which Pagel's lambda estimation methods can and have been
-misused in recent macroevolutionary studies. Here we take a
-comprehensive approach to demonstrate the scenarios under which
-estimated Pagel's lambdas accurately reflect known lambdas. We then
-demonstrate the effect of these, at times, dubious estimation methods on
-significance testing when used in a PGLS framework. Finally, we perform
-a meta-analysis of research published in 2019 employing Pagel's lambda
-estimation methods to demonstrate the uses and misuses of this method in
-the literature. This investigation provides evidence for the
-circumstances under which estimating Pagel's lambda can be informative,
-and which interpretations or uses are misleading with the hope of moving
-the field towards more appropriate employment of phylogenetic
-comparative methods.
+Several studies have investigated the statistical properties of methods
+for estimating phylogenetic signal under various conditions (e.g.,
+Munkemuller et al. 2012; Pavoine and Ricotta 2012; Diniz-Filho et al.
+2012; Molina-Venegas and Rodriguez 2017; see also Revell et al. 2008;
+Revell 2010). These have largely focused on the ability of methods to
+detect the presence of phylogenetic signal (i.e., type I and type II
+error rates) under complex models of evolutionary change, across a range
+of phylogeny sizes, and with varying degrees of phylogenetic uncertainty
+or unresolved topologies. In terms of parameter estimation, Revell
+(2010) confirmed that regression parameters were accurately estimated
+when \(\lambda\) was included during phylogenetic regression, and
+Munkmuller et al.~(2012) found that estimates of phylogenetic signal
+obtained using various measures generally increased when input levels of
+phylogenetic signal were stronger. However, the precision of those
+estimates could not be determined, because the input levels of
+phylogenetic signal were simulated via a scaling factor (\(w\)) that was
+not directly comparable to the measures of phylogenetic signal being
+compared (see Munkemuller et al. 2012). One study (Boettiger et al.
+2012) found that estimates of Pagel's \(\lambda\) displayed less
+variation when data were simulated on a large phylogeny (\(N=281\)) as
+compared to a small one (\(N=13\)), concluding that insufficient data
+(i.e., the number of species) was the underlying cause of the lack of
+precision in parameter estimation. However, this conclusion assumes that
+parameter estimation remains equally precise across its range of values
+(\(\lambda = 0 \to 1\)); an assumption that to date, has not been
+investigated. Thus, despite widespread use of Pagel's (1999) \(\lambda\)
+in macroevolutionary studies, at present, we still lack a general
+understanding of the precision with which \(\lambda\) can estimate
+levels of phylogenetic signal in phenotypic datasets. \hfill\break
+
+In this study, we evaluate the precision of Pagel's \(\lambda\) to
+estimate known levels of phylogenetic signal in phenotypic data. First
+we use computer simulations across differing numbers of species, and
+differing input levels of phylogenetic signal to explore when
+\(\lambda\) captures known levels of phylogenetic signal, and under what
+circumstances. Additionally, we use simulations to determine how the
+inclusion of \(\lambda\) in phylogenetic ANOVA and regression (i.e.,
+PGLS) affects parameter estimation, and whether estimates of
+phylogenetic signal in PGLS are accurate. We then survey the recent
+macroevolutionary literature for published papers containing estimates
+of \(\lambda\) from empirical datasets, and compare these empirical
+estimates to patterns gleaned from our computer simulations. In general
+we find that while PGLS parameters are accurately estimated with the
+inclusion of phylogenetic signal, estimates of \(\lambda\) are not.
+Thus, empirical studies should interpret the degree of phylogenetic
+signal in phenotypic data with caution when using this parameter.
+\textbf{something more? Let's wait for final data to decide.}
 
 \hypertarget{methods-and-results}{%
 \section{Methods and Results}\label{methods-and-results}}
@@ -208,9 +252,9 @@ repeated with symmetrical and ladder phylogenies of variable size.
 Results generated using these variable phylogeny shapes were consistent
 with the pure-birth phylogeny results presented above and can be found
 in the Supplemental Materials. All analyses were performed in R v3.6.0
-({\textbf{???}}) using the packages \texttt{geiger} ({\textbf{???}}) and
-\texttt{caper} ({\textbf{???}}), and the corresponding scripts can be
-found in the Supplemental Materials.
+(R Core Team 2019) using the packages \texttt{geiger} (Harmon et al.
+2008) and \texttt{caper} (Orme et al. 2013), and the corresponding
+scripts can be found in the Supplemental Materials.
 
 \hypertarget{meta-analysis-of-empirical-results}{%
 \subsection{\texorpdfstring{\emph{Meta-Analysis of Empirical
@@ -218,14 +262,14 @@ Results}}{Meta-Analysis of Empirical Results}}\label{meta-analysis-of-empirical-
 
 To understand the extent of this problematic estimation method in
 application, we performed a meta-analysis of studies published in 2019
-that cited Pagel's 1997 manuscript ({\textbf{???}}). The list of
-manuscripts was compiled through Google Scholar on Jan 23, 2020 and
-totaled 341 manuscripts. For each study, we extracted any published
-lambda estimates, along with the size of the phylogeny used in the
-analysis. We also noted whether authors reported confidence intervals,
-significance tests assessing difference of the lambda estimate from 0 or
-1, and whether authors interpreted biological meaning from the magnitude
-of the estimated lambda. For studies that reported more than one lambda
+that cited Pagel's 1997 manuscript (Pagel 1999). The list of manuscripts
+was compiled through Google Scholar on Jan 23, 2020 and totaled 341
+manuscripts. For each study, we extracted any published lambda
+estimates, along with the size of the phylogeny used in the analysis. We
+also noted whether authors reported confidence intervals, significance
+tests assessing difference of the lambda estimate from 0 or 1, and
+whether authors interpreted biological meaning from the magnitude of the
+estimated lambda. For studies that reported more than one lambda
 estimate, we also noted if the authors compared the lambdas against one
 another, and whether that was accompanied with an appropriate
 statistical test between the estimated lambda values. \hfill\break
@@ -280,21 +324,141 @@ More discussion paragraphs
 \setlength{\parskip}{8pt} \noindent
 
 \hypertarget{refs}{}
+\leavevmode\hypertarget{ref-Abouheif1999}{}%
+Abouheif, E. 1999. A method for testing the assumption of phylogenetic
+independence in comparative data. Evolutionary Ecology Research
+1:895--909.
+
+\leavevmode\hypertarget{ref-Adams2014a}{}%
+Adams, D. C. 2014a. A generalized Kappa statistic for estimating
+phylogenetic signal from shape and other high-dimensional dultivariate
+data. Systematic Biology 63:685--697.
+
+\leavevmode\hypertarget{ref-Adams2014b}{}%
+Adams, D. C. 2014b. A method for assessing phylogenetic least squares
+models for shape and other high-dimensional multivariate data. Evolution
+68:2675--2688.
+
+\leavevmode\hypertarget{ref-AdamsCollyer2018b}{}%
+Adams, D. C., and M. L. Collyer. 2018. Phylogenetic anova: Group-clade
+aggregation, biological challenges, and a refined permutation procedure.
+Evolution 72:1204--1215.
+
+\leavevmode\hypertarget{ref-Beaulieu_et_al2012}{}%
+Beaulieu, J. M., D. C. Jhwueng, C. Boettiger, and B. C. O'Meara. 2012.
+Modeling stabilizing selection: Expanding the ornstein-uhlenbeck model
+of adaptive evolution. Evolution 66:2369--2383.
+
+\leavevmode\hypertarget{ref-Blomberg_et_al2003}{}%
+Blomberg, S. P., T. Garland, and A. R. Ives. 2003. Testing for
+phylogenetic signal in comparative data: Behavioral traits are more
+labile. Evolution 57:717--745.
+
+\leavevmode\hypertarget{ref-Boettiger_et_al2012}{}%
+Boettiger, C., G. Coop, and P. Ralph. 2012. Is your phylogeny
+informative? Measuring the power of comparative methods. Evolution
+67:2240--2251.
+
+\leavevmode\hypertarget{ref-ButlerKing2004}{}%
+Butler, M. A., and A. A. King. 2004. Phylogenetic comparative analysis:
+A modeling approach for adaptive evolution. American Naturalist
+164:683--695.
+
+\leavevmode\hypertarget{ref-DinizFilho2012}{}%
+Diniz-Filho, J. A. F., T. Santos, T. F. Rangel, and L. M. Bini. 2012. A
+comparison of metrics for estimating phylogenetic signal under
+alternative evolutionary models. Genetics and molecular biology
+35:673--679. SciELO Brasil.
+
 \leavevmode\hypertarget{ref-Felsenstein1985}{}%
 Felsenstein, J. 1985. Phylogenies and the comparative method. American
 Naturalist 125:1--15.
+
+\leavevmode\hypertarget{ref-Freckleton_et_al2002}{}%
+Freckleton, R. P., P. H. Harvey, and M. Pagel. 2002. Phylogenetic
+analysis and comparative data: A test and review of evidence. American
+Naturalist 160:712--726.
+
+\leavevmode\hypertarget{ref-GarlandIves2000}{}%
+Garland, T. J., and A. R. Ives. 2000. Using the past to predict the
+present: Confidence intervals for regression equations in phylogenetic
+comparative methods. American Naturalist 155:346--364.
+
+\leavevmode\hypertarget{ref-Gittleman1990}{}%
+Gittleman, J. L., and M. Kot. 1990. Adaptation: Statistics and a null
+model for estimating phylogenetic effects. Systematic Zoology
+39:227--241. Society of Systematic Zoology.
 
 \leavevmode\hypertarget{ref-Grafen1989}{}%
 Grafen, A. 1989. The phylogenetic regression. Philosophical Transactions
 of the Royal Society of London B, Biological Sciences 326:119--157.
 
+\leavevmode\hypertarget{ref-Harmon2008}{}%
+Harmon, L. J., J. T. Weir, C. D. Brock, R. E. Glor, and W. Challenger.
+2008. GEIGER: Investigating evolutionary radiations. Bioinformatics
+24:129--131.
+
 \leavevmode\hypertarget{ref-HarveyPagel1991}{}%
 Harvey, P. H., and M. D. Pagel. 1991. The comparative method in
 evolutionary biology. Oxford University Press, Oxford.
 
+\leavevmode\hypertarget{ref-Klingenberg2010}{}%
+Klingenberg, C. P., and N. A. Gidaszewski. 2010. Testing and quantifying
+phylogenetic signals and homoplasy in morphometric data. Systematic
+biology 59:245--261. Oxford University Press.
+
+\leavevmode\hypertarget{ref-MartinsHansen1997}{}%
+Martins, E. P., and T. F. Hansen. 1997. Phylogenies and the comparative
+method: A general approach to incorporating phylogenetic information
+into the analysis of interspecific data. American Naturalist
+149:646--667.
+
+\leavevmode\hypertarget{ref-MolinaVenegas2017}{}%
+Molina-Venegas, R., and M. A. Rodriguez. 2017. Revisiting phylogenetic
+signal; strong or negligible impacts of polytomies and branch length
+information? BMC evolutionary biology 17:53. BioMed Central.
+
+\leavevmode\hypertarget{ref-Munkemuller_et_al2012}{}%
+Munkemuller, T., S. Lavergne, B. Bzeznik, S. Dray, T. Jombart, K.
+Schiffers, and W. Thuiller. 2012. How to measure and test phylogenetic
+signal. Methods in Ecology and Evolution 3:743--756.
+
+\leavevmode\hypertarget{ref-OMeara_et_al2006}{}%
+O'Meara, B. C., C. Ane, M. J. Sanderson, and P. C. Wainwright. 2006.
+Testing for different rates of continuous trait evolution using
+likelihood. Evolution 60:922--933.
+
+\leavevmode\hypertarget{ref-Orme2013}{}%
+Orme, D., R. P. Freckleton, G. H. Thomas, T. Petzoldt, S. A. Fritz, and
+N. Isaac. 2013. CAPER: Comparative analyses of phylogenetics and
+evolution in r. Methods in Ecology and Evolution 3:145--151.
+
+\leavevmode\hypertarget{ref-Pagel1999}{}%
+Pagel, M. D. 1999. Inferring the historical patterns of biological
+evolution. Nature 401:877--884.
+
+\leavevmode\hypertarget{ref-Pavoine2012}{}%
+Pavoine, S., and C. Ricotta. 2012. Testing for phylogenetic signal in
+biological traits: The ubiquity of cross-product statistics. Evolution:
+International Journal of Organic Evolution 67:828--840. Wiley Online
+Library.
+
+\leavevmode\hypertarget{ref-RCT}{}%
+R Core Team. 2019. R: A language and environment for statistical
+computing. R Foundation for Statistical Computing, Vienna, Austria.
+
 \leavevmode\hypertarget{ref-Revell2010}{}%
 Revell, L. J. 2010. Phylogenetic signal and linear regression on species
 data. Methods in Ecology and Evolution 1:319--329.
+
+\leavevmode\hypertarget{ref-RevellHarmon2008}{}%
+Revell, L. J., and L. J. Harmon. 2008. Testing quantitative genetic
+hypotheses about the evolutionary rate matrix for continuous characters.
+Evolutionary Ecology Research 10:311--331.
+
+\leavevmode\hypertarget{ref-Revell_et_al2008}{}%
+Revell, L. J., L. J. Harmon, and D. C. Collar. 2008. Phylogenetic
+signal, evolutionary process, and rate. Systematic Biology 57:591--601.
 
 \leavevmode\hypertarget{ref-Rohlf2001}{}%
 Rohlf, F. J. 2001. Comparative methods for the analysis of continuous
