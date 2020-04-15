@@ -189,6 +189,36 @@ plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
 dev.off()
 
 
+## Figure S3 ####
+library(cowplot)
+library(ggplot2)
+treesizes <-  2^(5:10)
+
+kappadata_1 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_32.csv")
+kappadata_2 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_64.csv")
+kappadata_3 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_128.csv")
+kappadata_4 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_256.csv")
+kappadata_5 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_512.csv")
+kappadata_6 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_512.csv")
+
+kappa_all <- rbind(kappadata_1, kappadata_2, kappadata_3, kappadata_4, kappadata_5, kappadata_6)
+kappa_all$treesize <- rep(treesizes, each = 1050)
+
+
+PlotList <- lapply(1:6, function(j){
+   reduced.data <- kappa_all[which(kappa_all$treesize == treesizes[[j]]),]
+   ggplot(reduced.data, aes(x = lambda.input, y = kappa)) +
+      geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
+      xlab("Input Lambda") + ylab("Estimated Kappa") + ggtitle(treesizes[[j]])
+})
+
+jpeg("Figures/FigS3.jpeg", res = 120, quality = 100, width = 1000, height = 660)
+plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
+          PlotList[[4]], PlotList[[5]], PlotList[[6]])
+dev.off()
+
+
+
 # Rmarkdown PDF rendering ####
 
 rmarkdown::render("Manuscript/Manuscript.Rmd", output_dir = "Manuscript/")
