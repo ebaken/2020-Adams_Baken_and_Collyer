@@ -16,14 +16,14 @@ lambdas_expanded <- rep(lambdas, each = nsim)
 beta <- c(0, .25, .5, .75, 1) # true slope
 fullsimlength <- length(lambdas_expanded)
 
-n <- treesizes[5] # number of tips: adjust each iteration
+n <- treesizes[1] # number of tips: adjust each iteration
 
 # New Rep #####
 DataTable_lambda_0 <- array(NA, dim=c(length(beta), 7, length(lambdas)*nsim), 
-                   dimnames = list(beta, c("Rsq", "F", "P", "lambda.input", "lambda.est.x", "lambda.est.xy", "slope")))
+                   dimnames = list(beta, c("AIC", "F", "P", "lambda.input", "lambda.est.x", "lambda.est.xy", "slope")))
 
 DataTable_lambda_ml <- array(NA, dim=c(length(beta), 7, length(lambdas)*nsim), 
-                   dimnames = list(beta, c("Rsq", "F", "P", "lambda.input", "lambda.est.x", "lambda.est.xy", "slope")))
+                   dimnames = list(beta, c("AIC", "F", "P", "lambda.input", "lambda.est.x", "lambda.est.xy", "slope")))
 
 DataTable_lambda_0[,4,] <- rep(lambdas_expanded, each = length(beta)) # putting in input lambda
 DataTable_lambda_ml[,4,] <- rep(lambdas_expanded, each = length(beta)) # putting in input lambda
@@ -48,12 +48,12 @@ for (j in 1:(length(lambdas_expanded))) {
     
     X <- sim.char(tree_scaled, par = 1, nsim = 1)[,,1] 
     
-    comp_data_x <- comparative.data(tree, data.frame(X.df=X, Species = names(X)), Species, vcv = F, vcv.dim = 2)
+    comp_data_x <- comparative.data(tree, data.frame(X=X, Species = names(X)), Species, vcv = F, vcv.dim = 2)
     
-    pgls_x_lambda_0 <- try(pgls(X.df ~ 1, comp_data_x, lambda=0.01), silent = T)
-    pgls_x_lambda_ml <- try(pgls(X.df ~ 1, comp_data_x, lambda='ML'),silent = T)
+    pgls_x_lambda_0 <- try(pgls(X ~ 1, comp_data_x, lambda=0.01), silent = T)
+    pgls_x_lambda_ml <- try(pgls(X ~ 1, comp_data_x, lambda='ML'),silent = T)
     
-    Y_correlated <- lapply(1:length(beta), function(i) {X*beta[i] + rnorm(n = n)})
+    Y_correlated <- lapply(1:length(beta), function(i) {X*beta[i] + sim.char(tree_scaled, par = 1, nsim = 1)[,,1]})
         
     comp_data_y <- lapply(1:length(beta), function(i) {
       comparative.data(tree, data.frame(Y=Y_correlated[[i]], X=X, Species = names(Y_correlated[[i]])), Species, vcv = F, vcv.dim = 2) } )
@@ -64,11 +64,11 @@ for (j in 1:(length(lambdas_expanded))) {
     if(!is(pgls_x_lambda_0, 'try-error') & !is(pgls_x_lambda_ml, 'try-error') &
        !is(pgls_xy_lambda_0, 'try-error') & !is(pgls_xy_lambda_ml, 'try-error')) break  }
 
-DataTable_lambda_0[,5,j] <- rep(pgls_x_lambda_0$param[2], 5) # estimated lambdas for x
+DataTable_lambda_0[,5,j] <- rep(pgls_x_lambda_0$param[2], 5) # estimated lambdas for x, just for consistency across data frames
 DataTable_lambda_ml[,5,j] <- rep(pgls_x_lambda_ml$param[2], 5) # estimated lambdas for x
 
-DataTable_lambda_0[,6,j] <- unlist(lapply(1:length(beta), function(i) (pgls_xy_lambda_0[[i]]$param[2]))) # estimated lambdas for x and y
-DataTable_lambda_ml[,6,j] <- unlist(lapply(1:length(beta), function(i) (pgls_xy_lambda_ml[[i]]$param[2]))) # estimated lambdas for x and y
+DataTable_lambda_0[,6,j] <- unlist(lapply(1:length(beta), function(i) (pgls_xy_lambda_0[[i]]$param[2]))) # estimated lambdas for y
+DataTable_lambda_ml[,6,j] <- unlist(lapply(1:length(beta), function(i) (pgls_xy_lambda_ml[[i]]$param[2]))) # estimated lambdas for y
 
 DataTable_lambda_0[,7,j] <- unlist(lapply(1:length(beta), function(i) pgls_xy_lambda_0[[i]]$model$coef[2,1])) # slopes
 DataTable_lambda_ml[,7,j] <- unlist(lapply(1:length(beta), function(i) pgls_xy_lambda_ml[[i]]$model$coef[2,1])) # slopes
@@ -79,8 +79,8 @@ DataTable_lambda_ml[,3,j] <- unlist(lapply(1:length(beta), function(i) summary(p
 DataTable_lambda_0[,2,j] <- unlist(lapply(1:length(beta), function(i) summary(pgls_xy_lambda_0[[i]])$fstatistic[[1]])) # f stat
 DataTable_lambda_ml[,2,j] <- unlist(lapply(1:length(beta), function(i) summary(pgls_xy_lambda_ml[[i]])$fstatistic[[1]])) # f stat
 
-DataTable_lambda_0[,1,j] <- unlist(lapply(1:length(beta), function(i) summary(pgls_xy_lambda_0[[i]])$r.squared)) # rsq
-DataTable_lambda_ml[,1,j] <- unlist(lapply(1:length(beta), function(i) summary(pgls_xy_lambda_ml[[i]])$r.squared)) # rsq
+DataTable_lambda_0[,1,j] <- unlist(lapply(1:length(beta), function(i) pgls_xy_lambda_0[[i]]$aic)) # AIC
+DataTable_lambda_ml[,1,j] <- unlist(lapply(1:length(beta), function(i) pgls_xy_lambda_ml[[i]]$aic)) # AIC
 
 setTxtProgressBar(pb, j)
 } 
@@ -103,9 +103,13 @@ DataTableMat_lambda_ml$beta <- rep(beta,(length(lambdas)*nsim))
 
 # Test Plots ####
 
+
+
+#jpeg("Figures/FigS4.jpeg", res = 60, quality = 100, width = 440, height = 660)
 par(mfrow=c(2,1))
-plot(DataTableMat_lambda_ml$lambda.est.x ~ DataTableMat_lambda_ml$lambda.input, pch = 19)
-plot(DataTableMat_lambda_ml$lambda.est.xy ~ DataTableMat_lambda_ml$lambda.input, pch = 19)
+plot(DataTableMat_lambda_ml$lambda.est.x ~ DataTableMat_lambda_ml$lambda.input, pch = 19, xlab = "Input Lambda", ylab = "Lambda Estimated on X")
+plot(DataTableMat_lambda_ml$lambda.est.xy ~ DataTableMat_lambda_ml$lambda.input, pch = 19, xlab = "Input Lambda", ylab = "Lambda Estimated on Y (reg)")
+#dev.off()
 
 
 # Writing Output Files ####

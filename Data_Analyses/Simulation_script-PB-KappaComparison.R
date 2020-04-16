@@ -17,7 +17,7 @@ lambdas <- seq(0,1,.05) # starting with just 3 lambda values
 lambdas_expanded <- rep(lambdas, each = nsim)
 fullsimlength <- length(lambdas_expanded)
 
-n <- treesizes[5] # number of tips: adjust each iteration
+n <- treesizes[6] # number of tips: adjust each iteration
 
 # New Rep #####
 DataTable_lambda <- data.frame(lambda.input = lambdas_expanded, lambda.est = rep(NA, nsim*length(lambdas)), kappa = rep(NA, nsim*length(lambdas))) 
