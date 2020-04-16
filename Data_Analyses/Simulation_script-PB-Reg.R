@@ -16,7 +16,7 @@ lambdas_expanded <- rep(lambdas, each = nsim)
 beta <- c(0, .25, .5, .75, 1) # true slope
 fullsimlength <- length(lambdas_expanded)
 
-n <- treesizes[1] # number of tips: adjust each iteration
+n <- treesizes[3] # number of tips: adjust each iteration
 
 # New Rep #####
 DataTable_lambda_0 <- array(NA, dim=c(length(beta), 7, length(lambdas)*nsim), 
