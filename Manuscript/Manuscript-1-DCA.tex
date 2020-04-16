@@ -100,14 +100,14 @@ PCMs to address an ever-growing set of macroevolutionary hypotheses
 Beaulieu et al. 2012; Adams 2014b,a; Adams and Collyer 2018). These
 methods are predicated on the notion that phylogenetic signal -- the
 tendancy for closely related species to display similar trait values --
-is present in cross-species datasets (Abouheif 1999; Pagel 1999;
-Blomberg et al. 2003; Munkemuller et al. 2012). Indeed, under numerous
-evolutionary models, phylogenetic signal is to be expected, as
-stochastic character change along the hierarchical structure of the tree
-of life generates trait covaration among related taxa (see Felsenstein
-1985; Blomberg et al. 2003; Revell et al. 2008). \hfill\break
+is present in cross-species datasets (Felsenstein 1985; Pagel 1999;
+Blomberg et al. 2003). Indeed, under numerous evolutionary models,
+phylogenetic signal is to be expected, as stochastic character change
+along the hierarchical structure of the tree of life generates trait
+covaration among related taxa (see Felsenstein 1985; Blomberg et al.
+2003; Revell et al. 2008). \hfill\break
 
-In many macroevolutionary studies, it is often of interest to quantify
+For many macroevolutionary analyses, it is often of interest to quantify
 the degree to which phylogenetic signal is displayed in continuous
 traits. Several analytical tools have been developed for this purpose
 (e.g., Gittleman and Kot 1990; Abouheif 1999; Pagel 1999; Blomberg et
@@ -139,9 +139,9 @@ detect the presence of phylogenetic signal (i.e., type I and type II
 error rates) under complex models of evolutionary change, across a range
 of phylogeny sizes, and with varying degrees of phylogenetic uncertainty
 or unresolved topologies. In terms of parameter estimation, Revell
-(2010) confirmed that regression parameters were accurately estimated
-when \(\lambda\) was included during phylogenetic regression, and
-Munkmuller et al.~(2012) found that estimates of phylogenetic signal
+(2010) found that regression parameters were accurately estimated when
+\(\lambda\) was included during phylogenetic regression, and Munkmuller
+et al.~(2012) demonstrated that estimates of phylogenetic signal
 obtained using various measures generally increased when input levels of
 phylogenetic signal were stronger. However, the precision of those
 estimates could not be determined, because the input levels of
@@ -153,126 +153,178 @@ variation when data were simulated on a large phylogeny (\(N=281\)) as
 compared to a small one (\(N=13\)), concluding that insufficient data
 (i.e., the number of species) was the underlying cause of the lack of
 precision in parameter estimation. However, this conclusion assumes that
-parameter estimation remains equally precise across its range of values
-(\(\lambda = 0 \to 1\)); an assumption that to date, has not been
-investigated. Thus, despite widespread use of Pagel's (1999) \(\lambda\)
-in macroevolutionary studies, at present, we still lack a general
-understanding of the precision with which \(\lambda\) can estimate
-levels of phylogenetic signal in phenotypic datasets. \hfill\break
+the precision of parameter estimation remains constant across the range
+of values (\(\lambda = 0 \to 1\)); an assumption that to date, has not
+been verified. Thus, despite widespread use of Pagel's (1999)
+\(\lambda\) in macroevolutionary studies, at present, we still lack a
+general understanding of the precision with which \(\lambda\) can
+estimate levels of phylogenetic signal in phenotypic datasets.
+\hfill\break
 
 In this study, we evaluate the precision of Pagel's \(\lambda\) to
 estimate known levels of phylogenetic signal in phenotypic data. First
-we use computer simulations across differing numbers of species, and
-differing input levels of phylogenetic signal to explore when
-\(\lambda\) captures known levels of phylogenetic signal, and under what
-circumstances. Additionally, we use simulations to determine how the
-inclusion of \(\lambda\) in phylogenetic ANOVA and regression (i.e.,
-PGLS) affects parameter estimation, and whether estimates of
-phylogenetic signal in PGLS are accurate. We then survey the recent
+we use computer simulations across differing numbers of species,
+differently shaped phylogenies, and differing input levels of
+phylogenetic signal, to explore the degree to which \(\lambda\)
+correctly identifies known levels of phylogenetic signal, and under what
+circumstances. For comparison, we also evaluate estimates of \(Kappa\)
+and its empirically-derived effect size (\(Z_K\)) for this purpose.
+Additionally, we use simulations to determine how the inclusion of
+\(\lambda\) in phylogenetic regression and ANOVA (i.e., PGLS) affects
+parameter estimation, and whether levels of phylogenetic signal
+estimated in a PGLS framework are accurate. We then survey the recent
 macroevolutionary literature for published papers containing estimates
 of \(\lambda\) from empirical datasets, and compare these empirical
 estimates to patterns gleaned from our computer simulations. In general
-we find that while PGLS parameters are accurately estimated with the
-inclusion of phylogenetic signal, estimates of \(\lambda\) are not.
-Thus, empirical studies should interpret the degree of phylogenetic
-signal in phenotypic data with caution when using this parameter.
-\textbf{something more? Let's wait for final data to decide.}
+we find that while PGLS parameters (e.g., \(\beta\)) are accurately
+estimated with the inclusion of phylogenetic signal, estimates of
+\(\lambda\) are not. Further, we find that estimates of \(\lambda\) vary
+widely for a given input value of phylogenetic signal, while effect
+sizes (\(Z_K\)) obtained from \(Kappa\) display far less variation, and
+increase in a steady (\textbf{uniform?}) manner with increasing
+phylogenetic signal. We conclude that Pagel's \(\lambda\) should not be
+used for characterizing and comparing the degree of phylogenetic signal
+in phenotypic datasets, while comparisons of effect sizes obtained from
+\(Kappa\) hold considerable promise in this regard.
 
-\hypertarget{methods-and-results}{%
-\section{Methods and Results}\label{methods-and-results}}
+\hypertarget{materials-and-methods}{%
+\section{Materials and Methods}\label{materials-and-methods}}
 
-\hypertarget{simulated-trait}{%
-\subsection{\texorpdfstring{\emph{Simulated
-trait}}{Simulated trait}}\label{simulated-trait}}
+\hypertarget{simulations}{%
+\subsection{\texorpdfstring{\emph{Simulations}}{Simulations}}\label{simulations}}
 
-To assess the accuracy of Pagel's lambda estimations, we simulated
-pure-birth phylogenies of variable size, ranging in tip number from 32
-to 1024. We then scaled the simulated phylogenies by lambda values
-ranging from 0 to 1 (0.05 intervals; 50 trees per lambda value per tree
-size) with which we generated trait data with known lambdas by
-simulating a continuous variable on each scaled phylogeny under Brownian
-motion. We then estimated lambda values from these data using
-phylogenetic generalized least squares (PGLS) to compare against the
-known lambda values. \hfill\break
+We conducted a series of computer simulations to evaluate the ability of
+Pagel's (1999) \(\lambda\) to estimate known levels of phylogenetic
+signal. Our primary simulations were based on pure-birth phylogenies;
+however, we also evaluated patterns on both balanced and pectinate trees
+to determine the extent to which tree shape affected our findings (see
+Supplemental Material). Our first set of simulations evaluated the
+extent to which values of \(\lambda\) estimated from the data
+corresponded with actual input levels of phylogenetic signal. For these
+simulations we generated 50 pure-birth phylogenies at each of six
+different tree sizes, ranging from 32 to 1024 taxa (\(n=2^5 - 2^{10}\)).
+Next, we rescaled the simulated phylogenies by multiplying the internal
+branches by \(\lambda\). We used a set of values that encompassed the
+entire range of \(\lambda\): (\(\lambda_{in} = 0.0 - 1.0\); in 21
+intervals of 0.05 units), resulting in 1050 scaled phylogenies at each
+level of species richness (\(n\)). Continuous traits were then simulated
+on each phylogeny under a Brownian motion model of evolution to obtain
+datasets with known and differing levels of phylogenetic signal. These
+varied from datasets with no phylogenetic signal (when
+\(\lambda_{in} =0\)) to datsets with phylogenetic signal corresponding
+to what was expected under Brownian motion (when \(\lambda_{in} =1\)).
+\hfill\break
 
-To visualize the accuracy of the lambda estimation methods, we first
-plotted known lambdas (input lambdas) against the estimated lambdas
-(Figure 1). This plot demonstrates the rampant inaccuracy of estimating
-lambdas on phylogenies with fewer than 200 tips, as the spread of data
-in the upper panels in Figure 1 is remarkably wide. We also see that the
-widest spread of estimated lambdas is observed near the center of each
-plot corresponding to intermediate values of known lambda. Lastly, we
-see a slight tendency for the PGLS estimation methods to underestimate
-lambda, especially for known lambda values below 0.5 as can be seen by
-the numerous data points along the x axis for the smaller phylogenies
-analyzed (n tips \textless{} 200). \hfill\break
+Using the simulated phylogenies we estimated the phylogenetic signal in
+each dataset using Pagel's \(\lambda\). Next, for the 1050 datasets at
+each level of species richness (\(n\)), we assessed the relationship
+between \(\lambda_{in}\) and \(\lambda_{est}\) using regression.
+Additionally, the precision of \(\lambda_{est}\) was approximated by
+observing both the range and the variation of \(\lambda_{est}\) obtained
+at each input level of phylogenetic signal (\(\lambda_{in}\)). Finally,
+for comparison we estimated the degree of phylogenetic signal in each
+dataset using \(Kappa\) (Blomberg et al. 2003; Adams 2014a), and
+calculated its effect size (\(Z_K\): sensu Adams and Collyer 2016,
+2019a) for each dataset. Here, the effect size was estimated as:
+\(Z_K=\frac{K_{obs}-\mu_K}{\sigma_K}\), where \(K_{obs}\) was the
+observed \(Kappa\), and \(\mu_K\) and \(\sigma_K\) were the mean and
+standard deviation of the empirical sampling distribution of values
+obtained from the permutation distribution (for discussion see: Adams
+and Collyer 2019b). Because \(Kappa\) and \(Z_K\) differ in scale from
+\(\lambda\), both measures were linearly normalized to a standard
+uniform distribution (\(0\rightarrow1\)), and the range and variation in
+the set of normalized \(Kappa\) and \(Z_K\) values at each input level
+of phylogenetic signal (\(\lambda_{in}\)) were estimated for comparison.
+\hfill\break
 
-{[}insert Figure 1 here{]}
+Our second set of simulations evaluated the extent to which values of
+\(\lambda\) estimated in PGLS regression and ANOVA (i.e., \(Y\sim{X}\))
+corresponded with actual input levels of phylogenetic signal in the
+response variable. As before we generated 50 pure-birth phylogenies at
+each of six levels of species richness (\(n=2^5 - 2^{10}\)), and
+rescaled each with a set of input \(\lambda\) values
+(\(\lambda_{in} = 0.0 - 1.0\); in 21 intervals of 0.05 units). Next, an
+independent variable \(X\) was simulated on each phylogeny under a
+Brownian motion model of evolution (for PGLS regression). For
+phylogenetic ANOVA, random groups (\(X\)) were obtained by simulating a
+discrete (binary) character on each phylogeny. Next, the dependent
+variable was simulated in such a manner as to contain a known
+relationship with \(X\) plus random error containing phylogenetic
+signal. This was accomplished as: \(Y=\beta{X}+\epsilon\). Here, the
+association between \(Y\) and \(X\) was modeled using a range of values
+(\(\beta=(0,0.25, 0.5, 0.75,1)\)), and the residual error was modeled to
+contain phylogenetic signal simulated under a Brownian motion model of
+evolution (\(\epsilon=\mathcal{N}(\mu=0,\sigma=\mathbf{C})\): see Revell
+2010 for a similar simulation design). For each dataset, the fit of the
+phylogenetic regression was estimated using maximum likelihood, and
+parameter estimates (\(\beta_{est}\) and \(\lambda_{est}\)) were
+obtained and evaluated as above. All analyses were performed in R v3.6.0
+(R Core Team 2019) using the packages \texttt{geiger} (Harmon et al.
+2008), \texttt{caper} (Orme et al. 2013), \texttt{phytools} (Revell
+2012), and \texttt{geomorph} (Adams and Otárola-Castillo 2013; Adams et
+al. 2020). R-scripts are found in the Supplemental Material.
 
-\hypertarget{simulated-anova-and-regressions}{%
-\subsection{\texorpdfstring{\emph{Simulated ANOVA and
-Regressions}}{Simulated ANOVA and Regressions}}\label{simulated-anova-and-regressions}}
+\hypertarget{literature-survey}{%
+\subsection{\texorpdfstring{\emph{Literature
+Survey}}{Literature Survey}}\label{literature-survey}}
 
-To measure the statistical performance of PGLS lambda estimation methods
-when applied to ANOVA and regression analyses, we used the above
-generated data (independent variables) to simulate a second set of trait
-variables (depedendent variables) across the range of correlation
-strengths (betas ranging from 0 to 1 at intervales of 0.25). We then
-used PGLS to estimate phylogenetic signal of the dependent variable and
-the slope coefficient for the regression between the dependent and
-independent variables. We also calculated F- and p-values from the
-regression analyses. Finally, we again fit the dependent variable to the
-independent variable while holding the lambda value at 0 to approximate
-an ordinary least squares (OLS) apprach. \hfill\break
+To determine how Pagel's \(\lambda\) is commonly utilized in empirical
+studies, we conducted a literature survey. From Google.scholar we
+obtained a list of all papers published in 2019 that used \(\lambda\);
+resulting in 341 studies. For each study, we extracted all
+\(\lambda_{est}\), the size of the phylogeny (\(n\)), and noted whether
+authors reported confidence intervals or performed significance tests
+assessing difference of \(\lambda_{est}\) from either zero or one. We
+also noted whether biological interpretations based on \(\lambda_{est}\)
+were made, and for studies that reported more than one
+\(\lambda_{est}\), we also noted whether these were compared in some
+manner, and whether such comparisons were accompanied with statistical
+tests between \(\lambda_{est}\). \hfill\break
 
-We compared the estimated slope coefficients across variable input beta
-values to assess the ability of PGLS to identify significant
-correlations (Figure 2). All distribution groups center around the 1:1
-relationship between input beta values and estimated slopes. However the
-variance around that mean is substantial, with estimates ranging from
-approximately -2 to 4 in datasets with 32 taxa and a known relationship
-of (beta = 1). This variance of the estimated slopes only becomes
-reasonable when phylogenies have over 200 tips, similarly to what we saw
-in the first simulation analysis in this study. \hfill\break
+\hypertarget{results}{%
+\section{Results}\label{results}}
+
+\hypertarget{simulations-1}{%
+\subsection{\texorpdfstring{\emph{Simulations}}{Simulations}}\label{simulations-1}}
+
+lambda: (Fig 1) not good predictor of input physignal (regression),
+particularly at low sample sizes. Also, similar to early results of
+Boettiger (but greatly expanded) range and variation of lambda very
+large at low N, and generally decreases with larger N. However, the
+precision was not uniform across the range of lambda-in. Variation in
+lambda-est was greatest at intermediate levels of physig, and descreased
+at lower and higher values. Thus, the overall dispersion across the
+range of input values resembled an asymmetric lens (\textbf{NAME?}),
+with less variation at lambda-in close to 1, greatest variation in
+middle, and less (but substantial) variation near lambda-in of zero.
+Notably, even at very large species richness (n=1024) the range of
+lam-est was quite large: e.g., l-in 0.5 has range of 45\% of all
+possible values. Thus, lambda-est is not very precise in terms of
+estimating the true l-in parameter, meaning that using lambda to
+biologically interpret the `strength' of phylogenetic signal in a
+dataset, or compare between datasets, is fraught with difficulty.
+\hfill\break
+
+{[}insert Figure 1 here{]} \hfill\break
+
+By contrast, (FIg 2) Kappa. Much smaller range and variation as compared
+with lambda, but with larger l-in, variation in kappa does increase.
+However, this is not the case with Z-K. Z-K increases predictably
+(linearly, progressively\ldots) with L-in, and importantly variation in
+Z-K remains nearly constant across the range of input values. this means
+that Z-K is equally precise in estimating the strength of phylogenetic
+signal, and may be more adept at facilitating useful statements on teh
+relative strength of phylogenetic signal within and across datasets.
+\hfill\break
+
+\textbf{NOTE: Fig 2 is 4 panels for N=128: Lambda, Kappa, Z-K,
+Z-k-normalized.}
 
 {[}insert Figure 2 here{]} \hfill\break 
 
-Surprisingly, the estimated lambda values of the dependent variable do
-not correspond with input lambda values that characterize the
-independent variable (Figure S1). This disconnect then resulted in no
-appreciable difference of slope estimates across input lambda values
-(Figure S2), nor do we see substantial differences in slope estimates
-between the PGLS and OLS analyses (results not shown). Thus, we show
-that phylogenetic signal present in one variable does not translate to
-phylogenetic signal in a second, even highly correlated, dependent
-variable. \hfill\break
-
-Scaling and trait generation procedures for all simulation methods were
-repeated with symmetrical and ladder phylogenies of variable size.
-Results generated using these variable phylogeny shapes were consistent
-with the pure-birth phylogeny results presented above and can be found
-in the Supplemental Materials. All analyses were performed in R v3.6.0
-(R Core Team 2019) using the packages \texttt{geiger} (Harmon et al.
-2008) and \texttt{caper} (Orme et al. 2013), and the corresponding
-scripts can be found in the Supplemental Materials.
-
-\hypertarget{meta-analysis-of-empirical-results}{%
-\subsection{\texorpdfstring{\emph{Meta-Analysis of Empirical
-Results}}{Meta-Analysis of Empirical Results}}\label{meta-analysis-of-empirical-results}}
-
-To understand the extent of this problematic estimation method in
-application, we performed a meta-analysis of studies published in 2019
-that cited Pagel's 1997 manuscript (Pagel 1999). The list of manuscripts
-was compiled through Google Scholar on Jan 23, 2020 and totaled 341
-manuscripts. For each study, we extracted any published lambda
-estimates, along with the size of the phylogeny used in the analysis. We
-also noted whether authors reported confidence intervals, significance
-tests assessing difference of the lambda estimate from 0 or 1, and
-whether authors interpreted biological meaning from the magnitude of the
-estimated lambda. For studies that reported more than one lambda
-estimate, we also noted if the authors compared the lambdas against one
-another, and whether that was accompanied with an appropriate
-statistical test between the estimated lambda values. \hfill\break
+\hypertarget{literature-survey-1}{%
+\subsection{\texorpdfstring{\emph{Literature
+Survey}}{Literature Survey}}\label{literature-survey-1}}
 
 We found 182 manuscripts from 2019 that estimated and reported Pagel's
 lambda values using PGLS methods. These papers averaged 8.527 lambda
@@ -303,14 +355,33 @@ over-interpretted. Despite the urging of Boettiger and colleagues to
 publish confidence intervals with all lambda parameter estimates, only
 18\% of papers published in 2019 do so.
 
+\hypertarget{results-1}{%
+\section{Results}\label{results-1}}
+
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
 
-{[}This part is obviously not written yet{]} \hfill\break
+1: summary paragraph
 
-General conclusions :Using the estimated lambda values from pgls are not
-useful. The questions of whether or not signal exists is appropriate,
-but inferring more from lambda \emph{magnitude} is inappropriate.
+2: expand on Lambda.. lambda innacurate, not precise, level of precision
+varies with input physig (worse in mid-range). Patterns worse with PGLS,
+though beta still estimated properly. Conclusion, lambda not overly
+useful.
+
+3: By contrast, effect size Z-K useful, equally precise across range of
+values. Can be used to characterize the strength of physignal, and
+because robust to input levels, etc. may be used to compare across
+datasets.
+
+Somewhere, recognize that this is somewhat `backwards' from prior
+recommendations where Kappa had somewhat lower performance in terms of
+type I and type II error (which?? I forget). However, recall that those
+studies did not examine the precision of the estimates. Nor was Z-k
+included, because it was not yet invented. So Use of Z-k should make
+good sense here.
+
+Closing paragraph.
+
 \hfill\break
 
 More discussion paragraphs
@@ -339,10 +410,35 @@ Adams, D. C. 2014b. A method for assessing phylogenetic least squares
 models for shape and other high-dimensional multivariate data. Evolution
 68:2675--2688.
 
+\leavevmode\hypertarget{ref-AdamsCollyer2019b}{}%
+Adams, D. C., and M. L. Collyer. 2019a. Comparing the strength of
+modular signal, and evaluating alternative modular hypotheses, using
+covariance ratio effect sizes with morphometric data. Evolution
+73:2352--2367.
+
+\leavevmode\hypertarget{ref-AdamsCollyer2016}{}%
+Adams, D. C., and M. L. Collyer. 2016. On the comparison of the strength
+of morphological integration across morphometric datasets. Evolution
+70:2623--2631.
+
 \leavevmode\hypertarget{ref-AdamsCollyer2018b}{}%
 Adams, D. C., and M. L. Collyer. 2018. Phylogenetic anova: Group-clade
 aggregation, biological challenges, and a refined permutation procedure.
 Evolution 72:1204--1215.
+
+\leavevmode\hypertarget{ref-AdamsCollyer2019}{}%
+Adams, D. C., and M. L. Collyer. 2019b. Phylogenetic comparative methods
+and the evolution of multivariate phenotypes. Annual Review of Ecology,
+Evolution, and Systematics 50:405--425.
+
+\leavevmode\hypertarget{ref-AdamsGeomorph}{}%
+Adams, D. C., M. L. Collyer, and A. Kaliontzopoulou. 2020. Geomorph:
+Software for geometric morphometric analyses. R package version 3.2.1.
+
+\leavevmode\hypertarget{ref-AdamsOtarola2013}{}%
+Adams, D. C., and E. Otárola-Castillo. 2013. Geomorph: An r package for
+the collection and analysis of geometric morphometric shape data.
+Methods in Ecology and Evolution 4:393--399.
 
 \leavevmode\hypertarget{ref-Beaulieu_et_al2012}{}%
 Beaulieu, J. M., D. C. Jhwueng, C. Boettiger, and B. C. O'Meara. 2012.
@@ -367,8 +463,8 @@ A modeling approach for adaptive evolution. American Naturalist
 \leavevmode\hypertarget{ref-DinizFilho2012}{}%
 Diniz-Filho, J. A. F., T. Santos, T. F. Rangel, and L. M. Bini. 2012. A
 comparison of metrics for estimating phylogenetic signal under
-alternative evolutionary models. Genetics and molecular biology
-35:673--679. SciELO Brasil.
+alternative evolutionary models. Genetics and Molecular Biology
+35:673--679.
 
 \leavevmode\hypertarget{ref-Felsenstein1985}{}%
 Felsenstein, J. 1985. Phylogenies and the comparative method. American
@@ -387,7 +483,7 @@ comparative methods. American Naturalist 155:346--364.
 \leavevmode\hypertarget{ref-Gittleman1990}{}%
 Gittleman, J. L., and M. Kot. 1990. Adaptation: Statistics and a null
 model for estimating phylogenetic effects. Systematic Zoology
-39:227--241. Society of Systematic Zoology.
+39:227--241.
 
 \leavevmode\hypertarget{ref-Grafen1989}{}%
 Grafen, A. 1989. The phylogenetic regression. Philosophical Transactions
@@ -405,7 +501,7 @@ evolutionary biology. Oxford University Press, Oxford.
 \leavevmode\hypertarget{ref-Klingenberg2010}{}%
 Klingenberg, C. P., and N. A. Gidaszewski. 2010. Testing and quantifying
 phylogenetic signals and homoplasy in morphometric data. Systematic
-biology 59:245--261. Oxford University Press.
+biology 59:245--261.
 
 \leavevmode\hypertarget{ref-MartinsHansen1997}{}%
 Martins, E. P., and T. F. Hansen. 1997. Phylogenies and the comparative
@@ -416,7 +512,7 @@ into the analysis of interspecific data. American Naturalist
 \leavevmode\hypertarget{ref-MolinaVenegas2017}{}%
 Molina-Venegas, R., and M. A. Rodriguez. 2017. Revisiting phylogenetic
 signal; strong or negligible impacts of polytomies and branch length
-information? BMC evolutionary biology 17:53. BioMed Central.
+information? BMC evolutionary biology 17:53.
 
 \leavevmode\hypertarget{ref-Munkemuller_et_al2012}{}%
 Munkemuller, T., S. Lavergne, B. Bzeznik, S. Dray, T. Jombart, K.
@@ -440,8 +536,7 @@ evolution. Nature 401:877--884.
 \leavevmode\hypertarget{ref-Pavoine2012}{}%
 Pavoine, S., and C. Ricotta. 2012. Testing for phylogenetic signal in
 biological traits: The ubiquity of cross-product statistics. Evolution:
-International Journal of Organic Evolution 67:828--840. Wiley Online
-Library.
+International Journal of Organic Evolution 67:828--840.
 
 \leavevmode\hypertarget{ref-RCT}{}%
 R Core Team. 2019. R: A language and environment for statistical
@@ -450,6 +545,10 @@ computing. R Foundation for Statistical Computing, Vienna, Austria.
 \leavevmode\hypertarget{ref-Revell2010}{}%
 Revell, L. J. 2010. Phylogenetic signal and linear regression on species
 data. Methods in Ecology and Evolution 1:319--329.
+
+\leavevmode\hypertarget{ref-Revell2012}{}%
+Revell, L. J. 2012. Phytools: An r package for phylogenetic comparative
+biology (and other things). Methods in Ecology and Evolution 3:217--223.
 
 \leavevmode\hypertarget{ref-RevellHarmon2008}{}%
 Revell, L. J., and L. J. Harmon. 2008. Testing quantitative genetic
