@@ -17,7 +17,7 @@ lambdas <- seq(0,1,.05) # starting with just 3 lambda values
 lambdas_expanded <- rep(lambdas, each = nsim)
 fullsimlength <- length(lambdas_expanded)
 
-n <- treesizes[3] # number of tips: adjust each iteration
+n <- treesizes[5] # number of tips: adjust each iteration
 
 # New Rep #####
 DataTable_lambda <- data.frame(lambda.input = lambdas_expanded, 
@@ -64,10 +64,8 @@ setTxtProgressBar(pb, j)
 Sys.time()-Start.time
 
 # plot
-plot(x = DataTable_lambda$lambda.input, y = DataTable_lambda$lambda.est, pch = 19)
-plot(x = DataTable_lambda$lambda.input, y = DataTable_lambda$kappa, pch = 19, ylim = c(0,2.5))
 
-jpeg("Figures/FigS5.jpeg", res = 80, quality = 100, width = 440, height = 990)
+jpeg("Figures/FigS5_512.jpeg", res = 80, quality = 100, width = 440, height = 990)
 par(mfrow = c(3,1))
 plot(x = DataTable_lambda$lambda.input, y = DataTable_lambda$lambda.est, pch = 19, xlab = "Input Lambda", ylab = "Estimated Lambda X~1")
 plot(x = DataTable_lambda$lambda.input, y = DataTable_lambda$kappa, pch = 19, ylim = c(0,2.5), xlab = "Input Lambda", ylab = "Estimated Kappa")
