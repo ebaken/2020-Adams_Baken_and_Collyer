@@ -8,6 +8,157 @@ ANOVA.data <- as.data.frame(ANOVA.data)
 Regression.data <- read.csv("Data_Analyses/Munged_Data/Regression.fulldataset.csv")
 Regression.data <- as.data.frame(Regression.data)
 
+
+# Slopes, Ranges, and Variances for Estimated Lambdas, Kappas, and Kappa Zs #####
+
+kappa_data_32 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_32.csv")
+kappa_data_64 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_64.csv")
+kappa_data_128 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_128.csv")
+kappa_data_256 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_256.csv")
+kappa_data_512 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_512.csv")
+kappa_data_1024 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_512.csv")
+
+# Getting normalized K and Z vals
+
+kappa_data_32$kappa.norm <- (kappa_data_32$kappa-min(kappa_data_32$kappa))/(range(kappa_data_32$kappa)[2] - range(kappa_data_32$kappa)[1])
+kappa_data_32$kappa.z.norm <- (kappa_data_32$kappa.z-min(kappa_data_32$kappa.z))/(range(kappa_data_32$kappa.z)[2] - range(kappa_data_32$kappa.z)[1])
+
+kappa_data_64$kappa.norm <- (kappa_data_64$kappa-min(kappa_data_64$kappa))/(range(kappa_data_64$kappa)[2] - range(kappa_data_64$kappa)[1])
+kappa_data_64$kappa.z.norm <- (kappa_data_64$kappa.z-min(kappa_data_64$kappa.z))/(range(kappa_data_64$kappa.z)[2] - range(kappa_data_64$kappa.z)[1])
+
+kappa_data_128$kappa.norm <- (kappa_data_128$kappa-min(kappa_data_128$kappa))/(range(kappa_data_128$kappa)[2] - range(kappa_data_128$kappa)[1])
+kappa_data_128$kappa.z.norm <- (kappa_data_128$kappa.z-min(kappa_data_128$kappa.z))/(range(kappa_data_128$kappa.z)[2] - range(kappa_data_128$kappa.z)[1])
+
+kappa_data_256$kappa.norm <- (kappa_data_256$kappa-min(kappa_data_256$kappa))/(range(kappa_data_256$kappa)[2] - range(kappa_data_256$kappa)[1])
+kappa_data_256$kappa.z.norm <- (kappa_data_256$kappa.z-min(kappa_data_256$kappa.z))/(range(kappa_data_256$kappa.z)[2] - range(kappa_data_256$kappa.z)[1])
+
+kappa_data_512$kappa.norm <- (kappa_data_512$kappa-min(kappa_data_512$kappa))/(range(kappa_data_512$kappa)[2] - range(kappa_data_512$kappa)[1])
+kappa_data_512$kappa.z.norm <- (kappa_data_512$kappa.z-min(kappa_data_512$kappa.z))/(range(kappa_data_512$kappa.z)[2] - range(kappa_data_512$kappa.z)[1])
+
+kappa_data_1024$kappa.norm <- (kappa_data_1024$kappa-min(kappa_data_1024$kappa))/(range(kappa_data_1024$kappa)[2] - range(kappa_data_1024$kappa)[1])
+kappa_data_1024$kappa.z.norm <- (kappa_data_1024$kappa.z-min(kappa_data_1024$kappa.z))/(range(kappa_data_1024$kappa.z)[2] - range(kappa_data_1024$kappa.z)[1])
+
+
+data_list <- list(kappa_data_32, kappa_data_64, kappa_data_128, kappa_data_256, kappa_data_512, kappa_data_1024)
+
+# Lambda Estimates 
+
+fit_list <- lapply(1:6, function(i) lm(data_list[[i]]$lambda.est~data_list[[i]]$lambda.input))
+slopes <- unlist(lapply(1:6, function(i) coef(fit_list[[i]])[2]))
+names(slopes) <- c("32", "64", "128", "256", "512", "1024")
+
+write.csv(slopes, "Data_Analyses/Munged_Data/Lambda_est_slopes.csv", row.names = T)
+
+lambda_input_options <- unique(kappa_data_32$lambda.input)
+
+range_df <- data.frame(lambda_input = lambda_input_options, n32 = rep(NA, 21), n64 = rep(NA, 21), 
+                       n128 = rep(NA, 21), n256 = rep(NA, 21), n512 = rep(NA, 21), n1024 = rep(NA, 21))
+range_df$n32 <- unlist(lapply(1:21, function(i) max(kappa_data_32[which(kappa_data_32$lambda.input == lambda_input_options[[i]]),2]) - 
+                       min(kappa_data_32[which(kappa_data_32$lambda.input == lambda_input_options[[i]]),2])))
+range_df$n64 <- unlist(lapply(1:21, function(i) max(kappa_data_64[which(kappa_data_64$lambda.input == lambda_input_options[[i]]),2]) - 
+                       min(kappa_data_64[which(kappa_data_64$lambda.input == lambda_input_options[[i]]),2])))
+range_df$n128 <- unlist(lapply(1:21, function(i) max(kappa_data_128[which(kappa_data_128$lambda.input == lambda_input_options[[i]]),2]) - 
+                       min(kappa_data_128[which(kappa_data_128$lambda.input == lambda_input_options[[i]]),2])))
+range_df$n256 <- unlist(lapply(1:21, function(i) max(kappa_data_256[which(kappa_data_256$lambda.input == lambda_input_options[[i]]),2]) - 
+                       min(kappa_data_256[which(kappa_data_256$lambda.input == lambda_input_options[[i]]),2])))
+range_df$n512 <- unlist(lapply(1:21, function(i) max(kappa_data_512[which(kappa_data_512$lambda.input == lambda_input_options[[i]]),2]) - 
+                       min(kappa_data_512[which(kappa_data_512$lambda.input == lambda_input_options[[i]]),2])))
+range_df$n1024 <- unlist(lapply(1:21, function(i) max(kappa_data_1024[which(kappa_data_1024$lambda.input == lambda_input_options[[i]]),2]) - 
+                       min(kappa_data_1024[which(kappa_data_1024$lambda.input == lambda_input_options[[i]]),2])))
+
+
+write.csv(range_df, "Data_Analyses/Munged_Data/Lambda_est_ranges.csv", row.names = F)
+
+
+var_df <- data.frame(lambda_input = lambda_input_options, n32 = rep(NA, 21), n64 = rep(NA, 21), 
+                       n128 = rep(NA, 21), n256 = rep(NA, 21), n512 = rep(NA, 21), n1024 = rep(NA, 21))
+var_df$n32 <- unlist(lapply(1:21, function(i) var(kappa_data_32[which(kappa_data_32$lambda.input == lambda_input_options[[i]]),2])))
+var_df$n64 <- unlist(lapply(1:21, function(i) var(kappa_data_64[which(kappa_data_64$lambda.input == lambda_input_options[[i]]),2])))
+var_df$n128 <- unlist(lapply(1:21, function(i) var(kappa_data_128[which(kappa_data_128$lambda.input == lambda_input_options[[i]]),2])))
+var_df$n256 <- unlist(lapply(1:21, function(i) var(kappa_data_256[which(kappa_data_256$lambda.input == lambda_input_options[[i]]),2])))
+var_df$n512 <- unlist(lapply(1:21, function(i) var(kappa_data_512[which(kappa_data_512$lambda.input == lambda_input_options[[i]]),2])))
+var_df$n1024 <- unlist(lapply(1:21, function(i) var(kappa_data_1024[which(kappa_data_1024$lambda.input == lambda_input_options[[i]]),2])))
+
+var_df
+
+write.csv(var_df, "Data_Analyses/Munged_Data/Lambda_est_vars.csv", row.names = F)
+
+# Kappa Estimates
+
+lambda_input_options <- unique(kappa_data_32$lambda.input)
+
+range_df <- data.frame(lambda_input = lambda_input_options, n32 = rep(NA, 21), n64 = rep(NA, 21), 
+                       n128 = rep(NA, 21), n256 = rep(NA, 21), n512 = rep(NA, 21), n1024 = rep(NA, 21))
+
+range_df$n32 <- unlist(lapply(1:21, function(i) max(kappa_data_32[which(kappa_data_32$lambda.input == lambda_input_options[[i]]),5]) - 
+                       min(kappa_data_32[which(kappa_data_32$lambda.input == lambda_input_options[[i]]),5])))
+range_df$n64 <- unlist(lapply(1:21, function(i) max(kappa_data_64[which(kappa_data_64$lambda.input == lambda_input_options[[i]]),5]) - 
+                       min(kappa_data_64[which(kappa_data_64$lambda.input == lambda_input_options[[i]]),5])))
+range_df$n128 <- unlist(lapply(1:21, function(i) max(kappa_data_128[which(kappa_data_128$lambda.input == lambda_input_options[[i]]),5]) - 
+                       min(kappa_data_128[which(kappa_data_128$lambda.input == lambda_input_options[[i]]),5])))
+range_df$n256 <- unlist(lapply(1:21, function(i) max(kappa_data_256[which(kappa_data_256$lambda.input == lambda_input_options[[i]]),5]) - 
+                       min(kappa_data_256[which(kappa_data_256$lambda.input == lambda_input_options[[i]]),5])))
+range_df$n512 <- unlist(lapply(1:21, function(i) max(kappa_data_512[which(kappa_data_512$lambda.input == lambda_input_options[[i]]),5]) - 
+                       min(kappa_data_512[which(kappa_data_512$lambda.input == lambda_input_options[[i]]),5])))
+range_df$n1024 <- unlist(lapply(1:21, function(i) max(kappa_data_1024[which(kappa_data_1024$lambda.input == lambda_input_options[[i]]),5]) - 
+                       min(kappa_data_1024[which(kappa_data_1024$lambda.input == lambda_input_options[[i]]),5])))
+
+
+write.csv(range_df, "Data_Analyses/Munged_Data/Kappa_norm_ranges.csv", row.names = F)
+
+
+var_df <- data.frame(lambda_input = lambda_input_options, n32 = rep(NA, 21), n64 = rep(NA, 21), 
+                       n128 = rep(NA, 21), n256 = rep(NA, 21), n512 = rep(NA, 21), n1024 = rep(NA, 21))
+var_df$n32 <- unlist(lapply(1:21, function(i) var(kappa_data_32[which(kappa_data_32$lambda.input == lambda_input_options[[i]]),5])))
+var_df$n64 <- unlist(lapply(1:21, function(i) var(kappa_data_64[which(kappa_data_64$lambda.input == lambda_input_options[[i]]),5])))
+var_df$n128 <- unlist(lapply(1:21, function(i) var(kappa_data_128[which(kappa_data_128$lambda.input == lambda_input_options[[i]]),5])))
+var_df$n256 <- unlist(lapply(1:21, function(i) var(kappa_data_256[which(kappa_data_256$lambda.input == lambda_input_options[[i]]),5])))
+var_df$n512 <- unlist(lapply(1:21, function(i) var(kappa_data_512[which(kappa_data_512$lambda.input == lambda_input_options[[i]]),5])))
+var_df$n1024 <- unlist(lapply(1:21, function(i) var(kappa_data_1024[which(kappa_data_1024$lambda.input == lambda_input_options[[i]]),5])))
+
+var_df
+
+write.csv(var_df, "Data_Analyses/Munged_Data/Kappa_norm_vars.csv", row.names = F)
+
+# Kappa Z Norms
+
+range_df <- data.frame(lambda_input = lambda_input_options, n32 = rep(NA, 21), n64 = rep(NA, 21), 
+                       n128 = rep(NA, 21), n256 = rep(NA, 21), n512 = rep(NA, 21), n1024 = rep(NA, 21))
+
+range_df$n32 <- unlist(lapply(1:21, function(i) max(kappa_data_32[which(kappa_data_32$lambda.input == lambda_input_options[[i]]),6]) - 
+                       min(kappa_data_32[which(kappa_data_32$lambda.input == lambda_input_options[[i]]),6])))
+range_df$n64 <- unlist(lapply(1:21, function(i) max(kappa_data_64[which(kappa_data_64$lambda.input == lambda_input_options[[i]]),6]) - 
+                       min(kappa_data_64[which(kappa_data_64$lambda.input == lambda_input_options[[i]]),6])))
+range_df$n128 <- unlist(lapply(1:21, function(i) max(kappa_data_128[which(kappa_data_128$lambda.input == lambda_input_options[[i]]),6]) - 
+                       min(kappa_data_128[which(kappa_data_128$lambda.input == lambda_input_options[[i]]),6])))
+range_df$n256 <- unlist(lapply(1:21, function(i) max(kappa_data_256[which(kappa_data_256$lambda.input == lambda_input_options[[i]]),6]) - 
+                       min(kappa_data_256[which(kappa_data_256$lambda.input == lambda_input_options[[i]]),6])))
+range_df$n512 <- unlist(lapply(1:21, function(i) max(kappa_data_512[which(kappa_data_512$lambda.input == lambda_input_options[[i]]),6]) - 
+                       min(kappa_data_512[which(kappa_data_512$lambda.input == lambda_input_options[[i]]),6])))
+range_df$n1024 <- unlist(lapply(1:21, function(i) max(kappa_data_1024[which(kappa_data_1024$lambda.input == lambda_input_options[[i]]),6]) - 
+                       min(kappa_data_1024[which(kappa_data_1024$lambda.input == lambda_input_options[[i]]),6])))
+
+range_df
+
+write.csv(range_df, "Data_Analyses/Munged_Data/Kappa_Z_norm_ranges.csv", row.names = F)
+
+
+var_df <- data.frame(lambda_input = lambda_input_options, n32 = rep(NA, 21), n64 = rep(NA, 21), 
+                       n128 = rep(NA, 21), n256 = rep(NA, 21), n512 = rep(NA, 21), n1024 = rep(NA, 21))
+var_df$n32 <- unlist(lapply(1:21, function(i) var(kappa_data_32[which(kappa_data_32$lambda.input == lambda_input_options[[i]]),6])))
+var_df$n64 <- unlist(lapply(1:21, function(i) var(kappa_data_64[which(kappa_data_64$lambda.input == lambda_input_options[[i]]),6])))
+var_df$n128 <- unlist(lapply(1:21, function(i) var(kappa_data_128[which(kappa_data_128$lambda.input == lambda_input_options[[i]]),6])))
+var_df$n256 <- unlist(lapply(1:21, function(i) var(kappa_data_256[which(kappa_data_256$lambda.input == lambda_input_options[[i]]),6])))
+var_df$n512 <- unlist(lapply(1:21, function(i) var(kappa_data_512[which(kappa_data_512$lambda.input == lambda_input_options[[i]]),6])))
+var_df$n1024 <- unlist(lapply(1:21, function(i) var(kappa_data_1024[which(kappa_data_1024$lambda.input == lambda_input_options[[i]]),6])))
+
+var_df
+
+write.csv(var_df, "Data_Analyses/Munged_Data/Kappa_Z_norm_vars.csv", row.names = F)
+
+
+
+
 # Literature numbers ####
 library(readxl)
 review <- read_excel("Literature_Review/1Summary.xlsx", sheet = "Since 2019 Lambda Vals")

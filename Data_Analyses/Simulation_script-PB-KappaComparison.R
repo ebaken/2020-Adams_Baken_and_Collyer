@@ -25,11 +25,11 @@ DataTable_lambda <- data.frame(lambda.input = lambdas_expanded,
                                kappa = rep(NA, nsim*length(lambdas)),
                                kappa.z = rep(NA, nsim*length(lambdas))) 
 
-pb <- txtProgressBar(0, fullsimlength, style=1)
+pb <- txtProgressBar(24, fullsimlength, style=1)
 
 Start.time<-Sys.time()
 Start.time # START AGAIN AT J = 24
-for (j in 1:fullsimlength) {
+for (i in 24:fullsimlength) {
 
   while(TRUE){
  
