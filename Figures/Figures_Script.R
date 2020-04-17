@@ -13,11 +13,25 @@ library(cowplot)
 library(ggplot2)
 Regression.data.ml <- Regression.data[(Regression.data$method == "ml"),]
 
+Regression.data.ml
+
+data_list <- list(Regression.data.ml[which(Regression.data.ml$tree.size == treesizes[1]),],
+                  Regression.data.ml[which(Regression.data.ml$tree.size == treesizes[2]),],
+                  Regression.data.ml[which(Regression.data.ml$tree.size == treesizes[3]),],
+                  Regression.data.ml[which(Regression.data.ml$tree.size == treesizes[4]),],
+                  Regression.data.ml[which(Regression.data.ml$tree.size == treesizes[5]),],
+                  Regression.data.ml[which(Regression.data.ml$tree.size == treesizes[6]),])
+
+fit_list <- lapply(1:6, function(i) lm(data_list[[i]]$lambda.est.x~data_list[[i]]$lambda.input))
+slopes <- unlist(lapply(1:6, function(i) coef(fit_list[[i]])[2]))
+intercepts <- unlist(lapply(1:6, function(i) coef(fit_list[[i]])[1]))
+
 PlotList <- lapply(1:6, function(j){
    reduced.data <- Regression.data.ml[which(Regression.data.ml$tree.size == treesizes[[j]]),]
    ggplot(reduced.data, aes(x = lambda.input, y = lambda.est.x)) +
       geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
-      xlab("Input Lambda") + ylab("Estimated Lambda") + ggtitle(treesizes[[j]])
+      xlab("Input Lambda") + ylab("Estimated Lambda") + ggtitle(treesizes[[j]]) + 
+     geom_abline(slope = slopes[[j]], intercept = intercepts[[j]], color = "red")
 })
 
 jpeg("Figures/Fig1.jpeg", res = 120, quality = 100, width = 1000, height = 660)
