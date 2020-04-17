@@ -31,64 +31,22 @@ plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
 dev.off()
 
 
-## Figure 2 ######
+## Figure 2 ####
+kappa_128 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_128.csv")
 
-ANOVA.data$beta <- as.factor(ANOVA.data$beta)
+kappa.norm <- (kappa_128$kappa-min(kappa_128$kappa))/(range(kappa_128$kappa)[2] - range(kappa_128$kappa)[1])
 
-ANOVA.data.ml <- ANOVA.data[which(ANOVA.data$method == "ml"),]
-
-PlotList <- lapply(1:6, function(j){
-   reduced.data <- ANOVA.data.ml[which(ANOVA.data.ml$tree.size == treesizes[[j]]),]
-   ggplot(reduced.data, aes(x = beta, y = slope)) + #geom_abline(intercept = 0, slope = .2) +
-      geom_boxplot() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
-      xlab("Input Slope") + ylab("Estimated Slope") + ggtitle(treesizes[[j]]) + expand_limits(y=c(-3.5,4))
-})
-
-jpeg("Figures/Fig2.jpeg", res = 120, quality = 100, width = 1000, height = 660)
-plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
-          PlotList[[4]], PlotList[[5]], PlotList[[6]])
-dev.off()
-
-jpeg("Manuscript/Fig2.jpeg", res = 120, quality = 100, width = 1000, height = 660)
-plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
-          PlotList[[4]], PlotList[[5]], PlotList[[6]])
-dev.off()
-
-# other plot options for Figure 2 - alt1
+kappa.z.norm <- (kappa_128$kappa.z-min(kappa_128$kappa.z))/(range(kappa_128$kappa.z)[2] - range(kappa_128$kappa.z)[1])
 
 
-PlotList <- lapply(1:6, function(j){
-   reduced.data <- ANOVA.data[which(ANOVA.data$tree.size == treesizes[[j]]),]
-   ggplot(reduced.data, aes(x = beta, y = slope, fill = method)) + #geom_abline(intercept = 0, slope = .2) +
-      geom_boxplot() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
-      xlab("Input Slope") + ylab("Estimated Slope") + ggtitle(treesizes[[j]]) + expand_limits(y=c(-3.5,4))
-})
-
-jpeg("Figures/Fig2_alt.jpeg", res = 120, quality = 100, width = 1000, height = 660)
-plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
-          PlotList[[4]], PlotList[[5]], PlotList[[6]])
-dev.off()
-
-
-# another plot options for Figure 2 -alt2
-
-ANOVA.data.0 <- ANOVA.data[which(ANOVA.data$method == "0"),]
- 
-ANOVA.data.modified <- cbind(ANOVA.data.ml$tree.size, ANOVA.data.ml$lambda.input, ANOVA.data.ml$'F', ANOVA.data.0$'F')
-ANOVA.data.modified <- as.data.frame(ANOVA.data.modified)
-colnames(ANOVA.data.modified) <- c("tree.size", "lambda.input", "F.ml", "F.0")
-
-
-PlotList <- lapply(1:6, function(j){
-   reduced.data <- ANOVA.data.modified[which(ANOVA.data.modified$tree.size == treesizes[[j]]),]
-   ggplot(reduced.data, aes(x = F.ml, y = F.0)) +
-      geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
-      xlab("F from PGLS (est lambda)") + ylab("F from OLS") + ggtitle(treesizes[[j]]) 
-})
-
-jpeg("Figures/Fig2_alt2.jpeg", res = 120, quality = 100, width = 1000, height = 660)
-plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
-          PlotList[[4]], PlotList[[5]], PlotList[[6]])
+jpeg("Figures/Fig2.jpeg", res = 120, quality = 100, width = 1000, height = 1000)
+layout(matrix(c(1,1,2,3,4,5), 3, 2, byrow = TRUE))
+par(mar = c(4,4,2,2))
+plot(kappa_128$lambda.est ~ kappa_128$lambda.input, pch = 19)
+plot(kappa_128$kappa ~ kappa_128$lambda.input, pch = 19)
+plot(kappa.norm ~ kappa_128$lambda.input, pch = 19)
+plot(kappa_128$kappa.z ~ kappa_128$lambda.input, pch = 19)
+plot(kappa.z.norm ~ kappa_128$lambda.input, pch = 19)
 dev.off()
 
 
@@ -216,6 +174,70 @@ jpeg("Figures/FigS3.jpeg", res = 120, quality = 100, width = 1000, height = 660)
 plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
           PlotList[[4]], PlotList[[5]], PlotList[[6]])
 dev.off()
+
+
+
+## Sup Figure: ANOVA beta ~ slope  ######
+
+ANOVA.data$beta <- as.factor(ANOVA.data$beta)
+
+ANOVA.data.ml <- ANOVA.data[which(ANOVA.data$method == "ml"),]
+
+PlotList <- lapply(1:6, function(j){
+   reduced.data <- ANOVA.data.ml[which(ANOVA.data.ml$tree.size == treesizes[[j]]),]
+   ggplot(reduced.data, aes(x = beta, y = slope)) + #geom_abline(intercept = 0, slope = .2) +
+      geom_boxplot() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
+      xlab("Input Slope") + ylab("Estimated Slope") + ggtitle(treesizes[[j]]) + expand_limits(y=c(-3.5,4))
+})
+
+jpeg("Figures/Fig2.jpeg", res = 120, quality = 100, width = 1000, height = 660)
+plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
+          PlotList[[4]], PlotList[[5]], PlotList[[6]])
+dev.off()
+
+jpeg("Manuscript/Fig2.jpeg", res = 120, quality = 100, width = 1000, height = 660)
+plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
+          PlotList[[4]], PlotList[[5]], PlotList[[6]])
+dev.off()
+
+# other plot options for Figure 2 - alt1
+
+
+PlotList <- lapply(1:6, function(j){
+   reduced.data <- ANOVA.data[which(ANOVA.data$tree.size == treesizes[[j]]),]
+   ggplot(reduced.data, aes(x = beta, y = slope, fill = method)) + #geom_abline(intercept = 0, slope = .2) +
+      geom_boxplot() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
+      xlab("Input Slope") + ylab("Estimated Slope") + ggtitle(treesizes[[j]]) + expand_limits(y=c(-3.5,4))
+})
+
+jpeg("Figures/Fig2_alt.jpeg", res = 120, quality = 100, width = 1000, height = 660)
+plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
+          PlotList[[4]], PlotList[[5]], PlotList[[6]])
+dev.off()
+
+
+# another plot options for Figure 2 -alt2
+
+ANOVA.data.0 <- ANOVA.data[which(ANOVA.data$method == "0"),]
+ 
+ANOVA.data.modified <- cbind(ANOVA.data.ml$tree.size, ANOVA.data.ml$lambda.input, ANOVA.data.ml$'F', ANOVA.data.0$'F')
+ANOVA.data.modified <- as.data.frame(ANOVA.data.modified)
+colnames(ANOVA.data.modified) <- c("tree.size", "lambda.input", "F.ml", "F.0")
+
+
+PlotList <- lapply(1:6, function(j){
+   reduced.data <- ANOVA.data.modified[which(ANOVA.data.modified$tree.size == treesizes[[j]]),]
+   ggplot(reduced.data, aes(x = F.ml, y = F.0)) +
+      geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
+      xlab("F from PGLS (est lambda)") + ylab("F from OLS") + ggtitle(treesizes[[j]]) 
+})
+
+jpeg("Figures/Fig2_alt2.jpeg", res = 120, quality = 100, width = 1000, height = 660)
+plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
+          PlotList[[4]], PlotList[[5]], PlotList[[6]])
+dev.off()
+
+
 
 
 

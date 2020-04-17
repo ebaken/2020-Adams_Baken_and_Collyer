@@ -17,7 +17,7 @@ lambdas <- seq(0,1,.05) # starting with just 3 lambda values
 lambdas_expanded <- rep(lambdas, each = nsim)
 fullsimlength <- length(lambdas_expanded)
 
-n <- treesizes[5] # number of tips: adjust each iteration
+n <- treesizes[6] # number of tips: adjust each iteration
 
 # New Rep #####
 DataTable_lambda <- data.frame(lambda.input = lambdas_expanded, 
@@ -28,7 +28,7 @@ DataTable_lambda <- data.frame(lambda.input = lambdas_expanded,
 pb <- txtProgressBar(0, fullsimlength, style=1)
 
 Start.time<-Sys.time()
-Start.time
+Start.time # START AGAIN AT J = 24
 for (j in 1:fullsimlength) {
 
   while(TRUE){
@@ -65,12 +65,12 @@ Sys.time()-Start.time
 
 # plot
 
-jpeg("Figures/FigS5_512.jpeg", res = 80, quality = 100, width = 440, height = 990)
+#jpeg("Figures/FigS5_512.jpeg", res = 80, quality = 100, width = 440, height = 990)
 par(mfrow = c(3,1))
 plot(x = DataTable_lambda$lambda.input, y = DataTable_lambda$lambda.est, pch = 19, xlab = "Input Lambda", ylab = "Estimated Lambda X~1")
 plot(x = DataTable_lambda$lambda.input, y = DataTable_lambda$kappa, pch = 19, ylim = c(0,2.5), xlab = "Input Lambda", ylab = "Estimated Kappa")
 plot(x = DataTable_lambda$lambda.input, y = DataTable_lambda$kappa.z, pch = 19, xlab = "Input Lambda", ylab = "Kappa Z Scores") # look at this one
-dev.off()
+#dev.off()
 
 
 # Writing Output Files ####
