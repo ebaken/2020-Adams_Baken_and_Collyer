@@ -179,13 +179,19 @@ estimates to patterns gleaned from our computer simulations. In general
 we find that while PGLS parameters (e.g., \(\beta\)) are accurately
 estimated with the inclusion of phylogenetic signal, estimates of
 \(\lambda\) are not. Further, we find that estimates of \(\lambda\) vary
-widely for a given input value of phylogenetic signal, while effect
-sizes (\(Z_K\)) obtained from \(Kappa\) display far less variation, and
-increase in a steady (\textbf{uniform?}) manner with increasing
-phylogenetic signal. We conclude that Pagel's \(\lambda\) should not be
-used for characterizing and comparing the degree of phylogenetic signal
-in phenotypic datasets, while comparisons of effect sizes obtained from
-\(Kappa\) hold considerable promise in this regard.
+widely for a given input value of phylogenetic signal, and that this
+variation is not constant across the range of input signal, with
+decreased precision when phylogenetic signal is of intermediate
+strength. Alternatively, variation across effect sizes (\(Z_K\))
+obtained from \(Kappa\) is far more uniform across the range of input
+values, and estimates of phylogenetic signal with this measure increase
+in a uniform manner with increasing phylogenetic signal. We conclude
+that estimates of phylogenetic signal using Pagel's \(\lambda\) are
+often innacurate, and thus interpreting strength of phylogenetic signal
+in phenotypic datasets based on this measure should be treated with
+caution. By contrast, effect sizes obtained from \(Kappa\) hold promise
+for characterizing phylogenetic signal, and comparing the strength of
+phylogenetic signal across datasets.
 
 \hypertarget{materials-and-methods}{%
 \section{Materials and Methods}\label{materials-and-methods}}
@@ -220,21 +226,21 @@ each dataset using Pagel's \(\lambda\). Next, for the 1050 datasets at
 each level of species richness (\(n\)), we assessed the relationship
 between \(\lambda_{in}\) and \(\lambda_{est}\) using regression.
 Additionally, the precision of \(\lambda_{est}\) was approximated by
-observing both the range and the variation of \(\lambda_{est}\) obtained
-at each input level of phylogenetic signal (\(\lambda_{in}\)). Finally,
-for comparison we estimated the degree of phylogenetic signal in each
-dataset using \(Kappa\) (Blomberg et al. 2003; Adams 2014a), and
-calculated its effect size (\(Z_K\): sensu Adams and Collyer 2016,
-2019a) for each dataset. Here, the effect size was estimated as:
+observing the variation of \(\lambda_{est}\) obtained at each input
+level of phylogenetic signal (\(\lambda_{in}\)). Finally, for comparison
+we estimated the degree of phylogenetic signal in each dataset using
+\(Kappa\) (Blomberg et al. 2003; Adams 2014a), and calculated its effect
+size (\(Z_K\): sensu Adams and Collyer 2016, 2019a) for each dataset.
+Here, the effect size was estimated as:
 \(Z_K=\frac{K_{obs}-\mu_K}{\sigma_K}\), where \(K_{obs}\) was the
 observed \(Kappa\), and \(\mu_K\) and \(\sigma_K\) were the mean and
 standard deviation of the empirical sampling distribution of values
 obtained from the permutation distribution (for discussion see: Adams
 and Collyer 2019b). Because \(Kappa\) and \(Z_K\) differ in scale from
 \(\lambda\), both measures were linearly normalized to a standard
-uniform distribution (\(0\rightarrow1\)), and the range and variation in
-the set of normalized \(Kappa\) and \(Z_K\) values at each input level
-of phylogenetic signal (\(\lambda_{in}\)) were estimated for comparison.
+uniform distribution (\(0\rightarrow1\)), and the variation in the set
+of normalized \(Kappa\) and \(Z_K\) values at each input level of
+phylogenetic signal (\(\lambda_{in}\)) were estimated for comparison.
 \hfill\break
 
 Our second set of simulations evaluated the extent to which values of
@@ -251,13 +257,13 @@ discrete (binary) character on each phylogeny. Next, the dependent
 variable was simulated in such a manner as to contain a known
 relationship with \(X\) plus random error containing phylogenetic
 signal. This was accomplished as: \(Y=\beta{X}+\epsilon\). Here, the
-association between \(Y\) and \(X\) was modeled using a range of values
-(\(\beta=(0,0.25, 0.5, 0.75,1)\)), and the residual error was modeled to
-contain phylogenetic signal simulated under a Brownian motion model of
-evolution (\(\epsilon=\mathcal{N}(\mu=0,\sigma=\mathbf{C})\): see Revell
-2010 for a similar simulation design). For each dataset, the fit of the
-phylogenetic regression was estimated using maximum likelihood, and
-parameter estimates (\(\beta_{est}\) and \(\lambda_{est}\)) were
+association between \(Y\) and \(X\) was modeled using a range of values:
+\(\beta=(0.0,0.25, 0.5, 0.75,1.0)\), and the residual error was modeled
+to contain phylogenetic signal simulated under a Brownian motion model
+of evolution: \(\epsilon=\mathcal{N}(\mu=0,\sigma=\mathbf{C})\): (see
+Revell 2010 for a similar simulation design). For each dataset, the fit
+of the phylogenetic regression was estimated using maximum likelihood,
+and parameter estimates (\(\beta_{est}\) and \(\lambda_{est}\)) were
 obtained and evaluated as above. All analyses were performed in R v3.6.0
 (R Core Team 2019) using the packages \texttt{geiger} (Harmon et al.
 2008), \texttt{caper} (Orme et al. 2013), \texttt{phytools} (Revell
