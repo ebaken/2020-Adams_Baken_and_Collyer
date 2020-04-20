@@ -153,16 +153,15 @@ variation when data were simulated on a large phylogeny (\(N=281\)) as
 compared to a small one (\(N=13\)), concluding that insufficient data
 (i.e., the number of species) was the underlying cause of the lack of
 precision in parameter estimation. However, this conclusion assumes that
-the precision of parameter estimation remains constant across the range
-of values (\(\lambda = 0 \to 1\)); an assumption that to date, has not
-been verified. Thus, despite widespread use of Pagel's (1999)
-\(\lambda\) in macroevolutionary studies, at present, we still lack a
-general understanding of the precision with which \(\lambda\) can
-estimate levels of phylogenetic signal in phenotypic datasets.
-\hfill\break
+the precision in estimating \(\lambda\) remains constant across its
+range (\(\lambda = 0 \to 1\)); an assumption that to date, has not been
+verified. Thus, despite widespread use of Pagel's (1999) \(\lambda\) in
+macroevolutionary studies, at present, we still lack a general
+understanding of the precision with which \(\lambda\) can estimate
+levels of phylogenetic signal in phenotypic datasets. \hfill\break
 
-In this study, we evaluate the precision of Pagel's \(\lambda\) to
-estimate known levels of phylogenetic signal in phenotypic data. First
+In this study, we evaluate the precision of Pagel's \(\lambda\) in
+estimating known levels of phylogenetic signal in phenotypic data. First
 we use computer simulations across differing numbers of species,
 differently shaped phylogenies, and differing input levels of
 phylogenetic signal, to explore the degree to which \(\lambda\)
@@ -182,16 +181,16 @@ estimated with the inclusion of phylogenetic signal, estimates of
 widely for a given input value of phylogenetic signal, and that this
 variation is not constant across the range of input signal, with
 decreased precision when phylogenetic signal is of intermediate
-strength. Alternatively, variation across effect sizes (\(Z_K\))
-obtained from \(Kappa\) is far more uniform across the range of input
-values, and estimates of phylogenetic signal with this measure increase
-in a uniform manner with increasing phylogenetic signal. We conclude
-that estimates of phylogenetic signal using Pagel's \(\lambda\) are
-often innacurate, and thus interpreting strength of phylogenetic signal
-in phenotypic datasets based on this measure should be treated with
-caution. By contrast, effect sizes obtained from \(Kappa\) hold promise
-for characterizing phylogenetic signal, and comparing the strength of
-phylogenetic signal across datasets.
+strength. By contrast, variation across effect sizes (\(Z_K\)) obtained
+from \(Kappa\) is far more consistent across the range of input values,
+and that the precision of estimating \(Z_K\) is preferable to that
+observed using \(\lambda\). We conclude that estimates of phylogenetic
+signal using Pagel's \(\lambda\) are often innacurate, and thus
+interpreting strength of phylogenetic signal in phenotypic datasets
+based on this measure should be treated with caution. By contrast,
+effect sizes obtained from \(Kappa\) hold promise for characterizing
+phylogenetic signal, and comparing the strength of phylogenetic signal
+across datasets.
 
 \hypertarget{materials-and-methods}{%
 \section{Materials and Methods}\label{materials-and-methods}}
@@ -203,23 +202,22 @@ We conducted a series of computer simulations to evaluate the ability of
 Pagel's (1999) \(\lambda\) to estimate known levels of phylogenetic
 signal. Our primary simulations were based on pure-birth phylogenies;
 however, we also evaluated patterns on both balanced and pectinate trees
-to determine the extent to which tree shape affected our findings (see
-Supplemental Material). Our first set of simulations evaluated the
-extent to which values of \(\lambda\) estimated from the data
-corresponded with actual input levels of phylogenetic signal. For these
-simulations we generated 50 pure-birth phylogenies at each of six
-different tree sizes, ranging from 32 to 1024 taxa (\(n=2^5 - 2^{10}\)).
-Next, we rescaled the simulated phylogenies by multiplying the internal
-branches by \(\lambda\). We used a set of values that encompassed the
-entire range of \(\lambda\): (\(\lambda_{in} = 0.0 - 1.0\); in 21
-intervals of 0.05 units), resulting in 1050 scaled phylogenies at each
-level of species richness (\(n\)). Continuous traits were then simulated
-on each phylogeny under a Brownian motion model of evolution to obtain
-datasets with known and differing levels of phylogenetic signal. These
-varied from datasets with no phylogenetic signal (when
-\(\lambda_{in} =0\)) to datsets with phylogenetic signal corresponding
-to what was expected under Brownian motion (when \(\lambda_{in} =1\)).
-\hfill\break
+to determine whether tree shape affected our findings (see Supporting
+Information). Our first set of simulations evaluated the extent to which
+values of \(\lambda\) estimated from the data corresponded with actual
+input levels of phylogenetic signal. For these simulations we generated
+50 pure-birth phylogenies at each of six different tree sizes, ranging
+from 32 to 1024 taxa (\(n=2^5 - 2^{10}\)). Next, we rescaled the
+simulated phylogenies by multiplying the internal branches by
+\(\lambda\). We used a set of values that encompassed the entire range
+of \(\lambda\): (\(\lambda_{in} = 0.0 \to 1.0\); in 21 intervals of 0.05
+units), resulting in 1050 scaled phylogenies at each level of species
+richness (\(n\)). Continuous traits were then simulated on each
+phylogeny under a Brownian motion model of evolution to obtain datasets
+with known and differing levels of phylogenetic signal. These varied
+from datasets with no phylogenetic signal (when \(\lambda_{in} =0\)) to
+datsets with phylogenetic signal corresponding to what was expected
+under Brownian motion (when \(\lambda_{in} =1\)). \hfill\break
 
 Using the simulated phylogenies we estimated the phylogenetic signal in
 each dataset using Pagel's \(\lambda\). Next, for the 1050 datasets at
@@ -229,19 +227,18 @@ Additionally, the precision of \(\lambda_{est}\) was approximated by
 observing the variation of \(\lambda_{est}\) obtained at each input
 level of phylogenetic signal (\(\lambda_{in}\)). Finally, for comparison
 we estimated the degree of phylogenetic signal in each dataset using
-\(Kappa\) (Blomberg et al. 2003; Adams 2014a), and calculated its effect
-size (\(Z_K\): sensu Adams and Collyer 2016, 2019a) for each dataset.
-Here, the effect size was estimated as:
+\(Kappa\) (Blomberg et al. 2003; Adams 2014a), and from this calculated
+its effect size (\(Z_K\): sensu Adams and Collyer 2016, 2019a) for each
+dataset. Here, the effect size was estimated as:
 \(Z_K=\frac{K_{obs}-\mu_K}{\sigma_K}\), where \(K_{obs}\) was the
 observed \(Kappa\), and \(\mu_K\) and \(\sigma_K\) were the mean and
 standard deviation of the empirical sampling distribution of values
 obtained from the permutation distribution (for discussion see: Adams
-and Collyer 2019b). Because \(Kappa\) and \(Z_K\) differ in scale from
-\(\lambda\), both measures were linearly normalized to a standard
-uniform distribution (\(0\rightarrow1\)), and the variation in the set
-of normalized \(Kappa\) and \(Z_K\) values at each input level of
-phylogenetic signal (\(\lambda_{in}\)) were estimated for comparison.
-\hfill\break
+and Collyer 2019b). Because \(Z_K\) differs in scale from \(\lambda\),
+we used a linear normalization to standardize \(Z_K\) to a uniform
+distribution (\(0\rightarrow1\)), and variation in the set of normalized
+\(Z_K\) values at each input level of phylogenetic signal
+(\(\lambda_{in}\)) were then estimated for comparison. \hfill\break
 
 Our second set of simulations evaluated the extent to which values of
 \(\lambda\) estimated in PGLS regression and ANOVA (i.e., \(Y\sim{X}\))
@@ -574,20 +571,33 @@ variables: Geometric interpretations. Evolution 55:2143--2160.
 \hypertarget{figure-legends}{%
 \section{Figure Legends}\label{figure-legends}}
 
-\textbf{Figure 1}. Accuracy of Pagel's lambda estimations across known
-lambda inputs on various tree sizes. As trees increase in size, the
-estimates more closely resemble the input lambdas, however considerable
-and concerning variation is apparent in trees smaller than those with
-200 tips. \hfill\break
+\textbf{Figure 1}. Precision of Pagel's \(\lambda\) across known levels
+of input phylogenetic signal (\(\lambda_{in}\)) on phylogenies of
+various sizes. As phylogenies increase in size, variation in
+\(\lambda_{in}\) decreases; however the precision is not constant across
+the range of input levels (\(\lambda_{in}: 0 \to 1\)), and is highest at
+intermediate levels of phylogenetic signal. \hfill\break
 
-\textbf{Figure 2}. Estimated ANOVA slopes under PGLS. Across tree sizes,
-the mean estimated slope matches the input slope, and as trees increase
-in size, the variance around this mean estimate decreases. However, for
-trees with fewer than 200 tips, the error around the estimated slope is
-considerable, where these analyses frequently estimate slopes in the
-opposite direction of the known pattern. \hfill\break
+\textbf{Figure 2}. Variation in estimates of phylogenetic signal across
+input levels of phylogenetic signal. \textbf{A}: Estimates of Pagel's
+\(\lambda\) for data simulated on phylogenies with 128 taxa (\(n=128\)),
+\textbf{B} Estimates of \(Z_K\) for data simulated on phylogenies with
+128 taxa (\(n=128\)), \textbf{C} Variance in the variation of
+\(\lambda_{est}\) across input levels of phylogenetic signal, estimated
+on phylogenies containing differing numbers of species. \textbf{D}
+Variance in the variation of \(Z_K\) across input levels of phylogenetic
+signal, estimated on phylogenies containing differing numbers of
+species. \hfill\break
 
-\textbf{Figure 3}. Frequency of estimated lambda values published in
+\textbf{Figure 3}. Precision of Pagel's \(\lambda\) when incorporated in
+phylogenetic regression (\(|Y\sim X\)), across known levels of input
+phylogenetic signal (\(\lambda_{in}\)) on phylogenies of various sizes.
+As phylogenies increase in size, variation in \(\lambda_{in}\)
+decreases; however the precision is not constant across the range of
+input levels (\(\lambda_{in}: 0 \to 1\)), and is highest at intermediate
+levels of phylogenetic signal. \hfill\break
+
+\textbf{Figure 4}. Frequency of estimated lambda values published in
 manuscripts in 2019. The majority of these values were close to 0 or 1,
 and from phylogenies with fewer than 200 taxa.
 
@@ -595,29 +605,45 @@ and from phylogenies with fewer than 200 taxa.
 
 \includegraphics[width=0.95\linewidth]{Fig1}
 
-\singlespacing \textbf{Figure 1}. Accuracy of Pagel's lambda estimations
-across known lambda inputs on various tree sizes. As trees increase in
-size, the estimates more closely resemble the input lambdas, however
-considerable and concerning variation is apparent in trees smaller than
-those with 200 tips. \hfill\break
+\singlespacing \textbf{Figure 1}. Precision of Pagel's \(\lambda\)
+across known levels of input phylogenetic signal (\(\lambda_{in}\)) on
+phylogenies of various sizes. As phylogenies increase in size, variation
+in \(\lambda_{in}\) decreases; however the precision is not constant
+across the range of input levels (\(\lambda_{in}: 0 \to 1\)), and is
+highest at intermediate levels of phylogenetic signal.
 
 \newpage
 
 \includegraphics[width=0.95\linewidth]{Fig2}
 
-\singlespacing \textbf{Figure 2}. Estimated ANOVA slopes under PGLS.
-Across tree sizes, the mean estimated slope matches the input slope, and
-as trees increase in size, the variance around this mean estimate
-decreases. However, for trees with fewer than 200 tips, the error around
-the estimated slope is considerable, where these analyses frequently
-estimate slopes in the opposite direction of the known pattern.
-\hfill\break
+\singlespacing \textbf{Figure 2}. Variation in estimates of phylogenetic
+signal across input levels of phylogenetic signal. \textbf{A}: Estimates
+of Pagel's \(\lambda\) for data simulated on phylogenies with 128 taxa
+(\(n=128\)), \textbf{B} Estimates of \(Z_K\) for data simulated on
+phylogenies with 128 taxa (\(n=128\)), \textbf{C} Variance in the
+variation of \(\lambda_{est}\) across input levels of phylogenetic
+signal, estimated on phylogenies containing differing numbers of
+species. \textbf{D} Variance in the variation of \(Z_K\) across input
+levels of phylogenetic signal, estimated on phylogenies containing
+differing numbers of species.
 
 \newpage
 
-\includegraphics[width=0.95\linewidth]{Fig3}
+\includegraphics[width=0.95\linewidth]{Fig1}
 
-\singlespacing \textbf{Figure 3}. Frequency of estimated lambda values
+\singlespacing \textbf{Figure 3}. Precision of Pagel's \(\lambda\) when
+incorporated in phylogenetic regression (\(|Y\sim X\)), across known
+levels of input phylogenetic signal (\(\lambda_{in}\)) on phylogenies of
+various sizes. As phylogenies increase in size, variation in
+\(\lambda_{in}\) decreases; however the precision is not constant across
+the range of input levels (\(\lambda_{in}: 0 \to 1\)), and is highest at
+intermediate levels of phylogenetic signal.
+
+\newpage
+
+\includegraphics[width=0.95\linewidth]{Fig4}
+
+\singlespacing \textbf{Figure 4}.Frequency of estimated lambda values
 published in manuscripts in 2019. The majority of these values were
 close to 0 or 1, and from phylogenies with fewer than 200 taxa.
 

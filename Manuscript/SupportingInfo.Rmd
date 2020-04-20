@@ -1,0 +1,66 @@
+---
+title:
+
+output: 
+  pdf_document:
+    fig_caption: yes
+    number_sections: no  #note: change to 'no' for most journals
+    keep_tex: true
+    pandoc_args:
+
+
+csl: evolution.csl
+bibliography: Lambda-Refs.bib
+
+
+---
+# Supporting Information for: Estimates of Phylogenetic Signal Based on Lambda are Often Inaccurate
+
+**FOR DCA**
+
+1: balanced/symmetric trees
+2: Kappa and K_Z
+3: Beta from PGLS
+
+Here we provide additional supporting information referenced in the main document: additional analyses, and simulation results across a wider set of input conditions. 
+
+## Simulations on differently shaped phylogenies
+
+```{r setup, include=FALSE}
+  library(knitr)
+  knitr::opts_chunk$set(echo = TRUE)
+```
+
+In addition to using pure-birth phylogenies, we explored the effect of tree shape on our findings using both balanced and pectinate trees. As before, simulations were conducted on a range of tree sizes ($n=2^5 - 2^{10}$), and across a range of input levels of phylogenetic signal ($\lambda_{in} = 0.0 \to 1.0$; in 21 intervals of 0.05 units). For each $n$ and $\lambda_{in}$ combination, 50 replicates of a continuous trait were simulated using a Brownian motion model of evolution. Using these, we estimated the degree of phylogenetic signal using $\lambda$. \hfill\break
+
+*Results*. As found with pure-birth phylogenies, estimates of $\lambda$ varied ..... ** FINISH THIS** (Fig. S1, S2). 
+
+```{r, echo = FALSE, out.width="95%"}
+include_graphics("Fig1.png")  
+
+```
+
+\textbf{Figure S1}. Accuracy of Pagel's lambda estimations across known lambda inputs on various tree sizes. Results obtained using balanced trees. \hfill\break
+
+```{r, echo = FALSE, out.width="95%"}
+include_graphics("Fig1.png")  
+
+```
+
+\textbf{Figure S2}. Accuracy of Pagel's lambda estimations across known lambda inputs on various tree sizes. Results obtained using pectinate trees. \hfill\break
+
+
+## Literature Survey
+
+\newpage
+
+# References
+
+ \setlength{\parindent}{-0.25in}
+ \setlength{\leftskip}{0.25in}
+ \setlength{\parskip}{8pt}
+ \noindent
+
+<div id="refs"></div>
+ 
+
