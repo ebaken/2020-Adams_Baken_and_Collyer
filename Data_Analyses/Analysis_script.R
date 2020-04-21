@@ -16,7 +16,7 @@ kappa_data_64 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_64.c
 kappa_data_128 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_128.csv")
 kappa_data_256 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_256.csv")
 kappa_data_512 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_512.csv")
-kappa_data_1024 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_512.csv")
+kappa_data_1024 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_1024.csv")
 
 # Getting normalized K and Z vals
 
@@ -44,11 +44,13 @@ data_list <- list(kappa_data_32, kappa_data_64, kappa_data_128, kappa_data_256, 
 # Lambda Estimates 
 
 fit_list <- lapply(1:6, function(i) lm(data_list[[i]]$lambda.est~data_list[[i]]$lambda.input))
+conf_int <- lapply(1:6, function(i) confint(fit_list[[i]], 'data_list[[i]]$lambda.input', level=0.95))
 slopes <- unlist(lapply(1:6, function(i) coef(fit_list[[i]])[2]))
 names(slopes) <- c("32", "64", "128", "256", "512", "1024")
 
-write.csv(slopes, "Data_Analyses/Munged_Data/Lambda_est_slopes.csv", row.names = T)
+write.csv(slopes, "Data_Analyses/Munged_Data/Lambda_est__input_slope.csv", row.names = T)
 
+# y ranges
 lambda_input_options <- unique(kappa_data_32$lambda.input)
 
 range_df <- data.frame(lambda_input = lambda_input_options, n32 = rep(NA, 21), n64 = rep(NA, 21), 
@@ -66,9 +68,9 @@ range_df$n512 <- unlist(lapply(1:21, function(i) max(kappa_data_512[which(kappa_
 range_df$n1024 <- unlist(lapply(1:21, function(i) max(kappa_data_1024[which(kappa_data_1024$lambda.input == lambda_input_options[[i]]),2]) - 
                        min(kappa_data_1024[which(kappa_data_1024$lambda.input == lambda_input_options[[i]]),2])))
 
+write.csv(range_df, "Data_Analyses/Munged_Data/Lambda_est_yranges.csv", row.names = F)
 
-write.csv(range_df, "Data_Analyses/Munged_Data/Lambda_est_ranges.csv", row.names = F)
-
+# y var
 
 var_df <- data.frame(lambda_input = lambda_input_options, n32 = rep(NA, 21), n64 = rep(NA, 21), 
                        n128 = rep(NA, 21), n256 = rep(NA, 21), n512 = rep(NA, 21), n1024 = rep(NA, 21))
@@ -83,7 +85,65 @@ var_df
 
 write.csv(var_df, "Data_Analyses/Munged_Data/Lambda_est_vars.csv", row.names = F)
 
-# Kappa Estimates
+# x ranges and var
+
+range_df <- data.frame(n32_min = rep(NA, 11), n32_max = rep(NA, 11), n32_var = rep(NA, 11), 
+                       n64_min = rep(NA, 11), n64_max = rep(NA, 11), n64_var = rep(NA, 11),
+                       n128_min = rep(NA, 11), n128_max = rep(NA, 11), n128_var = rep(NA, 11),
+                       n256_min = rep(NA, 11), n256_max = rep(NA, 11), n256_var = rep(NA, 11),
+                       n512_min = rep(NA, 11), n512_max = rep(NA, 11), n512_var = rep(NA, 11), 
+                       n1024_min = rep(NA, 11), n1024_max = rep(NA, 11), n1024_var = rep(NA, 11))
+
+lambda_est_intervals <- c(0,.05,.15,.25,.35,.45,.55,.65,.75,.85,.95,1)
+rownames(range_df) <- c("0-.05","0.05-.15",".15-.25",".25-.35",".35-.45",".45-.55",".55-.65",".65-.75",".75-.85",".85-.95",".95-1")
+
+for(i in 1:11) {
+  kappa_data_32_interval <- kappa_data_32[which(kappa_data_32$lambda.est >= lambda_est_intervals[i] & kappa_data_32$lambda.est < lambda_est_intervals[i+1]),]
+  range_df$n32_min[i] <- min(kappa_data_32_interval$lambda.input)
+  range_df$n32_max[i] <- max(kappa_data_32_interval$lambda.input)
+  range_df$n32_var[i] <- var(kappa_data_32_interval$lambda.input)
+}
+
+for(i in 1:11) {
+  kappa_data_64_interval <- kappa_data_64[which(kappa_data_64$lambda.est >= lambda_est_intervals[i] & kappa_data_64$lambda.est < lambda_est_intervals[i+1]),]
+  range_df$n64_min[i] <- min(kappa_data_64_interval$lambda.input)
+  range_df$n64_max[i] <- max(kappa_data_64_interval$lambda.input)
+  range_df$n64_var[i] <- var(kappa_data_64_interval$lambda.input)
+}
+
+for(i in 1:11) {
+  kappa_data_128_interval <- kappa_data_128[which(kappa_data_128$lambda.est >= lambda_est_intervals[i] & kappa_data_128$lambda.est < lambda_est_intervals[i+1]),]
+  range_df$n128_min[i] <- min(kappa_data_128_interval$lambda.input)
+  range_df$n128_max[i] <- max(kappa_data_128_interval$lambda.input)
+  range_df$n128_var[i] <- var(kappa_data_128_interval$lambda.input)
+}
+
+for(i in 1:11) {
+  kappa_data_256_interval <- kappa_data_256[which(kappa_data_256$lambda.est >= lambda_est_intervals[i] & kappa_data_256$lambda.est < lambda_est_intervals[i+1]),]
+  range_df$n256_min[i] <- min(kappa_data_256_interval$lambda.input)
+  range_df$n256_max[i] <- max(kappa_data_256_interval$lambda.input)
+  range_df$n256_var[i] <- var(kappa_data_256_interval$lambda.input)
+}
+
+for(i in 1:11) {
+  kappa_data_512_interval <- kappa_data_512[which(kappa_data_512$lambda.est >= lambda_est_intervals[i] & kappa_data_512$lambda.est < lambda_est_intervals[i+1]),]
+  range_df$n512_min[i] <- min(kappa_data_512_interval$lambda.input)
+  range_df$n512_max[i] <- max(kappa_data_512_interval$lambda.input)
+  range_df$n512_var[i] <- var(kappa_data_512_interval$lambda.input)
+}
+
+for(i in 1:11) {
+  kappa_data_1024_interval <- kappa_data_1024[which(kappa_data_1024$lambda.est >= lambda_est_intervals[i] & kappa_data_1024$lambda.est < lambda_est_intervals[i+1]),]
+  range_df$n1024_min[i] <- min(kappa_data_1024_interval$lambda.input)
+  range_df$n1024_max[i] <- max(kappa_data_1024_interval$lambda.input)
+  range_df$n1024_var[i] <- var(kappa_data_1024_interval$lambda.input)
+}
+
+range_df[6,]
+
+write.csv(range_df, "Data_Analyses/Munged_Data/Lambda_est_xranges_var.csv", row.names = F)
+
+# Kappa Estimates Norm
 
 lambda_input_options <- unique(kappa_data_32$lambda.input)
 

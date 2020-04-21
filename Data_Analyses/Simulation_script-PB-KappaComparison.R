@@ -17,7 +17,7 @@ lambdas <- seq(0,1,.05) # starting with just 3 lambda values
 lambdas_expanded <- rep(lambdas, each = nsim)
 fullsimlength <- length(lambdas_expanded)
 
-n <- treesizes[6] # number of tips: adjust each iteration
+n <- treesizes[2] # number of tips: adjust each iteration
 
 # New Rep #####
 DataTable_lambda <- data.frame(lambda.input = lambdas_expanded, 
@@ -25,11 +25,11 @@ DataTable_lambda <- data.frame(lambda.input = lambdas_expanded,
                                kappa = rep(NA, nsim*length(lambdas)),
                                kappa.z = rep(NA, nsim*length(lambdas))) 
 
-pb <- txtProgressBar(24, fullsimlength, style=1)
+pb <- txtProgressBar(1, fullsimlength, style=1)
 
 Start.time<-Sys.time()
-Start.time # START AGAIN AT J = 24
-for (i in 24:fullsimlength) {
+Start.time
+for (j in 1:fullsimlength) {
 
   while(TRUE){
  
@@ -48,7 +48,7 @@ for (i in 24:fullsimlength) {
     comp_data_x <- comparative.data(tree, data.frame(X.df=X, Species = names(X)), Species, vcv = F, vcv.dim = 2)
     
     pgls_est <- try(pgls(X.df ~ 1, comp_data_x, lambda='ML'),silent = T)
-    kappa_est <- try(physignal(X, phy = tree, iter = 999, print.progress = F), silent = F)
+    kappa_est <- try(physignal(X, phy = tree, iter = 999, print.progress = F), silent = T)
     
     if(!is(pgls_est, 'try-error') & !is(kappa_est, 'try-error')) break  }
 
@@ -57,7 +57,12 @@ DataTable_lambda[j,3] <- kappa_est$phy.signal
 
 kappa_sum <- capture.output(summary(kappa_est)) # this capture.output was necessary to silence the print function that cluttered my console. not analytically necessary.
 text_z <- kappa_sum[11]
-DataTable_lambda[j,4] <- as.numeric(gsub("[^0-9.-]", "", text_z)) # gettin rid of text
+
+while(TRUE){
+placeholder <- try(as.numeric(gsub("[^0-9.-]", "", text_z)),silent=T) # gettin rid of text
+if(!is(placeholder, 'try-error')) break}
+
+DataTable_lambda[j,4] <- placeholder
 
 setTxtProgressBar(pb, j)
 } 
