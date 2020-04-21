@@ -124,8 +124,8 @@ evolutionary change (typically Brownian motion). The inclusion of a
 scaling parameter, \(\lambda\), transforms the lengths of the internal
 branches of the phylogeny to improve the fit, and this parameter
 describes the degree of phylogenetic signal in the dataset (Pagel 1999;
-Freckleton et al. 2002). Pagel's \(\lambda\) also has the advantage that
-it may be included when estimating the association of traits in a
+Freckleton et al. 2002). Pagel's \(\lambda\) also has the appeal that it
+may be included when estimating the association of traits in a
 phylogenetic context, meaning that one may account for the degree of
 phylogenetic signal while conducting phylogenetic regression or ANOVA
 (see Freckleton et al. 2002). \hfill\break
@@ -151,9 +151,9 @@ compared (see Munkemuller et al. 2012). One study (Boettiger et al.
 2012) found that estimates of Pagel's \(\lambda\) displayed less
 variation when data were simulated on a large phylogeny (\(N=281\)) as
 compared to a small one (\(N=13\)), concluding that insufficient data
-(i.e., the number of species) was the underlying cause of the lack of
-precision in parameter estimation. However, this conclusion assumes that
-the precision in estimating \(\lambda\) remains constant across its
+(i.e., the number of species) was the underlying cause of the increased
+variation across parameter estimates. However, this conclusion assumes
+that the precision in estimating \(\lambda\) remains constant across its
 range (\(\lambda = 0 \to 1\)); an assumption that to date, has not been
 verified. Thus, despite widespread use of Pagel's (1999) \(\lambda\) in
 macroevolutionary studies, at present, we still lack a general
@@ -161,36 +161,39 @@ understanding of the precision with which \(\lambda\) can estimate
 levels of phylogenetic signal in phenotypic datasets. \hfill\break
 
 In this study, we evaluate the precision of Pagel's \(\lambda\) in
-estimating known levels of phylogenetic signal in phenotypic data. First
-we use computer simulations across differing numbers of species,
-differently shaped phylogenies, and differing input levels of
-phylogenetic signal, to explore the degree to which \(\lambda\)
-correctly identifies known levels of phylogenetic signal, and under what
-circumstances. For comparison, we also evaluate estimates of \(Kappa\)
-and its empirically-derived effect size (\(Z_K\)) for this purpose.
-Additionally, we use simulations to determine how the inclusion of
-\(\lambda\) in phylogenetic regression and ANOVA (i.e., PGLS) affects
-parameter estimation, and whether levels of phylogenetic signal
-estimated in a PGLS framework are accurate. We then survey the recent
-macroevolutionary literature for published papers containing estimates
-of \(\lambda\) from empirical datasets, and compare these empirical
-estimates to patterns gleaned from our computer simulations. In general
-we find that while PGLS parameters (e.g., \(\beta\)) are accurately
-estimated with the inclusion of phylogenetic signal, estimates of
-\(\lambda\) are not. Further, we find that estimates of \(\lambda\) vary
-widely for a given input value of phylogenetic signal, and that this
-variation is not constant across the range of input signal, with
-decreased precision when phylogenetic signal is of intermediate
-strength. By contrast, variation across effect sizes (\(Z_K\)) obtained
-from \(Kappa\) is far more consistent across the range of input values,
-and the precision of estimating \(Z_K\) is preferable to that observed
-using \(\lambda\). We conclude that estimates of phylogenetic signal
-using Pagel's \(\lambda\) are often innacurate, and thus interpreting
-strength of phylogenetic signal in phenotypic datasets based on this
-measure should be treated with caution. By contrast, effect sizes
-obtained from \(Kappa\) hold promise for characterizing phylogenetic
-signal, and comparing the strength of phylogenetic signal across
-datasets.
+estimating known levels of phylogenetic signal in phenotypic data. We
+use computer simulations with differing numbers of species, differently
+shaped phylogenies, and differing input levels of phylogenetic signal,
+to explore the degree to which \(\lambda\) correctly identifies known
+levels of phylogenetic signal, and under what circumstances. We also
+evaluate the precision of a standardized effect size (\(Z_K\)) based on
+\(Kappa\) for comparison. Additionally, we use simulations to determine
+how the inclusion of \(\lambda\) in phylogenetic regression and ANOVA
+(i.e., PGLS) affects parameter estimation, and whether levels of
+phylogenetic signal estimated in a PGLS framework are accurate. We then
+survey the recent macroevolutionary literature for published papers
+containing estimates of \(\lambda\) from empirical datasets, and compare
+these empirical estimates to patterns gleaned from our computer
+simulations. In general we find that while PGLS parameters (e.g.,
+\(\beta\)) are accurately estimated with the inclusion of phylogenetic
+signal, estimates of \(\lambda\) are not. We also find that estimates of
+\(\lambda\) vary widely for a given input value of phylogenetic signal,
+and that this variation is not constant across the range of input
+signal, with decreased precision when phylogenetic signal is of
+intermediate strength. In addition, the same \(\lambda_{est}\) may be
+obtained from datasets containing vastly different input levels of
+phylogenetic signal. By contrast, variation across effect sizes
+(\(Z_K\)) obtained from \(Kappa\) is far more consistent across the
+range of input values, and the precision of \(Z_K\) is generally
+preferable to that of \(\lambda_{est}\). Further, because \(Z_K\) is a
+standardized effect size, the strength of phylogenetic signal is more
+readily interpretable, and may be compared across datasets. We conclude
+that estimates of phylogenetic signal using Pagel's \(\lambda\) are
+often innacurate, and thus interpreting strength of phylogenetic signal
+in phenotypic datasets based on this measure is compromised. By
+contrast, effect sizes obtained from \(Kappa\) hold promise for
+characterizing phylogenetic signal, and for comparing the strength of
+phylogenetic signal across datasets.
 
 \hypertarget{materials-and-methods}{%
 \section{Materials and Methods}\label{materials-and-methods}}
@@ -226,19 +229,22 @@ between \(\lambda_{in}\) and \(\lambda_{est}\) using regression.
 Additionally, the precision of \(\lambda\) was approximated by observing
 the variation of \(\lambda_{est}\) obtained at each input level of
 phylogenetic signal (\(\lambda_{in}\)). Finally, for comparison we
-estimated the degree of phylogenetic signal in each dataset using
-\(Kappa\) (Blomberg et al. 2003; Adams 2014a), and from this calculated
-its effect size (\(Z_K\): sensu Adams and Collyer 2016, 2019a) for each
-dataset. Here, the effect size was estimated as:
+characterized the strength of phylogenetic signal in each dataset using
+a standardized effect size (\(Z_K\): sensu Adams and Collyer 2016,
+2019a) based on \(Kappa\). As suggested by Adams and Collyer (2019b),
+the effect size for phylogenetic signal may be estimated as:
 \(Z_K=\frac{K_{obs}-\mu_K}{\sigma_K}\), where \(K_{obs}\) was the
 observed \(Kappa\), and \(\mu_K\) and \(\sigma_K\) were the mean and
 standard deviation of the empirical sampling distribution of values
-obtained from the permutation distribution (for discussion see: Adams
-and Collyer 2019b). Because \(Z_K\) differs in scale from \(\lambda\),
-we used a linear normalization to standardize \(Z_K\) to a uniform
-distribution (\(0\rightarrow1\)), and variation in the set of normalized
-\(Z_K\) values at each input level of phylogenetic signal
-(\(\lambda_{in}\)) were then estimated for comparison. \hfill\break
+obtained from the permutation distribution. \(Z_K\) describes the
+strength of phylogenetic signal as a standard deviate from its sampling
+distribution, and thus directly measures the strength of signal in a
+manner that is comparable across datasets. Variation in the set of
+\(Z_K\) at each input level of phylogenetic signal was then calculated
+as an estimate of precision in \(Z_K\). However, because \(Z_K\) differs
+in scale from \(\lambda\), we used a linear normalization to standardize
+\(Z_K\) to a uniform distribution (\(0\rightarrow1\)), and estimated the
+precision of \(Z_K\) from the normalized values. \hfill\break
 
 Our second set of simulations evaluated the extent to which values of
 \(\lambda\) estimated in PGLS regression and ANOVA (i.e., \(Y\sim{X}\))
@@ -282,7 +288,7 @@ also noted whether biological interpretations based on \(\lambda_{est}\)
 were made, and for studies that reported more than one
 \(\lambda_{est}\), we also noted whether these were compared in some
 manner, and whether such comparisons were accompanied with statistical
-tests between \(\lambda_{est}\). \hfill\break
+tests between \(\lambda_{est}\).
 
 \hypertarget{results}{%
 \section{Results}\label{results}}
@@ -290,55 +296,86 @@ tests between \(\lambda_{est}\). \hfill\break
 \hypertarget{simulations-1}{%
 \subsection{\texorpdfstring{\emph{Simulations}}{Simulations}}\label{simulations-1}}
 
-Our primary series of simulations revealed several patterns. First, the
-relationship between \(\lambda_{est}\) and input levels of phylogenetic
-signal was \(\sim\beta=1.0\) at each level of species richness
-(\(n=32, 64, 128, 256, 512, 1024\)). This implied that the mean
-\(\lambda_{est}\) across datasets for a given set of simulation
-conditions reflected input levels of phylogenetic signal. However, as
-shown in Figure 1, the precision of those estimates varied widely, and
-in several interesting ways. Predictably, precision was worst at low
-levels of species richness, where in many cases the set of
-\(\lambda_{est}\) spanned nearly the entire range of possible values
-(e.g., \(n=32\); \(\lambda_{est}=0.5\): range = \(0.0\to0.985\)).
-Second, as species richness increased, variation across estimates of
-\(\lambda\) decreased (Figure 1). This confirmed the pattern identified
-by Boettiger et al.~(2012) on a small (\(n=13\)) and large (\(n=281\))
-phylogeny, and demonstrated that this trend was general across a wider
-range of species richness. Importantly however, our broader set of
+Our first set of simulations revealed several patterns. First, the
+relationship between \(\lambda_{est}\) and \(\lambda_{in}\) across the
+range input levels of phylogenetic signal was \(\sim\beta=1.0\);
+indicating that the average \(\lambda_{est}\) across datasets for a
+given set of simulation condition correctly reflected input levels of
+phylogenetic signal. However, as shown in Figure 1, the precision of
+those estimates varied widely, and in several interesting ways.
+Predictably, precision was worse at low levels of species richness,
+where in many cases the set of \(\lambda_{est}\) spanned nearly the
+entire range of possible values (e.g., \(n=32\); \(\lambda_{in}=0.5\):
+range of \(\lambda_{est}= 0.0\to 0.985\)). Second, as species richness
+increased, variation across estimates of \(\lambda\) decreased (Figure
+1). This confirmed the pattern identified by Boettiger et al.~(2012) on
+a small (\(n=13\)) versus a large (\(n=281\)) phylogeny, and
+demonstrated that the trend of increasing precision with higher species
+richness was general. Importantly however, our broader set of
 simulations revealed that the precision of \(\lambda_{est}\) was not
-uniform across all levels of phylogenetic signal, and that there was a
-particular pattern to the imprecision of estimating this phylogenetic
-parameter. Specifically, we found that variation in \(\lambda_{est}\)
-was highest at intermediate levels of phylogenetic signal, and decreased
-at both lower and higher levels of input signal (Figure 1). This implied
-that the precision in estimating \(\lambda\) was worst at intermediate
-levels of phylogenetic signal; a pattern that remained consistent across
-all levels of species richness evaluated here (Figure 1). Notably, even
-at very large levels of species richness, the range of \(\lambda_{est}\)
+uniform across all levels of phylogenetic signal. Specifically, we found
+that variation in \(\lambda_{est}\) was highest at intermediate levels
+of phylogenetic signal, and decreased at both lower and higher levels of
+input signal (Figure 1). This implied that the precision in estimating
+\(\lambda\) was worse at intermediate values, and improved as the levels
+of phylogenetic signal were closer to \(\lambda_{in}=0\) (no
+phylogenetic signal) or \(\lambda_{in}=1\) (Brownian motion). Notably,
+even at large levels of species richness, the range of \(\lambda_{est}\)
 still encompassed a substantial portion of possible values (e.g.,
-\(n=1024\); \(\lambda_{est}=0.5\): range = \(0.31\to 0.68\)). From this
-we conclude that \(\lambda_{est}\) is not an accurate estimator of the
-strength of phylogenetic signal in phenotypic datasets, and that
-biological interpretations of the level of phylogenetic signal based on
-\(\lambda\) should be treated with caution. \hfill\break
+\(n=512\); \(\lambda_{in}=0.5\): range of
+\(\lambda_{est} = 0.32\to 0.68\)). Likewise, the same \(\lambda_{est}\)
+could be obtained from datasets containing vastly different input levels
+of phylogenetic signal (e.g., \(n=512\); \(\lambda_{est} = 0.5\); range
+of \(\lambda_{in} = 0.25 \to 0.65\)). Taken together, these findings
+reveal that \(\lambda_{est}\) does not precisely characterize observed
+levels of phylogenetic signal in phenotypic datasets, and that
+biological interpretations of the strength of phylogenetic signal based
+on \(\lambda\) may be highly inaccurate. \hfill\break
 
 {[}insert Figure 1 here{]} \hfill\break
 
-By contrast, (FIg 2) Kappa. Much smaller range and variation as compared
-with lambda, but with larger l-in, variation in kappa does increase.
-However, this is not the case with Z-K. Z-K increases predictably
-(linearly, progressively\ldots) with L-in, and importantly variation in
-Z-K remains nearly constant across the range of input values. this means
-that Z-K is equally precise in estimating the strength of phylogenetic
-signal, and may be more adept at facilitating useful statements on teh
-relative strength of phylogenetic signal within and across datasets.
-\hfill\break
-
-\textbf{NOTE: Fig 2 is 4 panels for N=128: Lambda, Kappa, Z-K,
-Z-k-normalized.}
+By contrast, when characterizing phylogenetic signal with the
+standardized effect size (\(Z_K\)) of \(Kappa\), we found that the
+precision of \(Z_K\) was more stable, as variation across datasets was
+far more consistent across the range of input values. For example, when
+\(n=128\) the precision of \(\lambda_{est}\) (Figure 2A) varied
+considerably more across input levels of phylogenetic signal than did
+the precision of \(Z_K\) for the same datasets (Figure 2B). Further, for
+a given \(n\), the variance in precision estimates of \(Z_K\) was
+considerably smaller than the variance in precision estimates of
+\(\lambda_{est}\) (Fig. 2C,D); implying that estimates of phylogenetic
+signal were more reliable and robust when using \(Z_K\) (for additional
+results see Supporting Information). Finally, it should also be
+recognized that because \(Z_K\) is a standardized effect size, the
+strength of phylogenetic signal is more readily interpretable when using
+this measure, as \(Z_K\) expresses the strength of phylogenetic signal
+in standard deviation units relative to the mean (see Adams and Collyer
+2019b). This further implies that comparisons of the strength of
+phylogenetic signal among phenotypic traits are possible, and may be
+accomplished statistically via a two-sample test that formally compares
+\(Z_K\) across datasets (for comparisons of multivariate effect sizes
+see: Adams and Collyer 2016, 2019a). \hfill\break
 
 {[}insert Figure 2 here{]} \hfill\break 
+
+When \(\lambda\) was incorporated in PGLS regression and ANOVA (i.e.,
+\(Y\sim{X}\)), we found much the same pattern as in the previous
+simulations. Namely, the precision of \(\lambda_{est}\) varied inversely
+with species richness; where greater precision was obtained at higher
+levels of species richness (Figure 3). Likewise, the precision in
+estimating \(\lambda\) was worse at intermediate values (Figure 3), and
+improved as the levels of phylogenetic signal were closer to
+\(\lambda_{in}=0\) (no phylogenetic signal) or \(\lambda_{in}=1\)
+(Brownian motion). Generally, the spread of estimates was slightly
+broader when \(\lambda\) was co-estimated with regression parameters in
+PGLS regression (Figure 3), as compared to when \(\lambda\) was
+estimated in cases only the dependent variable (Y) was considered
+(Figure 1). Finally, found that regression parameters (\(\beta\)) were
+accurately estimated when \(\lambda\) was included during phylogenetic
+regression; a result which confirmed earlier findings of Revell (2010)
+(see Supporting Information). \hfill\break
+
+{[}insert Figure 3 here{]}
 
 \hypertarget{literature-survey-1}{%
 \subsection{\texorpdfstring{\emph{Literature
@@ -353,7 +390,7 @@ the published lambdas were estimated using phylogenies with fewer than
 200 tips, and 348 lambda estimates (8.57\% of all published estimates)
 came from phylogenies with fewer than 30 tips. \hfill\break
 
-{[}insert Figure 3 here{]} \hfill\break
+{[}insert Figure 4 here{]} \hfill\break
 
 Many of the reviewed manuscripts liberally interpreted the magnitude of
 the estimate lambda, using phrases such as ``strong'' or ``weak''
