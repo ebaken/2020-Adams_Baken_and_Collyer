@@ -11,27 +11,21 @@ Regression.data <- as.data.frame(Regression.data)
 
 library(cowplot)
 library(ggplot2)
-Regression.data.ml <- Regression.data[(Regression.data$method == "ml"),]
 
-Regression.data.ml
+Data32 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_32.csv")
+Data64 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_64.csv")
+Data128 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_128.csv")
+Data256 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_256.csv")
+Data512 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_512.csv")
+Data1024 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_1024.csv")
 
-data_list <- list(Regression.data.ml[which(Regression.data.ml$tree.size == treesizes[1]),],
-                  Regression.data.ml[which(Regression.data.ml$tree.size == treesizes[2]),],
-                  Regression.data.ml[which(Regression.data.ml$tree.size == treesizes[3]),],
-                  Regression.data.ml[which(Regression.data.ml$tree.size == treesizes[4]),],
-                  Regression.data.ml[which(Regression.data.ml$tree.size == treesizes[5]),],
-                  Regression.data.ml[which(Regression.data.ml$tree.size == treesizes[6]),])
-
-fit_list <- lapply(1:6, function(i) lm(data_list[[i]]$lambda.est.x~data_list[[i]]$lambda.input))
-slopes <- unlist(lapply(1:6, function(i) coef(fit_list[[i]])[2]))
-intercepts <- unlist(lapply(1:6, function(i) coef(fit_list[[i]])[1]))
+data_list <- list(Data32, Data64, Data128,
+                  Data256, Data512, Data1024)
 
 PlotList <- lapply(1:6, function(j){
-   reduced.data <- Regression.data.ml[which(Regression.data.ml$tree.size == treesizes[[j]]),]
-   ggplot(reduced.data, aes(x = lambda.input, y = lambda.est.x)) +
+   ggplot(data_list[[j]], aes(x = lambda.input, y = lambda.est)) +
       geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
-      xlab("Input Lambda") + ylab("Estimated Lambda") + ggtitle(treesizes[[j]]) + 
-     geom_abline(slope = slopes[[j]], intercept = intercepts[[j]], color = "red")
+      xlab("Input Lambda") + ylab("Estimated Lambda") + ggtitle(treesizes[[j]]) 
 })
 
 jpeg("Figures/Fig1.jpeg", res = 120, quality = 100, width = 1000, height = 660)
