@@ -6,7 +6,6 @@ setwd("/Users/ericabaken/Documents/School/Projects/Lambda_Eval/Manuscript/2020-A
 library(phytools)
 library(geomorph)
 library(geiger)
-#library(svMisc)
 library(caper)
 
  # extract kappa values for comparison
@@ -17,13 +16,15 @@ lambdas <- seq(0,1,.05) # starting with just 3 lambda values
 lambdas_expanded <- rep(lambdas, each = nsim)
 fullsimlength <- length(lambdas_expanded)
 
-n <- treesizes[2] # number of tips: adjust each iteration
+n <- treesizes[1] # number of tips: adjust each iteration
 
 # New Rep #####
 DataTable_lambda <- data.frame(lambda.input = lambdas_expanded, 
                                lambda.est = rep(NA, nsim*length(lambdas)), 
                                kappa = rep(NA, nsim*length(lambdas)),
-                               kappa.z = rep(NA, nsim*length(lambdas))) 
+                               kappa.z = rep(NA, nsim*length(lambdas)),
+                               CI.lower = rep(NA, nsim*length(lambdas)),
+                               CI.upper = rep(NA, nsim*length(lambdas))) 
 
 pb <- txtProgressBar(1, fullsimlength, style=1)
 
@@ -55,6 +56,7 @@ for (j in 1:fullsimlength) {
 DataTable_lambda[j,2] <- pgls_est$param[2]
 DataTable_lambda[j,3] <- kappa_est$phy.signal 
 
+
 kappa_sum <- capture.output(summary(kappa_est)) # this capture.output was necessary to silence the print function that cluttered my console. not analytically necessary.
 text_z <- kappa_sum[11]
 
@@ -64,19 +66,12 @@ if(!is(placeholder, 'try-error')) break}
 
 DataTable_lambda[j,4] <- placeholder
 
+DataTable_lambda[j,5] <- pgls_est$djdjdj # confidence intervals....
+DataTable_lambda[j,6] <- pgls_est$djdjdj # confidence intervals....
+
 setTxtProgressBar(pb, j)
 } 
 Sys.time()-Start.time
-
-# plot
-
-#jpeg("Figures/FigS5_512.jpeg", res = 80, quality = 100, width = 440, height = 990)
-par(mfrow = c(3,1))
-plot(x = DataTable_lambda$lambda.input, y = DataTable_lambda$lambda.est, pch = 19, xlab = "Input Lambda", ylab = "Estimated Lambda X~1")
-plot(x = DataTable_lambda$lambda.input, y = DataTable_lambda$kappa, pch = 19, ylim = c(0,2.5), xlab = "Input Lambda", ylab = "Estimated Kappa")
-plot(x = DataTable_lambda$lambda.input, y = DataTable_lambda$kappa.z, pch = 19, xlab = "Input Lambda", ylab = "Kappa Z Scores") # look at this one
-#dev.off()
-
 
 # Writing Output Files ####
 file_name <- paste("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_", n, ".csv", sep = "")

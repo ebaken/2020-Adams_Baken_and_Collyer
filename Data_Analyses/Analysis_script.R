@@ -223,7 +223,7 @@ write.csv(var_df, "Data_Analyses/Munged_Data/Kappa_Z_norm_vars.csv", row.names =
 library(readxl)
 review <- read_excel("Literature_Review/1Summary.xlsx", sheet = "Since 2019 Lambda Vals")
 colnames(review)
-length(unique(review$Reference)) #182
+length(unique(review$Reference)) # 182
 
 # Published lambda values
 published.lambdas <- review[,c(1,3,4)]
