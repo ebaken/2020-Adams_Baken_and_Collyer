@@ -16,7 +16,7 @@ lambdas <- seq(0,1,.05) # starting with just 3 lambda values
 lambdas_expanded <- rep(lambdas, each = nsim)
 fullsimlength <- length(lambdas_expanded)
 
-n <- treesizes[1] # number of tips: adjust each iteration
+n <- treesizes[5] # number of tips: adjust each iteration
 
 # New Rep #####
 DataTable_lambda <- data.frame(lambda.input = lambdas_expanded, 
@@ -26,12 +26,11 @@ DataTable_lambda <- data.frame(lambda.input = lambdas_expanded,
                                CI.lower = rep(NA, nsim*length(lambdas)),
                                CI.upper = rep(NA, nsim*length(lambdas))) 
 
-pb <- txtProgressBar(1, fullsimlength, style=1)
+pb <- txtProgressBar(499, fullsimlength, style=1)
 
 Start.time<-Sys.time()
 Start.time
-for (j in 1:fullsimlength) {
-
+for (j in 499:fullsimlength) {
   while(TRUE){
  
     tree<-pbtree(n=n,scale=1) 
@@ -55,24 +54,26 @@ for (j in 1:fullsimlength) {
 
 DataTable_lambda[j,2] <- pgls_est$param[2]
 DataTable_lambda[j,3] <- kappa_est$phy.signal 
+DataTable_lambda[j,4] <- kappa_est$Z
 
-
-kappa_sum <- capture.output(summary(kappa_est)) # this capture.output was necessary to silence the print function that cluttered my console. not analytically necessary.
-text_z <- kappa_sum[11]
-
-while(TRUE){
-placeholder <- try(as.numeric(gsub("[^0-9.-]", "", text_z)),silent=T) # gettin rid of text
-if(!is(placeholder, 'try-error')) break}
-
-DataTable_lambda[j,4] <- placeholder
-
-DataTable_lambda[j,5] <- pgls_est$djdjdj # confidence intervals....
-DataTable_lambda[j,6] <- pgls_est$djdjdj # confidence intervals....
+DataTable_lambda[j,5] <- pgls_est$param.CI$lambda$ci.val[1] # lower CI
+DataTable_lambda[j,6] <- pgls_est$param.CI$lambda$ci.val[2] # upper CI
 
 setTxtProgressBar(pb, j)
 } 
 Sys.time()-Start.time
 
+# fixing the lower CI NAs (which are 0) and the upper CI NAs (which are 1)
+
+DataTable_lambda[which(is.na(DataTable_lambda$CI.lower)=="TRUE"),5] <- 0
+DataTable_lambda[which(is.na(DataTable_lambda$CI.upper)=="TRUE"),6] <- 1
+
+anyNA(DataTable_lambda) # want FALSE
+
+DataTable_lambda[which(is.na(DataTable_lambda$kappa.z)=="TRUE"),]
+length(which(is.na(DataTable_lambda$kappa.z)=="TRUE"))
+
 # Writing Output Files ####
 file_name <- paste("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_", n, ".csv", sep = "")
 write.csv(DataTable_lambda, file_name, row.names = F)
+

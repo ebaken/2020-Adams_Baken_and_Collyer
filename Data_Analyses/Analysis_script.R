@@ -229,22 +229,28 @@ length(unique(review$Reference)) # 182
 published.lambdas <- review[,c(1,3,4)]
 published.lambdas.pruned <- published.lambdas[-which(published.lambdas$`Estimated Lambdas Simple` > 1 | published.lambdas$`Estimated Lambdas Simple` < 0),]
 published.lambdas.df <- as.data.frame(published.lambdas.pruned)
-nrow(published.lambdas.df) # 1552
-1552/182 # average number of reported lambda values per manuscript
+nrow(published.lambdas.df) # 1556
+1556/182 # average number of reported lambda values per manuscript = 8.549451
 colnames(published.lambdas.df) <- c("Refs", "Published_Lambdas", "Taxa")
 published.lambdas.df$Refs <- as.factor(published.lambdas.df$Refs)
 
 min(table(published.lambdas.df$Refs)) # 1: lowest number of reported lambdas per paper
 max(table(published.lambdas.df$Refs)) # 71: highest number of reported lambdas per paper
 
-length(which(published.lambdas.df$Published_Lambdas < 0.05))/nrow(published.lambdas.df)*100 # 25.43%
-length(which(published.lambdas.df$Published_Lambdas > 0.90))/nrow(published.lambdas.df)*100 # 24.74%
+length(which(published.lambdas.df$Published_Lambdas < 0.05))/nrow(published.lambdas.df)*100 # 25.32%
+length(which(published.lambdas.df$Published_Lambdas > 0.90))/nrow(published.lambdas.df)*100 # 24.94%
 
-length(which(published.lambdas.df$Taxa < 30))/nrow(published.lambdas.df)*100 # 75.32%
+length(which(published.lambdas.df$Taxa < 30))/nrow(published.lambdas.df)*100 # 22.36504%
 length(which(published.lambdas.df$Taxa < 30)) # 348
 
+review_25to75 <- review[which(review$`Estimated Lambdas Simple` >=.25 & review$`Estimated Lambdas Simple` < .7501),]
+colnames(review_25to75) <- c("Reference", "Estimated Lambda", "Estimated Lambdas Simple", "Taxa", "__1", "Interpreted", "Quote", "Extra")
 
+review_25to75[which(review_25to75$Interpreted == "Kinda"),6] <- "Yes"
+review_25to75$Interpreted <- as.factor(review_25to75$Interpreted)
 
+length(unique(review_25to75$Reference)) # 108 manuscripts published lambdas between .25 and .75
+length(which(review_25to75$Interpreted=="Yes"))/length(review_25to75$Interpreted)*100 # 29.21615% of these estimated lambdas are interpreted in terms of magnitude (without statistical test for comparison)
 
 # Numerical summaries of all papers
 review.fullsheet <- read_excel("Literature_Review/1Summary.xlsx", sheet = "Since 2019")
