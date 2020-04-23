@@ -158,30 +158,31 @@ bounded scale (\(0\to1\)) for which interpretation of its extremal
 points are well known (\(\lambda=0\) is no phylogenetic signal, while
 \(\lambda=1\) corresponds to Brownian motion). However, equating values
 of \(\lambda\) directly to the strength of phylogenetic signal presumes
-two important statistical properties that have not been fully examined.
+two important statistical properties that have not been fully explored.
 \hfill\break
 
 First, it presumes that values of \(\lambda\) can be precisely
 estimated, and that parameter estimates of \(\lambda\) are
-representative of the underlying phylogenetic signal. Understanding the
-precision in estimating levels of phylogenetic signal is paramount,
-because biological inferences regarding the strength of phylogenetic
-signal in phenotypic datasets requires high precision of its estimation.
-One study (Boettiger et al. 2012) found that estimates of Pagel's
-\(\lambda\) displayed less variation (i.e., greater precision) when data
-were simulated on a large phylogeny (\(N=281\)) as compared to a small
-one (\(N=13\)). From this observation it was concluded that insufficient
-data (i.e., the number of species) was the underlying cause of the
-increased variation across parameter estimates (Boettiger et al. 2012).
-Indeed, such a pattern is common with statistical estimators, as summary
-statistics and parameters are often more precise with greater sample
-sizes (Cohen 1988). However, this conclusion also assumes that the
-precision in estimating \(\lambda\) remains constant across its range
-(\(\lambda = 0 \to 1\)); an assumption that to date, has not been
-verified. Thus, despite widespread use of Pagel's (1999) \(\lambda\) in
-macroevolutionary studies, at present, we still lack a general
-understanding of the precision with which \(\lambda\) can estimate
-levels of phylogenetic signal in phenotypic datasets. \hfill\break
+representative of the underlying phylogenetic signal. However, for such
+applications, understanding the precision in estimating levels of
+phylogenetic signal is paramount, because biological inferences
+regarding the strength of phylogenetic signal in phenotypic datasets
+requires high precision of its estimation. One study (Boettiger et al.
+2012) found that estimates of Pagel's \(\lambda\) displayed less
+variation (i.e., greater precision) when data were simulated on a large
+phylogeny (\(N=281\)) as compared to a small one (\(N=13\)). From this
+observation it was concluded that insufficient data (i.e., the number of
+species) was the underlying cause of the increased variation across
+parameter estimates (Boettiger et al. 2012). Indeed, such a pattern is
+common with statistical estimators, as summary statistics and parameters
+are often more precise with greater sample sizes (Cohen 1988). However,
+this conclusion also assumes that the precision in estimating
+\(\lambda\) remains constant across its range (\(\lambda = 0 \to 1\));
+an assumption that to date, has not been verified. Thus, despite
+widespread use of Pagel's (1999) \(\lambda\) in macroevolutionary
+studies, at present, we still lack a general understanding of the
+precision with which \(\lambda\) can estimate levels of phylogenetic
+signal in phenotypic datasets. \hfill\break
 
 Second, while \(\lambda\) is observed on a bounded scale (\(0\to1\)),
 this does not \emph{de-facto} imply that the estimated values of this
@@ -199,36 +200,40 @@ many summary measures must first be converted to standardized units
 (i.e., an effect size) for meaningful comparison (see Rosenthal 1994).
 As a consequence, it follows that only if \(\lambda\) is a statistical
 effect size can comparisons of estimates across datasets be
-interpretable. To date, it has not been determined whether \(\lambda\)
-is an effect size for phylogenetic signal. \hfill\break
+interpretable. For the case of \(\lambda\), this has not yet been
+explored. \hfill\break
 
 In this study, we evaluate the precision of Pagel's \(\lambda\) in
 estimating known levels of phylogenetic signal in phenotypic data. We
 use computer simulations with differing numbers of species, differently
 shaped phylogenies, and differing input levels of phylogenetic signal,
 to explore the degree to which \(\lambda\) correctly identifies known
-levels of phylogenetic signal, and under what circumstances. We then
-derive a standardized effect size for phylogenetic signal, and apply the
-concept to two common measures of phylogenetic signal: \(\lambda\)
-(\(Z_{\lambda}\)) and \(Kappa\) (\(Z_K\)). In general we find that while
-PGLS parameters (e.g., \(\beta\)) are accurately estimated with the
-inclusion of phylogenetic signal, estimates of \(\lambda\) are not. We
-also find that estimates of \(\lambda\) vary widely for a given input
-value of phylogenetic signal, and that this variation is not constant
-across the range of input signal, with decreased precision when
-phylogenetic signal is of intermediate strength. Additionally, the same
-\(\lambda_{est}\) may be obtained from datasets containing vastly
-different input levels of phylogenetic signal. Likewise, the precision
-of \(Z_{\lambda}\) is less consistent than that observed with \(Z_K\),
-across the range of input values, implying that \(Z_K\) is a more robust
-effect size measure. Further, because \(Z_K\) is a standardized effect
-size, the strength of phylogenetic signal is more readily interpretable,
-and may be compared across datasets. We conclude that estimates of
-phylogenetic signal using Pagel's \(\lambda\) are often inaccurate, and
-thus interpreting strength of phylogenetic signal in phenotypic datasets
-based on this measure is compromised. By contrast, effect sizes obtained
-from \(Kappa\) hold promise for characterizing phylogenetic signal, and
-for comparing the strength of phylogenetic signal across datasets.
+levels of phylogenetic signal, and under what circumstances. We find
+that while PGLS parameters (e.g., \(\beta\)) are accurately estimated
+with the inclusion of phylogenetic signal, estimates of \(\lambda\) are
+not. We also find that estimates of \(\lambda\) vary widely for a given
+input value of phylogenetic signal, and that the precision in estimating
+\(\lambda\) is not constant across the range of input signal, with
+decreased precision when phylogenetic signal is of intermediate
+strength. Additionally, the same \(\lambda_{est}\) may be obtained from
+datasets containing vastly different input levels of phylogenetic
+signal. Thus, \(\lambda\) is not a reliable effect size for measuring
+the strength of phylogenetic signal. We subsequently derive a
+standardized effect size for measuring the strength of phylogenetic
+signal in phenotypic datasets, and apply the concept to two common
+measures of phylogenetic signal: \(\lambda\) and \(Kappa\). Through
+simulations across a wide range of conditions, we find that the
+precision of effect sizes based on \(\lambda\) (\(Z_{\lambda}\)) are
+less reliable than that those based on \(Kappa\) (\(Z_K\)), implying
+that \(Z_K\) is a more robust effect size measure. Additionally, we
+propose a two-sample test statistic that may be used to compare the
+strength of phylogenetic signal among datasets. We conclude that
+estimates of phylogenetic signal using Pagel's \(\lambda\) are often
+inaccurate, and thus interpreting strength of phylogenetic signal in
+phenotypic datasets based on this measure is compromised. By contrast,
+effect sizes obtained from \(Kappa\) hold promise for characterizing
+phylogenetic signal, and for comparing the strength of phylogenetic
+signal across datasets.
 
 \hypertarget{methods-and-results}{%
 \section{Methods and Results}\label{methods-and-results}}
