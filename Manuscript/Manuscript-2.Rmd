@@ -68,13 +68,13 @@ All analyses were performed in R v3.6.0 [@RCT] using the packages `geiger` [@Har
 
 ## *A Standardized Effect Size for Phylogenetic Signal*
 
-The results above demonstate that $\lambda$ is not a reliable estimate of the phylogenetic signal in phenotypic data. As such, biological interpretations of the strength of phylogenetic signal, and comparisons of the magnitude of such effects across datasets, are severely compromised when based on this parameter. As an alternative, we propose that summary estimates of phylogenetic signal be converted to effect sizes for these purposes. A standardized effect size is found as: 
+The results above demonstate that $\lambda$ is not a reliable estimate of the phylogenetic signal in phenotypic data. As such, biological interpretations of the strength of phylogenetic signal, and comparisons of the magnitude of such effects across datasets, are severely compromised when based on this parameter. As an alternative, we propose that summary estimates of phylogenetic signal be converted to effect sizes for interpretation and comparison. Statistically, a standardized effect size may be found as: 
 
 \begin{align}
     Z_{\theta}=\frac{\theta_{obs}-E(\theta)}{\sigma_\theta}
 \end{align}
 
-where $\theta_{obs}$ is the observed test statistic, $E(\theta)$ is its expected value under the null hypothesis, and $\sigma_\theta$ is its standard error [@Glass1976; @Cohen1988;@Rosenthal1994]. $Z_{\theta}$ expresses the magnitude of the effect in $\theta_{obs}$ by transforming the original test statistic to a standard normal deviate [@Glass1976; @Kelley2012]. Here, $\theta_{obs}$ and $\sigma_\theta$ are estimated from the data, while $E(\theta)$ is obtained from the distribution of $\theta$ derived from parametric theory. However, recent advances in resampling theory [@Collyer_et_al2015a;@AdamsCollyer2016; @AdamsCollyer2019b] have shown that $E(\theta)$ and $\sigma_\theta$ may also be obtained from an empirical sampling distribution obtained from permutation procedures. \hfill\break
+where $\theta_{obs}$ is the observed test statistic, $E(\theta)$ is its expected value under the null hypothesis, and $\sigma_\theta$ is its standard error [@Glass1976; @Cohen1988;@Rosenthal1994]. $Z_{\theta}$ expresses the magnitude of the effect in $\theta_{obs}$ by transforming the original test statistic to a standard normal deviate [@Glass1976; @Kelley2012]. Typically, $\theta_{obs}$ and $\sigma_\theta$ are estimated from the data, while $E(\theta)$ is obtained from the distribution of $\theta$ derived from parametric theory. However, recent advances in resampling theory [@Collyer_et_al2015a;@AdamsCollyer2016; @AdamsCollyer2019b] have shown that $E(\theta)$ and $\sigma_\theta$ may also be obtained from an empirical sampling distribution of $\theta$ obtained from permutation procedures. \hfill\break
 
 Adams and Collyer [-@AdamsCollyer2019] recently suggested that the strength of phylogenetic signal could be represented an effect size, obtained from $Kappa$ and its empirical sampling distribution from permutation. Here we formalize that suggestion, and find an effect size as:
 
@@ -88,36 +88,32 @@ Similarly, an effect size based on $\lambda$ could be envisioned as:
     Z_{\lambda}=\frac{\lambda_{obs}-0}{\hat\sigma_\lambda}
 \end{align}
 
-Note that under the null hypothesis, $E(\lambda)=0$, a no phylogenetic signal is expected under this condition [@Freckleton_et_al2002]. 
+Note that under the null hypothesis, $E(\lambda)=0$, a no phylogenetic signal is expected under this condition [@Freckleton_et_al2002]. \hfill\break
 
+To evaluate the utility of $Z_K$ and $Z_\lambda$ we calculated both effect sizes for the simulated datasets generated above, and summarized the precision of each using its variance ($\sigma^2_{Z_K}$ and $\sigma^2_{Z_\lambda}$). Results are found in Figure 3. Here two things are evident. First, estimates of $Z_K$ track the input phylogenetic signal in a more linear fashion than to estimates of $Z_\lambda$. Second, the precision of $Z_K$ is considerably more stable, as coefficients of variation for the set of $\sigma^2_{Z_K}$ across input levels of phylogenetic signal for the same sample size was an order of magnitude smaller than that observed for $\sigma^2_{Z_\lambda}$ (Figure 3). This implies that estimates of the strength of phylogenetic signal were more reliable and robust when using $Z_K$ as compared with $Z_\lambda$. \hfill\break
 
-  - Z-score. could be Lambda or Kappa.  Show it is Kappa
--Comparing the strength of physig
-  - two sample Z-score
+[insert Figure 3 here] 
+
+## *Statistical Comparisons of Phylogenetic Signal*
+
+Once the magnitude of phylogenetic signal is characterized using $Z_K$, it may be of interest to compare such measures across datasets. This is useful, for instance, to determine whether the strength of phylogenetic signal is greater in one phenotypic trait as compared with another. As with other effect sizes derived from permutation distributions [e.g., @AdamsCollyer2016; @AdamsCollyer2019b], a two-sample test statistic may be found as: 
+
+\begin{align}
+  \hat{Z}_{12}=\frac{\lvert{(K_{1}-\hat\mu_{K_1})-(K_{2}-\hat\mu_{K_2})}\rvert}{\sqrt{\hat\sigma^2_{K_1}+\hat\sigma^2_{K_2}}}
+\end{align}
+
+where $K_1$, $K_2$, $\hat\mu_{K_1}$, $\hat\mu_{K_2}$, $\hat\sigma_{K_1}$, and $\hat\sigma_{K_2}$ are as defined above for equation 2. Estimates of significance of $\hat{Z}_{12}$ may be obtained from a standard normal distribution. As with other two-sample tests, $\hat{Z}_{12}$ is typically considered a two-tailed test, however directional (one-tailed) tests may be specified should the empirical situation require it [see @AdamsCollyer2016; @AdamsCollyer2019b].
+
+## *Empirical Example*
+
+# Conclusions and Implications
   
--Conclusions and Implications
-  
-Finally, for comparison we characterized the strength of phylogenetic signal in each dataset using a standardized effect size [$Z_K$: sensu @AdamsCollyer2016; @AdamsCollyer2019b] based on $Kappa$. 
 
-Variation in the set of $Z_K$ at each input level of phylogenetic signal was then calculated as an estimate of precision in $Z_K$. However, because $Z_K$ differs in scale from $\lambda$, we used a linear normalization to standardize $Z_K$ to a uniform distribution ($0\rightarrow1$), and estimated the precision of $Z_K$ from the normalized values. \hfill\break
-
-
-
-## *Literature Survey*
+## *Literature Survey... WHERE DOES THIS GO???*
 
 To determine how Pagel's $\lambda$ is commonly utilized in empirical studies, we conducted a literature survey. From Google.scholar we obtained a list of all papers published in 2019 that used $\lambda$; resulting in 341 studies. For each study, we extracted all $\lambda_{est}$, the size of the phylogeny ($n$), and noted whether authors reported confidence intervals or performed significance tests assessing difference of $\lambda_{est}$ from either zero or one. We also noted whether biological interpretations based on $\lambda_{est}$ were made, and for studies that reported more than one $\lambda_{est}$, we also noted whether these were compared in some manner, and whether such comparisons were accompanied with statistical tests between $\lambda_{est}$. 
 
-# Results 
-
-## *Simulations* 
-
-By contrast, when characterizing phylogenetic signal with the standardized effect size ($Z_K$) of $Kappa$, we found that the precision of $Z_K$ was more stable, as variation across datasets was far more consistent across the range of input values. For example, when $n=128$ the precision of $\lambda_{est}$ (Figure 2A) varied considerably more across input levels of phylogenetic signal than did the precision of $Z_K$ for the same datasets (Figure 2B). Further, for a given $n$, the variance in precision estimates of $Z_K$ was considerably smaller than the variance in precision estimates of $\lambda_{est}$ (Fig. 2C,D); implying that estimates of phylogenetic signal were more reliable and robust when using $Z_K$ (for additional results see Supporting Information).  Finally, it should also be recognized that because $Z_K$ is a standardized effect size, the strength of phylogenetic signal is more readily interpretable when using this measure, as $Z_K$ expresses the strength of phylogenetic signal in standard deviation units relative to the mean [see @AdamsCollyer2019]. This further implies that comparisons of the strength of phylogenetic signal among phenotypic traits are possible, and may be accomplished statistically via a two-sample test that formally compares $Z_K$ across datasets [for comparisons of multivariate effect sizes see: @AdamsCollyer2016; @AdamsCollyer2019b]. \hfill\break
-
-[insert Figure 2 here] \hfill\break 
-
-## *Literature Survey*
-
-We found 182 manuscripts from 2019 that estimated and reported Pagel's lambda values using PGLS methods. These papers averaged 8.527 lambda values, ranging from a single lambda estimate up to 71 estimated lambdas. Almost exactly half of the published lambda estimates were either below 0.05 (25.32%) or above 0.9 (24.74%; Figure 3). 73.32% of the published lambdas were estimated using phylogenies with fewer than 200 tips, and 348 lambda estimates (8.57% of all published estimates) came from phylogenies with fewer than 30 tips.  \hfill\break
+*Results*. We found 182 manuscripts from 2019 that estimated and reported Pagel's lambda values using PGLS methods. These papers averaged 8.527 lambda values, ranging from a single lambda estimate up to 71 estimated lambdas. Almost exactly half of the published lambda estimates were either below 0.05 (25.32%) or above 0.9 (24.74%; Figure 3). 73.32% of the published lambdas were estimated using phylogenies with fewer than 200 tips, and 348 lambda estimates (8.57% of all published estimates) came from phylogenies with fewer than 30 tips.  \hfill\break
 
 [insert Figure 4 here] \hfill\break
 
@@ -125,7 +121,6 @@ Many of the reviewed manuscripts liberally interpreted the magnitude of the esti
 
 As is evidenced by macroevolutionary papers published in 2019 papers, Pagel's lambda estimation methods are often misused and over-interpretted. Despite the urging of Boettiger and colleagues to publish confidence intervals with all lambda parameter estimates, only 18% of papers published in 2019 do so.  
 
-# Results
 
 # Discussion
 
