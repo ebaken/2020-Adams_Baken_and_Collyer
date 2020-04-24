@@ -171,10 +171,10 @@ a small one (\(N=13\)). From this observation it was concluded that
 insufficient data (i.e., the number of species) was the underlying cause
 of the increased variation across parameter estimates (Boettiger et al.
 2012). Indeed, such a pattern is common with statistical estimators, as
-summary statistics and parameters are often more precise with greater
+summary statistics and parameters are often more precise at greater
 sample sizes (Cohen 1988). However, this conclusion also assumes that
-the precision in estimating \(\lambda\) remains constant across its
-range (\(\lambda = 0 \to 1\)); an assumption that to date, has not been
+the precision of \(\lambda\) remains constant across its range
+(\(\lambda = 0 \to 1\)); an assumption that to date, has not been
 verified. Thus, despite widespread use of Pagel's (1999) \(\lambda\) in
 macroevolutionary studies, at present, we still lack a general
 understanding of the precision with which \(\lambda\) can estimate
@@ -188,9 +188,9 @@ underlying input signal in the data. For this to be the case,
 measure the magnitude of a statistical effect in data, represented on a
 common scale (Glass 1976; Cohen 1988). Effect sizes have widespread use
 in many areas of the quantiative sciences, as they represent measures
-that may be readily summarized across datasets (e.g., meta-analysis:
-Hedges and Olkin 1985; Glass 1976; Arnqvist and Wooster 1995), or
-compared across datasets (e.g., Adams and Collyer 2016, 2019a).
+that may be readily summarized across datasets as in meta-analysis
+(Glass 1976; Hedges and Olkin 1985; Arnqvist and Wooster 1995), or
+compared among datasets (e.g., Adams and Collyer 2016, 2019a).
 Unfortunatley, not all model parameters and test statistics are effect
 sizes, and thus many summary measures must first be converted to
 standardized units (i.e., an effect size) for meaningful comparison (see
@@ -213,8 +213,8 @@ input value of phylogenetic signal, and that the precision in estimating
 decreased precision when phylogenetic signal is of intermediate
 strength. Additionally, the same \(\lambda_{est}\) may be obtained from
 datasets containing vastly different input levels of phylogenetic
-signal. Thus, \(\lambda\) is not a reliable effect size for measuring
-the strength of phylogenetic signal. We subsequently derive a
+signal. Thus, \(\lambda\) is not a reliable estimate of the strength of
+phylogenetic signal in phenotypic data. We subsequently derive a
 standardized effect size for measuring the strength of phylogenetic
 signal in phenotypic datasets, and apply the concept to two common
 measures of phylogenetic signal: \(\lambda\) and \(Kappa\). Through
@@ -223,20 +223,20 @@ precision of effect sizes based on \(\lambda\) (\(Z_{\lambda}\)) are
 less reliable than that those based on \(Kappa\) (\(Z_K\)), implying
 that \(Z_K\) is a more robust effect size measure. Additionally, we
 propose a two-sample test statistic that may be used to compare the
-strength of phylogenetic signal among datasets. We conclude that
-estimates of phylogenetic signal using Pagel's \(\lambda\) are often
-inaccurate, and thus interpreting strength of phylogenetic signal in
-phenotypic datasets based on this measure is compromised. By contrast,
-effect sizes obtained from \(Kappa\) hold promise for characterizing
-phylogenetic signal, and for comparing the strength of phylogenetic
-signal across datasets.
+strength of phylogenetic signal among datasets, and provide an empirical
+example to demonstrate its use. We conclude that estimates of
+phylogenetic signal using Pagel's \(\lambda\) are often inaccurate, and
+thus interpreting strength of phylogenetic signal in phenotypic datasets
+based on this measure is compromised. By contrast, effect sizes obtained
+from \(Kappa\) hold promise for characterizing phylogenetic signal, and
+for comparing the strength of phylogenetic signal across datasets.
 
 \hypertarget{methods-and-results}{%
 \section{Methods and Results}\label{methods-and-results}}
 
 \hypertarget{the-precision-of-lambda-is-variable}{%
-\subsection{\texorpdfstring{The Precision of \(\lambda\) is
-Variable}{The Precision of \textbackslash lambda is Variable}}\label{the-precision-of-lambda-is-variable}}
+\subsection{\texorpdfstring{\emph{The Precision of \(\lambda\) is
+Variable}}{The Precision of \textbackslash lambda is Variable}}\label{the-precision-of-lambda-is-variable}}
 
 We conducted a series of computer simulations to evaluate the precision
 of Pagel's \(\lambda\). Our primary simulations were based on pure-birth
@@ -245,16 +245,18 @@ pectinate trees to determine whether tree shape affected our findings
 (see Supporting Information). First we generated 50 pure-birth
 phylogenies at each of six different tree sizes, ranging from 32 to 1024
 taxa (\(n=2^5 - 2^{10}\)). Next, we rescaled the simulated phylogenies
-by multiplying the internal branches by \(\lambda_{in} = 0.0 \to 1.0\)
-using 21 intervals of 0.05 units, resulting in 1050 scaled phylogenies
+by multiplying the internal branches by \(\lambda_{in}\), using 21
+intervals of 0.05 units across its range
+(\(\lambda_{in} = 0.0 \to 1.0\)), resulting in 1050 scaled phylogenies
 at each level of species richness (\(n\)). Continuous traits were then
 simulated on each phylogeny under a Brownian motion model of evolution
 to obtain datasets with differing levels of phylogenetic signal, that
 ranged from no phylogenetic signal (when \(\lambda_{in} =0\)), to
 phylogenetic signal corresponding reflecting Brownian motion (when
-\(\lambda_{in} =1\)). We then calculated the precision (variance:
-\(\sigma^2_\lambda\)) of \(\lambda\) at each input level of phylogenetic
-signal and at each level of species richness (\(n\)). \hfill\break
+\(\lambda_{in} =1\)). For each dataset we then estimated phylogenetic
+signal (\(\lambda_{est}\)), and calculated the precision of \(\lambda\)
+using the variance (\(\sigma^2_\lambda\)) across datasets at each input
+level of phylogenetic signal and level of species richness. \hfill\break
 
 We also evaluated the precision of \(\lambda\) when estimated in PGLS
 regression and ANOVA (i.e., \(Y\sim{X}\)). Here, an independent variable
@@ -273,12 +275,14 @@ Revell 2010 for a similar simulation design). The fit of the
 phylogenetic regression was estimated using maximum likelihood, and
 parameter estimates (\(\beta_{est}\) and \(\lambda_{est}\)) were
 obtained. Precision estimates (\(\sigma^2_\lambda\)) at each input level
-of phylogenetic signal and at each level of species richness (\(n\))
-were then observed. All analyses were performed in R v3.6.0 (R Core Team
-2019) using the packages \texttt{geiger} (Harmon et al. 2008),
-\texttt{caper} (Orme et al. 2013), \texttt{phytools} (Revell 2012), and
-\texttt{geomorph} (Adams and Otárola-Castillo 2013; Adams et al. 2020).
-R-scripts are found in the Supporting Information. \hfill\break
+of phylogenetic signal and level of species richness were then observed.
+\hfill\break
+
+All analyses were performed in R v3.6.0 (R Core Team 2019) using the
+packages \texttt{geiger} (Harmon et al. 2008), \texttt{caper} (Orme et
+al. 2013), \texttt{phytools} (Revell 2012), and \texttt{geomorph} (Adams
+and Otárola-Castillo 2013; Adams et al. 2020). R-scripts are found in
+the Supporting Information. \hfill\break
 
 \emph{Results.} We found that the precision of \(\lambda_{est}\) varied
 widely across simulation conditions. Predictably, precision improved as
@@ -291,23 +295,24 @@ estimates of \(\lambda\) were not a reliable indicator of input
 phylogenetic signal. Importantly, the precision of \(\lambda_{est}\) was
 not uniform across all levels of phylogenetic signal, with the worst
 precision at intermediate levels of signal (\(\lambda_{in}\approx0.5\)),
-and improved precision as input levels approaches 0 and 1 (i.e.,
-\(\lambda_{in}\rightarrow0\) \& \(\lambda_{in}\rightarrow1\)). Thus,
-estimates of \(\lambda\) were least reflective of the true input signal
-at intermediate values. Additionally, even at large levels of species
-richness, we found that the range of \(\lambda_{est}\) still encompassed
-a substantial portion of possible values (e.g., \(n=512\);
-\(\lambda_{in}=0.5\): \(\lambda_{est} = 0.32\to 0.68\)). Likewise, the
-same \(\lambda_{est}\) could be obtained from datasets containing vastly
-different input levels of phylogenetic signal (e.g., \(n=512\);
-\(\lambda_{est} = 0.5\); \(\lambda_{in} = 0.25 \to 0.65\)). Results were
-similar when \(\lambda\) was co-estimated with regression parameters in
-PGLS regression (Figure 2). Here, regression parameters (\(\beta\)) were
-accurately estimated, confirming earlier findings of Revell 2010 (2010)
-(see Supporting Information). However, estimates of phylogenetic signal
-were not, and the spread of \(\lambda_{est}\) was even broader tham that
-observed when \(\lambda\) was estimated for only the dependent variable.
-Taken together, these findings reveal that \(\lambda_{est}\) does not
+and improved precision as input levels approached the extremes of its
+range (i.e., \(\lambda_{in}\rightarrow0\) \&
+\(\lambda_{in}\rightarrow1\)). Thus, estimates of \(\lambda\) were least
+reflective of the true input signal at intermediate values.
+Additionally, even at large levels of species richness, we found that
+the range of \(\lambda_{est}\) still encompassed a substantial portion
+of possible values (e.g., \(n=512\); \(\lambda_{in}=0.5\):
+\(\lambda_{est} = 0.32\to 0.68\)). Likewise, the same \(\lambda_{est}\)
+could be obtained from datasets containing vastly different input levels
+of phylogenetic signal (e.g., \(n=512\); \(\lambda_{est} = 0.5\);
+\(\lambda_{in} = 0.25 \to 0.65\)). Results were similar when \(\lambda\)
+was co-estimated with regression parameters in PGLS regression (Figure
+2). Here, regression parameters (\(\beta\)) were accurately estimated,
+confirming earlier findings of Revell 2010 (2010) (see Supporting
+Information). However, estimates of phylogenetic signal were not, and
+the spread of \(\lambda_{est}\) was even broader than that observed when
+\(\lambda\) was estimated for only the dependent variable. Taken
+together, these findings reveal that \(\lambda_{est}\) does not
 precisely characterize observed levels of phylogenetic signal in
 phenotypic datasets, and that biological interpretations of the strength
 of phylogenetic signal based on \(\lambda\) may be highly inaccurate.
@@ -317,41 +322,75 @@ of phylogenetic signal based on \(\lambda\) may be highly inaccurate.
 
 {[}insert Figure 2 here{]} \hfill\break 
 
-The above findings have several important implications for empirical
-studies.
-
--Empirical examples: how interpretation can get folks ito trouble.
-
 \hypertarget{a-standardized-effect-size-for-phylogenetic-signal}{%
-\subsection{A Standardized Effect Size for Phylogenetic
-Signal}\label{a-standardized-effect-size-for-phylogenetic-signal}}
+\subsection{\texorpdfstring{\emph{A Standardized Effect Size for
+Phylogenetic
+Signal}}{A Standardized Effect Size for Phylogenetic Signal}}\label{a-standardized-effect-size-for-phylogenetic-signal}}
 
--Derivation of effect size (expand on Adams and Collyer 2019 suggestion
-that an effect size for phylogenetic signal is needed. The `gold
-standard' of these is a standaredized effect size: (following the
-meta-analytic literature beginning with Glass 1976). In other words, a
-Z-score. So, how does Z work when based on lambda? On kappa? - Z-score.
-could be Lambda or Kappa. Show it is Kappa -Comparing the strength of
-physig - two sample Z-score
+The results above demonstate that \(\lambda\) is not a reliable estimate
+of the phylogenetic signal in phenotypic data. As such, biological
+interpretations of the strength of phylogenetic signal, and comparisons
+of the magnitude of such effects across datasets, are severely
+compromised when based on this parameter. As an alternative, we propose
+that summary estimates of phylogenetic signal be converted to effect
+sizes for these purposes. A standardized effect size is found as:
+
+\begin{align}
+    Z_{\theta}=\frac{\theta_{obs}-E(\theta)}{\sigma_\theta}
+\end{align}
+
+where \(\theta_{obs}\) is the observed test statistic, \(E(\theta)\) is
+its expected value under the null hypothesis, and \(\sigma_\theta\) is
+its standard error (Glass 1976; Cohen 1988; Rosenthal 1994).
+\(Z_{\theta}\) expresses the magnitude of the effect in \(\theta_{obs}\)
+by transforming the original test statistic to a standard normal deviate
+(Glass 1976; Kelley and Preacher 2012). Here, \(\theta_{obs}\) and
+\(\sigma_\theta\) are estimated from the data, while \(E(\theta)\) is
+obtained from the distribution of \(\theta\) derived from parametric
+theory. However, recent advances in resampling theory (Collyer et al.
+2015; Adams and Collyer 2016, 2019a) have shown that \(E(\theta)\) and
+\(\sigma_\theta\) may also be obtained from an empirical sampling
+distribution obtained from permutation procedures. \hfill\break
+
+Adams and Collyer (2019b) recently suggested that the strength of
+phylogenetic signal could be represented an effect size, obtained from
+\(Kappa\) and its empirical sampling distribution from permutation. Here
+we formalize that suggestion, and find an effect size as:
+
+\begin{align}
+    Z_{K}=\frac{K_{obs}-\hat\mu_K}{\hat\sigma_K}
+\end{align}
+
+Similarly, an effect size based on \(\lambda\) could be envisioned as:
+
+\begin{align}
+    Z_{\lambda}=\frac{\lambda_{obs}-0}{\hat\sigma_\lambda}
+\end{align}
+
+Note that under the null hypothesis, \(E(\lambda)=0\), a no phylogenetic
+signal is expected under this condition (Freckleton et al. 2002).
+
+\begin{itemize}
+\tightlist
+\item
+  Z-score. could be Lambda or Kappa. Show it is Kappa -Comparing the
+  strength of physig
+\item
+  two sample Z-score
+\end{itemize}
 
 -Conclusions and Implications
 
 Finally, for comparison we characterized the strength of phylogenetic
 signal in each dataset using a standardized effect size (\(Z_K\): sensu
-Adams and Collyer 2016, 2019a) based on \(Kappa\). As suggested by Adams
-and Collyer (2019b), an effect size for phylogenetic signal may be
-estimated as: \(Z_K=\frac{K_{obs}-\mu_K}{\sigma_K}\), where \(K_{obs}\)
-was the observed \(Kappa\), and \(\mu_K\) and \(\sigma_K\) were the mean
-and standard deviation of the empirical sampling distribution of values
-obtained from the permutation distribution. \(Z_K\) describes the
-strength of phylogenetic signal as a standard deviate from its sampling
-distribution, and thus directly measures the strength of signal in a
-manner that is comparable across datasets. Variation in the set of
-\(Z_K\) at each input level of phylogenetic signal was then calculated
-as an estimate of precision in \(Z_K\). However, because \(Z_K\) differs
-in scale from \(\lambda\), we used a linear normalization to standardize
-\(Z_K\) to a uniform distribution (\(0\rightarrow1\)), and estimated the
-precision of \(Z_K\) from the normalized values. \hfill\break
+Adams and Collyer 2016, 2019a) based on \(Kappa\).
+
+Variation in the set of \(Z_K\) at each input level of phylogenetic
+signal was then calculated as an estimate of precision in \(Z_K\).
+However, because \(Z_K\) differs in scale from \(\lambda\), we used a
+linear normalization to standardize \(Z_K\) to a uniform distribution
+(\(0\rightarrow1\)), and estimated the precision of \(Z_K\) from the
+normalized values. \hfill\break
 
 \hypertarget{literature-survey}{%
 \subsection{\texorpdfstring{\emph{Literature
@@ -563,6 +602,11 @@ A modeling approach for adaptive evolution. American Naturalist
 Cohen, J. 1988. Statistical power analysis for the behavioral sciences.
 Routledge.
 
+\leavevmode\hypertarget{ref-Collyer_et_al2015a}{}%
+Collyer, M. L., D. J. Sekora, and D. C. Adams. 2015. A method for
+analysis of phenotypic change for phenotypes described by
+high-dimensional data. Heredity 115:357--365.
+
 \leavevmode\hypertarget{ref-Cooper2010}{}%
 Cooper, N., W. Jetz, and R. P. Freckleton. 2010. Phylogenetic
 comparative approaches for studying niche conservatism. Journal of
@@ -618,6 +662,10 @@ evolutionary biology. Oxford University Press, Oxford.
 \leavevmode\hypertarget{ref-HedgesOlkin1985}{}%
 Hedges, L. V., and I. Olkin. 1985. Statistical methods for
 meta-analysis. Elsevier.
+
+\leavevmode\hypertarget{ref-Kelley2012}{}%
+Kelley, K., and K. J. Preacher. 2012. On effect size. Psychological
+Methods 17:137--152.
 
 \leavevmode\hypertarget{ref-Klingenberg2010}{}%
 Klingenberg, C. P., and N. A. Gidaszewski. 2010. Testing and quantifying
@@ -722,7 +770,7 @@ the range of input levels (\(\lambda_{in}: 0 \to 1\)), and is highest at
 intermediate levels of phylogenetic signal. \hfill\break
 
 \textbf{Figure 2}. Precision of Pagel's \(\lambda\) when incorporated in
-phylogenetic regression (\(|Y\sim X\)), across known levels of input
+phylogenetic regression (\(Y\sim X\)), across known levels of input
 phylogenetic signal (\(\lambda_{in}\)) on phylogenies of various sizes.
 As phylogenies increase in size, variation in \(\lambda_{in}\)
 decreases; however the precision is not constant across the range of
@@ -759,7 +807,7 @@ highest at intermediate levels of phylogenetic signal.
 \includegraphics[width=0.95\linewidth]{Fig2}
 
 \singlespacing \textbf{Figure 2}. Precision of Pagel's \(\lambda\) when
-incorporated in phylogenetic regression (\(|Y\sim X\)), across known
+incorporated in phylogenetic regression (\(Y\sim X\)), across known
 levels of input phylogenetic signal (\(\lambda_{in}\)) on phylogenies of
 various sizes. As phylogenies increase in size, variation in
 \(\lambda_{in}\) decreases; however the precision is not constant across
