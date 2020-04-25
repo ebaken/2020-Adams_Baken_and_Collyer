@@ -143,42 +143,56 @@ taxa. This is often accomplished by interpreting empirical estimates of
 \(\lambda\); with smaller values signifying `weak' phylogenetic signal,
 while larger values are interpreted as `strong' phylogenetic signal
 (e.g., De Meester et al. 2019; Pintanel et al. 2019; Su et al. 2019).
-Other approaches for interpreting \(\lambda\) are more statistical,
-through the use of confidence intervals (Vandelook et al. 2019) or
-likelihood ratio tests that compare the observed model fit to that
-obtained when \(\lambda=0\) or \(\lambda=1\) (Freckleton et al. 2002;
-Cooper et al. 2010; Bose et al. 2019). Likewise, qualitative comparisons
-of \(\lambda\) across multiple phenotypic traits have also been used to
-infer whether the strength of phylogenetic signal is greater in one
-trait as compared to another (e.g., Liu et al. 2019; Bai et al. 2019).
-Indeed, it seems intuitive to interpret the strength of phylogenetic
-signal in this manner, as \(\lambda\) is a parameter on a bounded scale
-(\(0\to1\)) for which interpretation of its extremal points are
-understood (\(\lambda=0\) represents no phylogenetic signal, while
-\(\lambda=1\) is phylogenetic signal as expected under Brownian motion).
-However, equating values of \(\lambda\) directly to the strength of
-phylogenetic signal presumes two important statistical properties that
-have not been fully explored. \hfill\break
+Other approaches for interpreting \(\lambda\) are more statistical. For
+instance, some have evaluated whether the observed \(\lambda\) differs
+from some expected value through the use of confidence intervals
+(Vandelook et al. 2019) or by performing likelihood ratio tests that
+compare the observed model fit to that obtained when \(\lambda=0\) or
+\(\lambda=1\) (Freckleton et al. 2002; Cooper et al. 2010; Bose et al.
+2019). Additionally, qualitative comparisons of \(\lambda\) estimates
+obtained from multiple phenotypic traits have been used to infer whether
+the strength of phylogenetic signal is greater in one trait as compared
+to another (e.g., Liu et al. 2019; Bai et al. 2019). Indeed, statements
+regarding the strength of phylogenetic signal based on \(\lambda\) are
+rather common in the evolutionary literature. We conducted a literature
+survey in Google.scholar and found that of the 204 papers published in
+2019 that estimated and reported Pagel's \(\lambda\), 40\% interpreted
+the strength of phylogenetic signal for at least one phenotypic trait.
+Additionally, nearly 30\% of the 421 \(\lambda\) estimates between 0.25
+and 0.75 were assigned a strength of signal, and because nearly half of
+the 1,572 values reported were near the limits of the parameter (Figure
+1), this percentage is even higher, as biological interpretation of
+phylogenetic signal at the limits of \(\lambda\) are known. \hfill\break
 
-First, it presumes that values of \(\lambda\) can be precisely
-estimated, as biological inferences regarding the strength of
-phylogenetic signal depend on high accuracy in its estimation.
-Therefore, understanding the precision in estimating \(\lambda\) is
-paramount. One study (Boettiger et al. 2012) found that estimates of
-Pagel's \(\lambda\) displayed less variation (i.e., greater precision)
-when data were simulated on a large phylogeny (\(N=281\)) as compared to
-a small one (\(N=13\)). From this observation it was concluded that
-insufficient data (i.e., the number of species) was the underlying cause
-of the increased variation across parameter estimates (Boettiger et al.
-2012). Indeed, such a pattern is common with statistical estimators, as
-summary statistics and parameters are often more precise at greater
-sample sizes (Cohen 1988). However, this conclusion also assumes that
-the precision of \(\lambda\) remains constant across its range
-(\(\lambda = 0 \to 1\)); an assumption that to date, has not been
-verified. Thus, despite widespread use of Pagel's (1999) \(\lambda\) in
-macroevolutionary studies, at present, we still lack a general
-understanding of the precision with which \(\lambda\) can estimate
-levels of phylogenetic signal in phenotypic datasets. \hfill\break
+{[}insert Figure 1 here{]} \hfill\break
+
+It seems intuitive to interpret the strength of phylogenetic signal
+based on the value of \(\lambda\), as \(\lambda\) is a parameter on a
+bounded scale (\(0\to1\)) for which interpretation of its extremal
+points are understood. Specifically, \(\lambda=0\) represents no
+phylogenetic signal, while \(\lambda=1\) is phylogenetic signal as
+expected under Brownian motion. However, equating values of \(\lambda\)
+directly to the strength of phylogenetic signal presumes two important
+statistical properties that have not been fully explored. First, it
+presumes that values of \(\lambda\) can be precisely estimated, as
+biological inferences regarding the strength of phylogenetic signal
+depend on high accuracy in its estimation. Therefore, understanding the
+precision in estimating \(\lambda\) is paramount. One study (Boettiger
+et al. 2012) found that estimates of Pagel's \(\lambda\) displayed less
+variation (i.e., greater precision) when data were simulated on a large
+phylogeny (\(N=281\)) as compared to a small one (\(N=13\)). From this
+observation it was concluded that insufficient data (i.e., the number of
+species) was the underlying cause of the increased variation across
+parameter estimates (Boettiger et al. 2012). Indeed, such a pattern is
+common with statistical estimators, as summary statistics and parameters
+are often more precise at greater sample sizes (Cohen 1988). However,
+this conclusion also assumes that the precision of \(\lambda\) remains
+constant across its range (\(\lambda = 0 \to 1\)); an assumption that to
+date, has not been verified. Thus, despite widespread use of Pagel's
+(1999) \(\lambda\) in macroevolutionary studies, at present, we still
+lack a general understanding of the precision with which \(\lambda\) can
+estimate levels of phylogenetic signal in phenotypic datasets.
+\hfill\break
 
 Second, while estimates of \(\lambda\) are within a bounded scale
 (\(0\to1\)), this does not \emph{de-facto} imply that the estimated
@@ -286,7 +300,7 @@ the Supporting Information. \hfill\break
 
 \emph{Results.} We found that the precision of \(\lambda_{est}\) varied
 widely across simulation conditions. Predictably, precision improved as
-the number of species increased (Figure 1). This confirmed earlier
+the number of species increased (Figure 2). This confirmed earlier
 findings of Boettiger et al.~(2012), and adhered to parametric
 statistical theory. However, in many cases the set of \(\lambda_{est}\)
 spanned nearly the entire range of possible values (e.g., \(n=32\);
@@ -307,7 +321,7 @@ could be obtained from datasets containing vastly different input levels
 of phylogenetic signal (e.g., \(n=512\); \(\lambda_{est} = 0.5\);
 \(\lambda_{in} = 0.25 \to 0.65\)). Results were similar when \(\lambda\)
 was co-estimated with regression parameters in PGLS regression (Figure
-2). Here, regression parameters (\(\beta\)) were accurately estimated,
+3). Here, regression parameters (\(\beta\)) were accurately estimated,
 confirming earlier findings of Revell 2010 (2010) (see Supporting
 Information). However, estimates of phylogenetic signal were not, and
 the spread of \(\lambda_{est}\) was even broader than that observed when
@@ -318,9 +332,9 @@ phenotypic datasets, and that biological interpretations of the strength
 of phylogenetic signal based on \(\lambda\) may be highly inaccurate.
 \hfill\break
 
-{[}insert Figure 1 here{]} \hfill\break
+{[}insert Figure 2 here{]} \hfill\break
 
-{[}insert Figure 2 here{]} \hfill\break 
+{[}insert Figure 3 here{]} \hfill\break 
 
 \hypertarget{a-standardized-effect-size-for-phylogenetic-signal}{%
 \subsection{\texorpdfstring{\emph{A Standardized Effect Size for
@@ -355,39 +369,44 @@ distribution of \(\theta\) obtained from permutation procedures.
 \hfill\break
 
 Adams and Collyer (2019b) recently suggested that the strength of
-phylogenetic signal could be represented an effect size, obtained from
-\(Kappa\) and its empirical sampling distribution from permutation. Here
-we formalize that suggestion, and find an effect size as:
+phylogenetic signal could be represented as an effect size, based on the
+\(Kappa\) statistic and its empirical sampling distribution from
+permutation. Here we formalize that suggestion, and find an effect size
+as:
 
 \begin{align}
     Z_{K}=\frac{K_{obs}-\hat\mu_K}{\hat\sigma_K}
 \end{align}
 
+where \(K_{obs}\) is the observed phylogenetic signal, and \(\hat\mu_K\)
+and \(\hat\sigma_K\) are the mean and standard deviation of the
+empirical sampling distribution of \(Kappa\) obtained via permutation.
 Similarly, an effect size based on \(\lambda\) could be envisioned as:
 
 \begin{align}
-    Z_{\lambda}=\frac{\lambda_{obs}-0}{\hat\sigma_\lambda}
+    Z_{\lambda}=\frac{\lambda_{obs}-0}{\hat\sigma_\lambda}.
 \end{align}
 
-Note that under the null hypothesis, \(E(\lambda)=0\), a no phylogenetic
-signal is expected under this condition (Freckleton et al. 2002).
-\hfill\break
+In this case, \(\lambda_{obs}\) and \(\hat\sigma_\lambda\) are
+empirically derived using maximum likelihood. Note also that under the
+null hypothesis, \(E(\lambda)=0\), a no phylogenetic signal is expected
+under this condition (Freckleton et al. 2002). \hfill\break
 
 To evaluate the utility of \(Z_K\) and \(Z_\lambda\) we calculated both
 effect sizes for the simulated datasets generated above, and summarized
 the precision of each using its variance (\(\sigma^2_{Z_K}\) and
-\(\sigma^2_{Z_\lambda}\)). Results are found in Figure 3. Here two
+\(\sigma^2_{Z_\lambda}\)). Results are found in Figure 4. Here two
 things are evident. First, estimates of \(Z_K\) track the input
-phylogenetic signal in a more linear fashion than to estimates of
+phylogenetic signal in a more linear fashion than do estimates of
 \(Z_\lambda\). Second, the precision of \(Z_K\) is considerably more
-stable, as coefficients of variation for the set of \(\sigma^2_{Z_K}\)
-across input levels of phylogenetic signal for the same sample size was
-an order of magnitude smaller than that observed for
-\(\sigma^2_{Z_\lambda}\) (Figure 3). This implies that estimates of the
+stable as compared with \(Z_\lambda\), as coefficients of variation for
+the set of \(\sigma^2_{Z_K}\) across input levels of phylogenetic signal
+were an order of magnitude smaller for than was observed for
+\(\sigma^2_{Z_\lambda}\) (Figure 4). This implied that estimates of the
 strength of phylogenetic signal were more reliable and robust when using
 \(Z_K\) as compared with \(Z_\lambda\). \hfill\break
 
-{[}insert Figure 3 here{]}
+{[}insert Figure 4 here{]}
 
 \hypertarget{statistical-comparisons-of-phylogenetic-signal}{%
 \subsection{\texorpdfstring{\emph{Statistical Comparisons of
@@ -421,56 +440,6 @@ Example}}{Empirical Example}}\label{empirical-example}}
 \hypertarget{conclusions-and-implications}{%
 \section{Conclusions and
 Implications}\label{conclusions-and-implications}}
-
-\hypertarget{literature-survey-where-does-this-go}{%
-\subsection{\texorpdfstring{\emph{Literature Survey\ldots{} WHERE DOES
-THIS
-GO???}}{Literature Survey\ldots{} WHERE DOES THIS GO???}}\label{literature-survey-where-does-this-go}}
-
-To determine how Pagel's \(\lambda\) is commonly utilized in empirical
-studies, we conducted a literature survey. From Google.scholar we
-obtained a list of all papers published in 2019 that used \(\lambda\);
-resulting in 341 studies. For each study, we extracted all
-\(\lambda_{est}\), the size of the phylogeny (\(n\)), and noted whether
-authors reported confidence intervals or performed significance tests
-assessing difference of \(\lambda_{est}\) from either zero or one. We
-also noted whether biological interpretations based on \(\lambda_{est}\)
-were made, and for studies that reported more than one
-\(\lambda_{est}\), we also noted whether these were compared in some
-manner, and whether such comparisons were accompanied with statistical
-tests between \(\lambda_{est}\).
-
-\emph{Results}. We found 182 manuscripts from 2019 that estimated and
-reported Pagel's lambda values using PGLS methods. These papers averaged
-8.527 lambda values, ranging from a single lambda estimate up to 71
-estimated lambdas. Almost exactly half of the published lambda estimates
-were either below 0.05 (25.32\%) or above 0.9 (24.74\%; Figure 3).
-73.32\% of the published lambdas were estimated using phylogenies with
-fewer than 200 tips, and 348 lambda estimates (8.57\% of all published
-estimates) came from phylogenies with fewer than 30 tips. \hfill\break
-
-{[}insert Figure 4 here{]} \hfill\break
-
-Many of the reviewed manuscripts liberally interpreted the magnitude of
-the estimate lambda, using phrases such as ``strong'' or ``weak''
-phylogentic signal when statistically, all that was clear was a
-difference between the estimated lambda and 0 or 1 respectively. We
-estimated that about 20.49\% of the manuscripts revealed some sort of
-biological interpretation of the magnitude of estimated phylogenetic
-signal that overreached the statistical findings. We also identified
-seven manuscripts as having inappropriately interpreted differences in
-lambda values, indicating that some traits had stronger or weaker signal
-than other traits without the appropriate statistical tests.
-\hfill\break
-
-As is evidenced by macroevolutionary papers published in 2019 papers,
-Pagel's lambda estimation methods are often misused and
-over-interpretted. Despite the urging of Boettiger and colleagues to
-publish confidence intervals with all lambda parameter estimates, only
-18\% of papers published in 2019 do so.
-
-\hypertarget{discussion}{%
-\section{Discussion}\label{discussion}}
 
 1: summary paragraph
 
@@ -756,14 +725,18 @@ pollination syndromes in balsaminaceae. Annals of Botany 124:269--279.
 \hypertarget{figure-legends}{%
 \section{Figure Legends}\label{figure-legends}}
 
-\textbf{Figure 1}. Precision of Pagel's \(\lambda\) across known levels
+\textbf{Figure 1}. Frequency distribution of \(\lambda\) estimates
+published in 2019. The majority of these values were close to 0 or 1,
+and from phylogenies with fewer than 200 taxa. \hfill\break
+
+\textbf{Figure 2}. Precision of Pagel's \(\lambda\) across known levels
 of input phylogenetic signal (\(\lambda_{in}\)) on phylogenies of
 various sizes. As phylogenies increase in size, variation in
 \(\lambda_{in}\) decreases; however the precision is not constant across
 the range of input levels (\(\lambda_{in}: 0 \to 1\)), and is highest at
 intermediate levels of phylogenetic signal. \hfill\break
 
-\textbf{Figure 2}. Precision of Pagel's \(\lambda\) when incorporated in
+\textbf{Figure 3}. Precision of Pagel's \(\lambda\) when incorporated in
 phylogenetic regression (\(Y\sim X\)), across known levels of input
 phylogenetic signal (\(\lambda_{in}\)) on phylogenies of various sizes.
 As phylogenies increase in size, variation in \(\lambda_{in}\)
@@ -771,7 +744,7 @@ decreases; however the precision is not constant across the range of
 input levels (\(\lambda_{in}: 0 \to 1\)), and is highest at intermediate
 levels of phylogenetic signal. \hfill\break
 
-\textbf{Figure 3}. Variation in estimates of phylogenetic signal across
+\textbf{Figure 4}. Variation in estimates of phylogenetic signal across
 input levels of phylogenetic signal. (A) Estimates of Pagel's
 \(\lambda\) for data simulated on phylogenies with 128 taxa (\(n=128\)),
 (B) Estimates of \(Z_K\) for data simulated on phylogenies with 128 taxa
@@ -779,17 +752,21 @@ input levels of phylogenetic signal. (A) Estimates of Pagel's
 input levels of phylogenetic signal, estimated on phylogenies containing
 differing numbers of species. (D) Variance in the variation of \(Z_K\)
 across input levels of phylogenetic signal, estimated on phylogenies
-containing differing numbers of species. \hfill\break
-
-\textbf{Figure 4}. Frequency of estimated lambda values published in
-manuscripts in 2019. The majority of these values were close to 0 or 1,
-and from phylogenies with fewer than 200 taxa.
+containing differing numbers of species.
 
 \newpage
 
 \includegraphics[width=0.95\linewidth]{Fig1}
 
-\singlespacing \textbf{Figure 1}. Precision of Pagel's \(\lambda\)
+\singlespacing \textbf{Figure 1}. Frequency distribution of \(\lambda\)
+estimates published in 2019. The majority of these values were close to
+0 or 1, and from phylogenies with fewer than 200 taxa.
+
+\newpage
+
+\includegraphics[width=0.95\linewidth]{Fig2}
+
+\singlespacing \textbf{Figure 2}. Precision of Pagel's \(\lambda\)
 across known levels of input phylogenetic signal (\(\lambda_{in}\)) on
 phylogenies of various sizes. As phylogenies increase in size, variation
 in \(\lambda_{in}\) decreases; however the precision is not constant
@@ -798,9 +775,9 @@ highest at intermediate levels of phylogenetic signal.
 
 \newpage
 
-\includegraphics[width=0.95\linewidth]{Fig2}
+\includegraphics[width=0.95\linewidth]{Fig3}
 
-\singlespacing \textbf{Figure 2}. Precision of Pagel's \(\lambda\) when
+\singlespacing \textbf{Figure 3}. Precision of Pagel's \(\lambda\) when
 incorporated in phylogenetic regression (\(Y\sim X\)), across known
 levels of input phylogenetic signal (\(\lambda_{in}\)) on phylogenies of
 various sizes. As phylogenies increase in size, variation in
@@ -810,9 +787,9 @@ intermediate levels of phylogenetic signal.
 
 \newpage
 
-\includegraphics[width=0.95\linewidth]{Fig3}
+\includegraphics[width=0.95\linewidth]{Fig4}
 
-\singlespacing \textbf{Figure 3}. Variation in estimates of phylogenetic
+\singlespacing \textbf{Figure 4}. Variation in estimates of phylogenetic
 signal across input levels of phylogenetic signal. (A) Estimates of
 Pagel's \(\lambda\) for data simulated on phylogenies with 128 taxa
 (\(n=128\)), (B) Estimates of \(Z_K\) for data simulated on phylogenies
@@ -821,13 +798,5 @@ with 128 taxa (\(n=128\)), (C) Variance in the variation of
 on phylogenies containing differing numbers of species. (D) Variance in
 the variation of \(Z_K\) across input levels of phylogenetic signal,
 estimated on phylogenies containing differing numbers of species.
-
-\newpage
-
-\includegraphics[width=0.95\linewidth]{Fig4}
-
-\singlespacing \textbf{Figure 4}.Frequency of estimated lambda values
-published in manuscripts in 2019. The majority of these values were
-close to 0 or 1, and from phylogenies with fewer than 200 taxa.
 
 \end{document}
