@@ -348,33 +348,42 @@ names(bwl_named) <- species_sums_bwl$Species
 kappa_bwl <- physignal(bwl_named, phy = phylo_pruned, iter = 999, print.progress = F)
 kappa_bwl # kappa = 0.2515; z = 2.3597; p = 0.001
 
+faketrait <- sim.char(phy = phylo_pruned, par = 1, nsim = 1)[,,1]
+kappa_fake <- physignal(faketrait, phy = phylo_pruned)
+plot(kappa_fake)
+
 source("Data_Analyses/CompareZ.r")
 sav_vs_bwl <- compare.Z(kappa_sav, kappa_bwl)
 sav_vs_bwl$pairwise.P
 
 # Figure 5 B and C
-
-Z_SDs <- (sav_vs_bwl$sample.r.sd.pk.stand)/sqrt(length(phylo_pruned$tip.label))
-Interval <- Z_SDs*1.96
+Nulls <- cbind(kappa_sav$random.K[-1], kappa_bwl$random.K[-1])
+colnames(Nulls) <- c("SAV.k.null", "BWL.k.null")
+Interval<-abs(qnorm(sav_vs_bwl$sample.r.sd.pk.stand)) # CI are represented without 
 
 png("Figures/Fig5_BC.png", width = 600, height = 300)
 par(mfrow=c(1,2), mar = c(5,4,2,2))
-
-hist(sav_named, main = "SA:V and Body Width Data", xlab = "Value", xlim = c(0,3.1), ylim = c(0,90), yaxs="i")
-hist(bwl_named, main = "SA:V and Body Width Data", xlab = "Value", add= T, col = "black")
-legend("topright",c("SA:V","BW"),fill=c("white","black"), inset = .03)
+ # null distribution of kappas with observed kappas
+hist(Nulls[,1], col = alpha("red",0.5), xlim = c(0,.9), border = "red", breaks = 15, yaxs = "i", xlab = "Null and Observed Kappas", main = "")
+hist(Nulls[,2], col = alpha("black", 0.5), border = "black", xlim = c(0,.9), breaks = 15, yaxs = "i", add = T)
+abline(v = kappa_sav$random.K[1], col = "red", lwd = 3)
+abline(v = kappa_bwl$random.K[1], col = "black", lwd = 3)
+legend("topright",c("SA:V","BW Rel"),fill=c("red","black"), inset = .03)
 box()
 
 plotCI(x = c(1,2), y = sav_vs_bwl$sample.z, xlim = c(.8, 2.2), 
        xlab = "Morphological Traits", yaxs="i", axes = F,
-       ylim = c(0,10), pch = 19, ylab = "Effect Sizes",
-       uiw = Interval)
+       ylim = c(0,10), pch = 19, cex = 2, ylab = "Effect Sizes",
+       uiw = Interval, col = c("red", "black"))
 axis(2, at=0:10, labels=0:10)
-axis(1, at=c(1,2), labels = c("SA:V", "Body Width"))
+axis(1, at=c(1,2), labels = c("SA:V", "Relative Body Width"))
 box()
 
 dev.off()
 
+# Sim 3 traits on 5 on each tree, look at histograms colored by tree
+
+    # on those trees, simulate bm, trend, ou, and do it again.
 
 
 

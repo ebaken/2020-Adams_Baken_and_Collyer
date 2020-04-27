@@ -149,6 +149,7 @@ Data1024 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_1024.csv"
 ###LOOP THIS OVER EACH LEVEL OF N. 
         # calculating z scores for lambdas 
 
+# add loop here over all tree sizes
         Z.lambda <- matrix(NA, nrow=50, ncol = 21)
         n <- 128
         nsim <- 50
@@ -166,6 +167,8 @@ Data1024 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_1024.csv"
         }
         
         Data128$lambda.est.z <- as.vector(Z.lambda)
+        
+        # end loop
 
 #I THINK for Panel A & B, use N=32
 
@@ -186,10 +189,10 @@ PanelB <- ggplot(Data128, aes(x = lambda.input, y = kappa.z)) +
 # go to all 21 lambda inputs and get variance of lambda z scores, then calculate coefficient of variation of those variances
       
 # LOOP THIS OVER EACH LEVEL OF N.  SO obtain 21 lambda.z.vars at each
-      lambda.z.vars <- apply(Z.lambda,2,var)
+      lambda.z.vars <- apply(Z.lambda,2,var) # loop this over all tree sizes
 
 #Then for each N do:
-      CV.k <- sd(apply(Z.k,2,var))/   mean(apply(Z.k,2,var))*100
+      CV.k <- sd(apply(Z.k,2,var))/   mean(apply(Z.k,2,var))*100 # loop that over all tree sizes
 
 # THEN PLOT all 6 CV for K and all 6 CV for lambda.  (Hmm, perhaps this is a single plot?)      
 
@@ -215,16 +218,18 @@ title(main = list("C", cex = 1, font = 1), adj = 0)
       Z.k <- matrix(Data128$kappa.z, nrow = 50, ncol = 21)
       colnames(Z.k) <- lambdas
       
-      lambda.k.vars <- apply(Z.k,2,var)
+      lambda.k.vars <- apply(Z.k,2,var) # loop over all tree sizes
 
 barplot(lambda.k.vars, col = "darkgray", space = -0.01, axis.lty = 1, ylim = c(0,max(lambda.k.vars)),
         xlab = "Lambda Input", ylab = "Lambda Kappa Score Variances")
 box()
 title(main = list("D", cex = 1, font = 1), adj = 0)
       
-      CV.k <- sd(apply(Z.k,2,var))/   mean(apply(Z.k,2,var))*100
+      CV.k <- sd(apply(Z.k,2,var))/   mean(apply(Z.k,2,var))*100 # loop over all tree sizes
       
       barplot(c(CV.l,CV.k))
+      
+      # bar plot with tree sizes on x axis and CV for lambda z and kappa z side by side
       
 # All together
 library(gridExtra)
