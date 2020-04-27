@@ -77,3 +77,13 @@ length(which(is.na(DataTable_lambda$kappa.z)=="TRUE"))
 file_name <- paste("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_", n, ".csv", sep = "")
 write.csv(DataTable_lambda, file_name, row.names = F)
 
+
+
+# figure: 3 panels
+# A
+# first slide, dump top drawing
+# keep only svl and bwl
+# slide 4: top two panels go right below those. SA:V under the tubes
+
+# B emperical histograms of both traits overlaying 
+# C 2 dots for z scores with CIs

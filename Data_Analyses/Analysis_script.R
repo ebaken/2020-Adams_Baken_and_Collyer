@@ -352,6 +352,32 @@ source("Data_Analyses/CompareZ.r")
 sav_vs_bwl <- compare.Z(kappa_sav, kappa_bwl)
 sav_vs_bwl$pairwise.P
 
+# Figure 5 B and C
+
+Z_SDs <- (sav_vs_bwl$sample.r.sd.pk.stand)/sqrt(length(phylo_pruned$tip.label))
+Interval <- Z_SDs*1.96
+
+png("Figures/Fig5_BC.png", width = 600, height = 300)
+par(mfrow=c(1,2), mar = c(5,4,2,2))
+
+hist(sav_named, main = "SA:V and Body Width Data", xlab = "Value", xlim = c(0,3.1), ylim = c(0,90), yaxs="i")
+hist(bwl_named, main = "SA:V and Body Width Data", xlab = "Value", add= T, col = "black")
+legend("topright",c("SA:V","BW"),fill=c("white","black"), inset = .03)
+box()
+
+plotCI(x = c(1,2), y = sav_vs_bwl$sample.z, xlim = c(.8, 2.2), 
+       xlab = "Morphological Traits", yaxs="i", axes = F,
+       ylim = c(0,10), pch = 19, ylab = "Effect Sizes",
+       uiw = Interval)
+axis(2, at=0:10, labels=0:10)
+axis(1, at=c(1,2), labels = c("SA:V", "Body Width"))
+box()
+
+dev.off()
+
+
+
+
 
 # tropical sav vs temperate sav; z scores comparison here too
 
