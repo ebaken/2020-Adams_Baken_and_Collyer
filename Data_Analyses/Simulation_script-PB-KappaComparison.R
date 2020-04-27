@@ -26,11 +26,11 @@ DataTable_lambda <- data.frame(lambda.input = lambdas_expanded,
                                CI.lower = rep(NA, nsim*length(lambdas)),
                                CI.upper = rep(NA, nsim*length(lambdas))) 
 
-pb <- txtProgressBar(499, fullsimlength, style=1)
+pb <- txtProgressBar(1, fullsimlength, style=1)
 
 Start.time<-Sys.time()
 Start.time
-for (j in 499:fullsimlength) {
+for (j in 1:fullsimlength) {
   while(TRUE){
  
     tree<-pbtree(n=n,scale=1) 

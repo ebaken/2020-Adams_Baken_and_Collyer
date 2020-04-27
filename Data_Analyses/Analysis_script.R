@@ -220,6 +220,7 @@ write.csv(var_df, "Data_Analyses/Munged_Data/Kappa_Z_norm_vars.csv", row.names =
 
 
 # Literature numbers ####
+
 library(readxl)
 review <- read_excel("Literature_Review/1Summary.xlsx", sheet = "Since 2019 Lambda Vals")
 colnames(review)
@@ -242,6 +243,8 @@ length(which(published.lambdas.df$Published_Lambdas > 0.90))/nrow(published.lamb
 
 length(which(published.lambdas.df$Taxa < 30))/nrow(published.lambdas.df)*100 # 22.36504%
 length(which(published.lambdas.df$Taxa < 30)) # 348
+
+
 
 review_25to75 <- review[which(review$`Estimated Lambdas Simple` >=.25 & review$`Estimated Lambdas Simple` < .7501),]
 colnames(review_25to75) <- c("Reference", "Estimated Lambda", "Estimated Lambdas Simple", "Taxa", "__1", "Interpreted", "Quote", "Extra")
@@ -271,6 +274,10 @@ all.papers$YN <- as.factor(all.papers$YN)
 levels(all.papers$YN)
 summary(all.papers$YN) # 204 yeses out of 341 citations
 
+# how many papers interpreted lambda with magnitude
+keepthese <- all.papers$Reference[which(all.papers$YN=="Yes")]
+interpreted<- review.fullsheet[match(keepthese, review.fullsheet$Reference), c("Reference", "Interpreted lambda value as strong or weak beyond significance?")]
+colnames(interpreted) <- c("Ref", "Interp")
 
 # taking out any rows with NA in the interpretation column
 interpreted.pruned <- interpreted[-which(is.na(interpreted$Interp)=="TRUE"),]
@@ -279,11 +286,13 @@ interpreted.pruned <- interpreted[-which(is.na(interpreted$Interp)=="TRUE"),]
 interpreted.pruned$YNKinda <- interpreted.pruned$Interp
 interpreted.pruned$YNKinda[startsWith(interpreted.pruned$Interp, "Yes")] <- "Yes"
 interpreted.pruned$YNKinda[startsWith(interpreted.pruned$Interp, "No")] <- "No"
-interpreted.pruned$YNKinda[startsWith(interpreted.pruned$Interp, "Kinda")] <- "Kinda"
+interpreted.pruned$YNKinda[startsWith(interpreted.pruned$Interp, "Kinda")] <- "Yes"
 
 # cleaning up messier categories
-interpreted.pruned$YNKinda[which(interpreted.pruned$YNKinda == "-")] <- NA
+interpreted.pruned$YNKinda[which(interpreted.pruned$YNKinda == "Kinda")] <- "Yes"
+interpreted.pruned$YNKinda[which(interpreted.pruned$YNKinda == "-")] <- "No"
 interpreted.pruned$YNKinda[which(interpreted.pruned$YNKinda == "no")] <- "No"
+interpreted.pruned$YNKinda[which(interpreted.pruned$YNKinda == "NA")] <- "No"
 interpreted.pruned$YNKinda[which(interpreted.pruned$YNKinda == "Only interpreted kappa")] <- "No"
 interpreted.pruned$YNKinda[which(interpreted.pruned$YNKinda == "Only interpreted significance")] <- "No"
 interpreted.pruned$YNKinda[which(interpreted.pruned$YNKinda == "Only kappa interpreted")] <- "No"
@@ -295,28 +304,83 @@ interpreted.pruned$YNKinda[which(interpreted.pruned$YNKinda == "Only published i
 interpreted.pruned$YNKinda <- as.factor(interpreted.pruned$YNKinda)
 levels(interpreted.pruned$YNKinda)
 
-length(which(interpreted.pruned$YNKinda == "Yes"))/nrow(interpreted.pruned)*100 # 20.49%
+length(which(interpreted.pruned$YNKinda == "Yes"))/nrow(interpreted.pruned)*100 # 40.59%%
 
 
-# comparing lambdas??
-interpreted<- review.fullsheet[,c("Reference", "Compared lambdas without sig tests?")]
-colnames(interpreted) <- c("Ref", "Compared")
+
+# comparing between lambdas
 interpreted$Compared <- as.factor(interpreted$Compared)
 summary(interpreted$Compared) # 7 yeses
 
-# Misspecification rates - delete
 
-Regression.lambda0 <- Regression.data[which(Regression.data$lambda.input == 0),]
-Regression.lambda0 <- Regression.lambda0[Regression.lambda0$method == "ml",]
 
-Reg.l0.listbytree <- list(Regression.lambda0[Regression.lambda0$tree.size == treesizes[[1]],],
-                          Regression.lambda0[Regression.lambda0$tree.size == treesizes[[2]],],
-                          Regression.lambda0[Regression.lambda0$tree.size == treesizes[[3]],],
-                          Regression.lambda0[Regression.lambda0$tree.size == treesizes[[4]],],
-                          Regression.lambda0[Regression.lambda0$tree.size == treesizes[[5]],],
-                          Regression.lambda0[Regression.lambda0$tree.size == treesizes[[6]],])
+# Empirical Example: SVL and SAV ####
+library(caper)
+library(ape)
+library(stringr)
 
-summary(Reg.l0.listbytree[[1]]$lambda.input)
+sav_dataset <- read.csv("~/Documents/School/Thesis/Data/Pruned/Chapter2/SAtoV.AllSpecimens.csv")
+species_sums_sav <- ddply(sav_dataset, ~Species, summarise, SAtoV = mean(SAtoV), SVL = mean(SVL))
+row.names(species_sums_sav) <- species_sums_sav[,1]
 
-lapply(1:6, function(i) { length(which(Reg.l0.listbytree[[i]]$lambda.est.x > 0.1))/nrow(Reg.l0.listbytree[[i]])*100 })
-lapply(1:6, function(i) { length(which(Reg.l0.listbytree[[i]]$P < 0.05))/nrow(Reg.l0.listbytree[[i]])*100 })
+bwl_dataset <- read.csv("~/Documents/School/Thesis/Data/Pruned/Chapter1/Morpho/LinearMeasurements.IndividualSpecimens.EstimatedMissing.JuvEx.csv")
+bwl_dataset <- data.frame(Species = bwl_dataset$Species, BWLrel = bwl_dataset$BWL/bwl_dataset$SVL)
+species_sums_bwl <- ddply(bwl_dataset, ~Species, summarise, BWLrel = mean(BWLrel))
+species_sums_bwl <- species_sums_bwl[match(row.names(species_sums_sav), species_sums_bwl$Species),] # pruning to the same species as SAV
+row.names(species_sums_bwl) <- species_sums_bwl[,1]
+
+phylo <- read.tree("~/Documents/School/Thesis/Data/Pruned/BB.PrunedToLMData.tre")
+phylo$tip.label <- str_replace_all(phylo$tip.label, "_", " ")
+missing_taxa <- phylo$tip.label[which(phylo$tip.label %in% row.names(species_sums_bwl) == "FALSE")]
+phylo_pruned <- drop.tip(phylo, tip = missing_taxa)
+
+species_sums_bwl <- species_sums_bwl[match(phylo_pruned$tip.label, row.names(species_sums_bwl)),] # reordering data to match phylo
+species_sums_sav <- species_sums_sav[match(phylo_pruned$tip.label, row.names(species_sums_sav)),] # reordering data to match phylo
+
+# sav vs bwl
+sav_named <- species_sums_sav$SAtoV
+names(sav_named) <- species_sums_sav$Species
+kappa_sav <- physignal(sav_named, phy = phylo_pruned, iter = 999, print.progress = F)
+kappa_sav # kappa = 0.7608; z = 8.01; p = 0.001
+
+bwl_named <- species_sums_bwl$BWLrel
+names(bwl_named) <- species_sums_bwl$Species
+kappa_bwl <- physignal(bwl_named, phy = phylo_pruned, iter = 999, print.progress = F)
+kappa_bwl # kappa = 0.2515; z = 2.3597; p = 0.001
+
+source("Data_Analyses/CompareZ.r")
+sav_vs_bwl <- compare.Z(kappa_sav, kappa_bwl)
+sav_vs_bwl$pairwise.P
+
+
+# tropical sav vs temperate sav; z scores comparison here too
+
+trop_species <- read.csv("~/Documents/School/Thesis/Data/Pruned/TropicalSpecies.csv")
+trop_sav <- sav_named[match(trop_species$x, names(sav_named))]
+trop_sav <- trop_sav[complete.cases(trop_sav)]
+temp_sav <- sav_named[-na.omit(match(trop_species$x, names(sav_named)))]
+temp_sav <- temp_sav[complete.cases(temp_sav)]
+
+missing_taxa <- phylo$tip.label[which(phylo$tip.label %in% names(trop_sav) == "FALSE")]
+trop_phylo <- drop.tip(phylo, tip = missing_taxa)
+
+missing_taxa <- phylo$tip.label[which(phylo$tip.label %in% names(temp_sav) == "FALSE")]
+temp_phylo <- drop.tip(phylo, tip = missing_taxa)
+
+kappa_trop <- physignal(trop_sav, phy = trop_phylo, iter = 999, print.progress = F)
+kappa_trop # kappa = 1.5851; z = 6.5741; p = 0.001
+
+kappa_temp <- physignal(temp_sav, phy = temp_phylo, iter = 999, print.progress = F)
+kappa_temp # kappa = 0.5223; z = 6.0836; p = 0.001
+
+source("Data_Analyses/CompareZ.r")
+temp_vs_trop <- compare.Z(kappa_trop, kappa_bwl)
+temp_vs_trop
+
+
+
+
+
+
+
+
