@@ -1,5 +1,5 @@
 ---
-title: MISUSES AND INACCURACIES OF PAGEL'S LAMBDA ML ESTIMATION METHODS
+title: A Standardized Effect Size for Evaluating the Strength of Phylogenetic Signal, and Why Lambda is not Appropriate
 
 output:
   pdf_document:
@@ -28,9 +28,10 @@ $^{1}$Department of Ecology, Evolution, and Organismal Biology, Iowa State Unive
 $^{*}$Correspondence: Dean C. Adams <dcadams@iastate.edu> 
 
 \hfill\break
-**Keywords**: Pagel's lambda, phylogenetic signal \hfill\break
 
-**Short Title**: Problems with Pagel's lambda \hfill\break
+**Keywords**: phylogenetic signal, effect size, Pagel's lambda \hfill\break
+
+**Short Title**: An Effect Size for Phylogenetic Signal \hfill\break
 
 **Author Contributions**: DCA ...EKB...; all authors contributed  to all parts of this manuscript. \hfill\break
 
