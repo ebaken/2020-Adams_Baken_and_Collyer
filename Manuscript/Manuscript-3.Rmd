@@ -150,7 +150,9 @@ More discussion paragraphs
 
 \textbf{Figure 3}. Precision of Pagel's $\lambda$ when incorporated in phylogenetic regression ($Y\sim X$), across known levels of input phylogenetic signal ($\lambda_{in}$) on phylogenies of various sizes. As phylogenies increase in size, variation in $\lambda_{in}$ decreases; however the precision is not constant across the range of input levels ($\lambda_{in}: 0 \to 1$), and is highest at intermediate levels of phylogenetic signal. \hfill\break
 
-\textbf{Figure 4}.  Variation in estimates of phylogenetic signal across input levels of phylogenetic signal. (A) Estimates of Pagel's $\lambda$ for data simulated on phylogenies with 128 taxa ($n=128$), (B) Estimates of $Z_K$ for data simulated on phylogenies with 128 taxa ($n=128$), (C) Variance in the variation of $\lambda_{est}$ across input levels of phylogenetic signal, estimated on phylogenies containing differing numbers of species. (D) Variance in the variation of $Z_K$ across input levels of phylogenetic signal, estimated on phylogenies containing differing numbers of species.    
+\textbf{Figure 4}. Variation in effect size estimates of phylogenetic signal across input levels of phylogenetic signal. (A) Estimates $Z_\lambda$ for data simulated on phylogenies with 32 taxa ($n=32$), (B) Estimates of $Z_K$ for data simulated on phylogenies with 32 taxa ($n=32$), (C) Coefficients of variation of precision estimates of $Z_\lambda$ and $Z_K$ across input levels of phylogenetic signal, estimated on phylogenies containing differing numbers of species. 
+
+\textbf{Figure 5}.  (A) Linear measures for relative body size, and regions of the body used to estimate surface area to volume (SA:V) ratios. (B) Permutation distributions of phylogenetic signal for SA:V and $\frac{BW}{SVL}$, with observed values shown as vertical bars. (C) Effect sizes ($Z_K$) for SA:V and $\frac{BW}{SVL}$, with their 95% confidence intervals (CI not standardized by $\sqrt(n)$). 
 
 \newpage
 
@@ -187,5 +189,11 @@ include_graphics("Fig4.png")
 
 ```
 
-\singlespacing \textbf{Figure 4}.  Variation in estimates of phylogenetic signal across input levels of phylogenetic signal. (A) Estimates of Pagel's $\lambda$ for data simulated on phylogenies with 128 taxa ($n=128$), (B) Estimates of $Z_K$ for data simulated on phylogenies with 128 taxa ($n=128$), (C) Variance in the variation of $\lambda_{est}$ across input levels of phylogenetic signal, estimated on phylogenies containing differing numbers of species. (D) Variance in the variation of $Z_K$ across input levels of phylogenetic signal, estimated on phylogenies containing differing numbers of species.  
+\singlespacing \textbf{Figure 4}.  Variation in effect size estimates of phylogenetic signal across input levels of phylogenetic signal. (A) Estimates $Z_\lambda$ for data simulated on phylogenies with 32 taxa ($n=32$), (B) Estimates of $Z_K$ for data simulated on phylogenies with 32 taxa ($n=32$), (C) Coefficients of variation of precision estimates of $Z_\lambda$ and $Z_K$ across input levels of phylogenetic signal, estimated on phylogenies containing differing numbers of species. 
 
+```{r, echo = FALSE, out.width="95%"}
+include_graphics("Fig5.png")  
+
+```
+
+\singlespacing \textbf{Figure 5}.  (A) Linear measures for relative body size, and regions of the body used to estimate surface area to volume (SA:V) ratios. (B) Permutation distributions of phylogenetic signal for SA:V and $\frac{BW}{SVL}$, with observed values shown as vertical bars. (C) Effect sizes ($Z_K$) for SA:V and $\frac{BW}{SVL}$, with their 95% confidence intervals (CI not standardized by $\sqrt(n)$). 
