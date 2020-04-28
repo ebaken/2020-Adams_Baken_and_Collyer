@@ -21,7 +21,7 @@ kappa.obs.null <- array(NA, dim = c(100, ntraits, ntrees))
 phy.sim <- lapply(1:ntrees, function(i) pbtree(n = ntips[1]))
 cols <-brewer.pal(ntrees, "Dark2")
 
-plot(1, type="n", axes=T, xlab="", ylab="", xlim = c(0,1), ylim = c(0,25))
+plot(1, type="n", axes=T, xlab="", ylab="", xlim = c(0,1), ylim = c(0,35))
 
 for (i in 1:ntrees) {
 traits.sim <- sim.char(phy = phy.sim[[i]], par = 1, nsim = ntraits)
