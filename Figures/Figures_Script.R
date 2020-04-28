@@ -5,7 +5,7 @@
 
 library(readxl)
 
-tree.sizes <-  2^(5:10)
+tree.sizes <-  treesizes <- 2^(5:10)
 
 review <- read_excel("Literature_Review/1Summary.xlsx", sheet = "Since 2019 Lambda Vals", col_types = "numeric")
 colnames(review)
@@ -134,225 +134,102 @@ plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
           PlotList[[4]], PlotList[[5]], PlotList[[6]])
 dev.off()
 
-# Fig 4: panel A: z score of lambda ~ lambda input at n = 128, ####
+# Fig 4: Edited April 28 2020 ####
 
-Data128 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_128.csv")
+  Data32 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_32.csv")
+  Data64 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_64.csv")
+  Data128 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_128.csv")
+  Data256 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_256.csv")
+  Data512 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_512.csv")
+  Data1024 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_1024.csv")
 
         # calculating z scores for lambdas 
-
-        Z.lambda <- matrix(NA, nrow=50, ncol = 21)
-        n <- 128
-        nsim <- 50
+        tree.sizes <-  2^(5:10)
         lambdas <- levels(as.factor(Data128$lambda.input))
+        nsim <- 50
+        data_list <- list(Data32, Data64, Data128, Data256, Data512, Data1024)
+        Z.lambda <- array(NA, dim = c(50,21,6))
         
-        for (i in 1:21) {
-            Data128_pruned <- Data128[which(Data128$lambda.input == lambdas[i]),]
-            
-            lambda.std <- unlist(lapply(1:nsim, function(j) {
-                if(Data128_pruned$CI.lower[j]==0){lambda.std <- (Data128_pruned$CI.upper[j]-Data128_pruned$lambda.est[j])*sqrt(n)/qnorm(0.975)} 
-                else {lambda.std <- (Data128_pruned$lambda.est[j]-Data128_pruned$CI.lower[j])*sqrt(n)/qnorm(0.975)}
-              }))
-            
-            Z.lambda[,i] <- Data128_pruned$lambda.est/lambda.std
+        for (k in 1:6) {
+          
+            n <- tree.sizes[k]
+            data <- data_list[[k]]
+        
+            for (i in 1:21) {
+                data_pruned <- data[which(data$lambda.input == lambdas[i]),]
+                  lambda.std <- unlist(lapply(1:nsim, function(j) {
+                      if(data_pruned$CI.lower[j]==0 & data_pruned$CI.upper[j]==1) {lambda.std <- NA} # skipping all values for which CIs were (0,1)
+                    else{
+                      if(data_pruned$CI.lower[j]==0){lambda.std <- (data_pruned$CI.upper[j]-data_pruned$lambda.est[j])*sqrt(n)/qnorm(0.975)} 
+                      else {lambda.std <- (data_pruned$lambda.est[j]-data_pruned$CI.lower[j])*sqrt(n)/qnorm(0.975)}
+                    }
+                    }))
+                 Z.lambda[,i,k] <- data_pruned$lambda.est/lambda.std
+            }
         }
-        
-        Data128$lambda.est.z <- as.vector(Z.lambda)
+        Z.lambda[,,1]
 
+# Panel A: lambda.z ~ lambda.input at n = 32
+        # put data from above loop in long format
+        library(tidyr)
+        Data <- as.data.frame(Z.lambda[,,1])
+        colnames(Data) <- lambdas
+        Data_long <- gather(Data, key = "lambda.input", value = "lambda.est.z")
+        Data_long$lambda.input <- as.numeric(Data_long$lambda.input)
 
-PanelA <- ggplot(Data128, aes(x = lambda.input, y = lambda.est.z)) + 
+PanelA <- ggplot(Data_long, aes(x = lambda.input, y = lambda.est.z)) + 
                 geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent"),
                                          panel.border = element_rect(color = "black", fill = NA), text = element_text(size = 12)) + 
-                    xlab("Input Lambda") + ylab("Estimated Lambda Effect Size") + ggtitle("A") 
+                    xlab("Input Lambda") + ylab("Estimated Lambda Effect Size") 
+        # warning about removing missing values is ok, those are the CIs that were (0,1) and thus Lambda Z could not be calculated
 
-# panel B: z score for kappa ~ lambda at n = 128
+# Panel B: kappa.z ~ lambda.input at n = 32
 
-PanelB <- ggplot(Data128, aes(x = lambda.input, y = kappa.z)) + 
+PanelB <- ggplot(Data32, aes(x = lambda.input, y = kappa.z)) + 
                 geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent"),
                                          panel.border = element_rect(color = "black", fill = NA), text = element_text(size = 12)) + 
-                    xlab("Input Lambda") + ylab("Estimated Kappa Effect Size") + ggtitle("B")
+                    xlab("Input Lambda") + ylab("Estimated Kappa Effect Size")
 
 
 # panel C: coefficient of variation across precision estimates for each sample size ~ n, 
-# go to all 21 lambda inputs and get variance of lambda z scores, then calculate coefficient of variation of those variances
-      
-      
-      lambda.z.vars <- apply(Z.lambda,2,var)
-      barplot(lambda.z.vars)
-      library(plotrix)
-      from <- 1
-      to <- 571
+      lambda.z.vars <- lapply(1:6, function(i) { apply(na.omit(Z.lambda[,,i]), 2, var) }) # variances of z scores across each input lambda for each tree
+      CV.lambda <- lapply(1:6, function(i) sd(lambda.z.vars[[i]])/mean(lambda.z.vars[[i]])*100) # CV for each tree size
 
-
-gap.barplot(lambda.z.vars, gap=c(from,to), col = rep("darkgray",21), ytics = c(0,1,572, 573), 
-                  xaxlab = lambdas, 
-                  xlab = "Lambda Input", ylab = "Lambda Z Score Variances", yaxs="i")
-axis.break(2, from, breakcol="snow", style="gap")
-axis.break(2, from*(1+0.04), breakcol="black", style="slash")
-axis.break(4, from*(1+0.04), breakcol="black", style="slash")
-axis(2, at=from) 
-title(main = list("C", cex = 1, font = 1), adj = 0)
-
-      CV.l <- sd(apply(Z.lambda,2,var))/ mean(apply(Z.lambda,2,var))*100
-
-# panel D: same as panel C except kappa z scores [he is sending me code for this], but barplot all of cv of z of lambda, then all cv of z of kappa
+      data_list <- list(Data32, Data64, Data128, Data256, Data512, Data1024)
+      lambda.k.vars <- lapply(1:6, function(i) { 
+                    data_wide <- matrix(data_list[[i]]$kappa.z, nrow = 50, byrow = F)
+                    apply(data_wide, 2, var) 
+                    })
+      CV.kappa <- lapply(1:6, function(i) sd(lambda.k.vars[[i]])/mean(lambda.k.vars[[i]])*100)
+      # CV.kappa <- sd(apply(Z.lambda,2,var))/ mean(apply(Z.lambda,2,var))*100 # Dean's code
       
-      Z.k <- matrix(Data128$kappa.z, nrow = 50, ncol = 21)
-      colnames(Z.k) <- lambdas
-      
-      lambda.k.vars <- apply(Z.k,2,var)
+      DF <- data.frame(n = rep(tree.sizes, 2), CV = c(unlist(CV.lambda),unlist(CV.kappa)), Statistic = rep(c("Lambda Z", "Kappa Z"), each= 6))
 
-barplot(lambda.k.vars, col = "darkgray", space = -0.01, axis.lty = 1, ylim = c(0,max(lambda.k.vars)),
-        xlab = "Lambda Input", ylab = "Lambda Kappa Score Variances")
-box()
-title(main = list("D", cex = 1, font = 1), adj = 0)
+PanelC <- ggplot(DF, aes(x = as.factor(n), y = CV, fill = Statistic)) + 
+  geom_bar(stat="identity", color="black", position=position_dodge())+
+  theme_minimal() +
+  xlab("Tree Size") + ylab("Coefficient of Variance") + 
+  scale_fill_manual(values=c("white","darkgray"))
+
+PanelC      
       
-      CV.k <- sd(apply(Z.k,2,var))/   mean(apply(Z.k,2,var))*100
-      
-      barplot(c(CV.l,CV.k))
+
       
 # All together
 library(gridExtra)
-png("Figures/Fig4_AB.png", width = 600, height = 300)
-grid.arrange(PanelA, PanelB, nrow=1)
+lay <- rbind(c(1,1,2,2),
+             c(1,1,2,2),
+             c(3,3,3,3))
+gs <- list(PanelA,PanelB,PanelC)
+
+png("Figures/Fig4.png", width = 600, height = 600)
+grid.arrange(grobs = gs, layout_matrix = lay)
 dev.off()
 
-png("Figures/Fig4_CD.png", width = 600, height = 300)
-par(mfrow=c(1,2), mar = c(5,4,2,2))
-gap.barplot(lambda.z.vars, gap=c(from,to), col = rep("darkgray",21), ytics = c(0,1,572, 573), 
-                  xaxlab = lambdas, 
-                  xlab = "Lambda Input", ylab = "Lambda Z Score Variances", yaxs="i")
-axis.break(2, from, breakcol="snow", style="gap")
-axis.break(2, from*(1+0.04), breakcol="black", style="slash")
-axis.break(4, from*(1+0.04), breakcol="black", style="slash")
-axis(2, at=from) 
-title(main = list("C", cex = 1, font = 1), adj = 0)
-
-barplot(lambda.k.vars, col = "darkgray", space = -0.01, axis.lty = 1, ylim = c(0,max(lambda.k.vars)),
-        xlab = "Lambda Input", ylab = "Lambda Kappa Score Variances")
-box()
-title(main = list("D", cex = 1, font = 1), adj = 0)
-
-dev.off()
 
 # Fig 5: Salamander fig ####
 
 # Panel A made in ppt, panels B and C made in Analysis_script
-
-## Figure S2 #####
-
-ANOVA.data.ml$lambda.input.bins <- ANOVA.data.ml$lambda.input
-ANOVA.data.ml$lambda.input.bins[ANOVA.data.ml$lambda.input < .31] <- "Low"
-ANOVA.data.ml$lambda.input.bins[ANOVA.data.ml$lambda.input > .31] <- "Medium"
-ANOVA.data.ml$lambda.input.bins[ANOVA.data.ml$lambda.input > .69] <- "High"
-ANOVA.data.ml$lambda.input.bins <- as.factor(ANOVA.data.ml$lambda.input.bins)
-summary(ANOVA.data.ml$lambda.input.bins)
-
-PlotList <- lapply(1:6, function(j){
-   reduced.data <- ANOVA.data.ml[which(ANOVA.data.ml$tree.size == treesizes[[j]]),]
-   ggplot(reduced.data, aes(x = beta, y = slope, fill = lambda.input.bins)) + #geom_abline(intercept = 0, slope = .2) +
-      geom_boxplot() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
-      xlab("Input Slope") + ylab("Estimated Slope") + ggtitle(treesizes[[j]]) + expand_limits(y=c(-3.5,4))
-})
-
-jpeg("Figures/FigS2.jpeg", res = 120, quality = 100, width = 1000, height = 660)
-plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
-          PlotList[[4]], PlotList[[5]], PlotList[[6]])
-dev.off()
-
-
-## Figure S3 ####
-library(cowplot)
-library(ggplot2)
-treesizes <-  2^(5:10)
-
-kappadata_1 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_32.csv")
-kappadata_2 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_64.csv")
-kappadata_3 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_128.csv")
-kappadata_4 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_256.csv")
-kappadata_5 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_512.csv")
-kappadata_6 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_512.csv")
-
-kappa_all <- rbind(kappadata_1, kappadata_2, kappadata_3, kappadata_4, kappadata_5, kappadata_6)
-kappa_all$treesize <- rep(treesizes, each = 1050)
-
-
-PlotList <- lapply(1:6, function(j){
-   reduced.data <- kappa_all[which(kappa_all$treesize == treesizes[[j]]),]
-   ggplot(reduced.data, aes(x = lambda.input, y = kappa)) +
-      geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
-      xlab("Input Lambda") + ylab("Estimated Kappa") + ggtitle(treesizes[[j]])
-})
-
-jpeg("Figures/FigS3.jpeg", res = 120, quality = 100, width = 1000, height = 660)
-plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
-          PlotList[[4]], PlotList[[5]], PlotList[[6]])
-dev.off()
-
-
-
-## Sup Figure: ANOVA beta ~ slope  ######
-
-ANOVA.data$beta <- as.factor(ANOVA.data$beta)
-
-ANOVA.data.ml <- ANOVA.data[which(ANOVA.data$method == "ml"),]
-
-PlotList <- lapply(1:6, function(j){
-   reduced.data <- ANOVA.data.ml[which(ANOVA.data.ml$tree.size == treesizes[[j]]),]
-   ggplot(reduced.data, aes(x = beta, y = slope)) + #geom_abline(intercept = 0, slope = .2) +
-      geom_boxplot() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
-      xlab("Input Slope") + ylab("Estimated Slope") + ggtitle(treesizes[[j]]) + expand_limits(y=c(-3.5,4))
-})
-
-jpeg("Figures/Fig2.jpeg", res = 120, quality = 100, width = 1000, height = 660)
-plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
-          PlotList[[4]], PlotList[[5]], PlotList[[6]])
-dev.off()
-
-jpeg("Manuscript/Fig2.jpeg", res = 120, quality = 100, width = 1000, height = 660)
-plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
-          PlotList[[4]], PlotList[[5]], PlotList[[6]])
-dev.off()
-
-# other plot options for Figure 2 - alt1
-
-
-PlotList <- lapply(1:6, function(j){
-   reduced.data <- ANOVA.data[which(ANOVA.data$tree.size == treesizes[[j]]),]
-   ggplot(reduced.data, aes(x = beta, y = slope, fill = method)) + #geom_abline(intercept = 0, slope = .2) +
-      geom_boxplot() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
-      xlab("Input Slope") + ylab("Estimated Slope") + ggtitle(treesizes[[j]]) + expand_limits(y=c(-3.5,4))
-})
-
-jpeg("Figures/Fig2_alt.jpeg", res = 120, quality = 100, width = 1000, height = 660)
-plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
-          PlotList[[4]], PlotList[[5]], PlotList[[6]])
-dev.off()
-
-
-# another plot options for Figure 2 -alt2
-
-ANOVA.data.0 <- ANOVA.data[which(ANOVA.data$method == "0"),]
- 
-ANOVA.data.modified <- cbind(ANOVA.data.ml$tree.size, ANOVA.data.ml$lambda.input, ANOVA.data.ml$'F', ANOVA.data.0$'F')
-ANOVA.data.modified <- as.data.frame(ANOVA.data.modified)
-colnames(ANOVA.data.modified) <- c("tree.size", "lambda.input", "F.ml", "F.0")
-
-
-PlotList <- lapply(1:6, function(j){
-   reduced.data <- ANOVA.data.modified[which(ANOVA.data.modified$tree.size == treesizes[[j]]),]
-   ggplot(reduced.data, aes(x = F.ml, y = F.0)) +
-      geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent")) + 
-      xlab("F from PGLS (est lambda)") + ylab("F from OLS") + ggtitle(treesizes[[j]]) 
-})
-
-jpeg("Figures/Fig2_alt2.jpeg", res = 120, quality = 100, width = 1000, height = 660)
-plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
-          PlotList[[4]], PlotList[[5]], PlotList[[6]])
-dev.off()
-
-
-
-
 
 # Rmarkdown PDF rendering ####
 
