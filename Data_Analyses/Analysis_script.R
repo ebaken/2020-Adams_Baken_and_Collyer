@@ -319,17 +319,17 @@ library(caper)
 library(ape)
 library(stringr)
 
-sav_dataset <- read.csv("~/Documents/School/Thesis/Data/Pruned/Chapter2/SAtoV.AllSpecimens.csv")
+sav_dataset <- read.csv("Data_Analyses/EmpiricalExample/SAtoV.AllSpecimens.csv")
 species_sums_sav <- ddply(sav_dataset, ~Species, summarise, SAtoV = mean(SAtoV), SVL = mean(SVL))
 row.names(species_sums_sav) <- species_sums_sav[,1]
 
-bwl_dataset <- read.csv("~/Documents/School/Thesis/Data/Pruned/Chapter1/Morpho/LinearMeasurements.IndividualSpecimens.EstimatedMissing.JuvEx.csv")
+bwl_dataset <- read.csv("Data_Analyses/EmpiricalExample/LinearMeasurements.IndividualSpecimens.EstimatedMissing.JuvEx.csv")
 bwl_dataset <- data.frame(Species = bwl_dataset$Species, BWLrel = bwl_dataset$BWL/bwl_dataset$SVL)
 species_sums_bwl <- ddply(bwl_dataset, ~Species, summarise, BWLrel = mean(BWLrel))
 species_sums_bwl <- species_sums_bwl[match(row.names(species_sums_sav), species_sums_bwl$Species),] # pruning to the same species as SAV
 row.names(species_sums_bwl) <- species_sums_bwl[,1]
 
-phylo <- read.tree("~/Documents/School/Thesis/Data/Pruned/BB.PrunedToLMData.tre")
+phylo <- read.tree("Data_Analyses/EmpiricalExample/BB.PrunedToLMData.tre")
 phylo$tip.label <- str_replace_all(phylo$tip.label, "_", " ")
 missing_taxa <- phylo$tip.label[which(phylo$tip.label %in% row.names(species_sums_bwl) == "FALSE")]
 phylo_pruned <- drop.tip(phylo, tip = missing_taxa)
