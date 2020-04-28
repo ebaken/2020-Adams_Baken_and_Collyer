@@ -348,10 +348,6 @@ names(bwl_named) <- species_sums_bwl$Species
 kappa_bwl <- physignal(bwl_named, phy = phylo_pruned, iter = 999, print.progress = F)
 kappa_bwl # kappa = 0.2515; z = 2.3597; p = 0.001
 
-faketrait <- sim.char(phy = phylo_pruned, par = 1, nsim = 1)[,,1]
-kappa_fake <- physignal(faketrait, phy = phylo_pruned)
-plot(kappa_fake)
-
 source("Data_Analyses/CompareZ.r")
 sav_vs_bwl <- compare.Z(kappa_sav, kappa_bwl)
 sav_vs_bwl$pairwise.P
@@ -380,13 +376,6 @@ axis(1, at=c(1,2), labels = c("SA:V", "Relative Body Width"))
 box()
 
 dev.off()
-
-# Sim 3 traits on 5 on each tree, look at histograms colored by tree
-
-    # on those trees, simulate bm, trend, ou, and do it again.
-
-
-
 
 # tropical sav vs temperate sav; z scores comparison here too
 
