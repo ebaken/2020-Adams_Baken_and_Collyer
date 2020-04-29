@@ -79,7 +79,9 @@ PlotList <- lapply(1:6, function(j){
    ggplot(data_list[[j]], aes(x = lambda.input, y = lambda.est)) +
       geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent"),
                            panel.border = element_rect(color = "black", fill = NA), text = element_text(size = 12)) + 
-      xlab("Input Lambda") + ylab("Estimated Lambda") + ggtitle(treesizes[[j]]) 
+      xlab("Input Lambda") + ylab("Estimated Lambda") + 
+      annotate(geom="text", x=0, y=.99, label= paste("n = ", treesizes[[j]], sep = ""), 
+               color="black", size = 6, hjust = 0)
 })
 
 tiff("Figures/Fig2.tiff", width = 1000, height = 660)
@@ -121,7 +123,9 @@ PlotList <- lapply(1:6, function(j){
    ggplot(data_list[[j]], aes(x = lambda.input, y = lambda.est.y)) +
       geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent"),
                            panel.border = element_rect(color = "black", fill = NA), text = element_text(size = 12)) + 
-      xlab("Input Lambda") + ylab("Estimated Lambda") + ggtitle(treesizes[[j]]) 
+      xlab("Input Lambda") + ylab("Estimated Lambda") + 
+      annotate(geom="text", x=0, y=.99, label= paste("n = ", treesizes[[j]], sep = ""), 
+               color="black", size = 6, hjust = 0)
 })
 
 tiff("Figures/Fig3.tiff", width = 1000, height = 660)
