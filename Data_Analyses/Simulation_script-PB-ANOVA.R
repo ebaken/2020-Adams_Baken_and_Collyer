@@ -67,8 +67,7 @@ DataTableMat$beta <- rep(beta,(length(lambdas)*nsim))
 # Test Plots ####
 
 plot(DataTableMat$lambda.est.y ~ DataTableMat$lambda.input, pch = 19, xlab = "Input Lambda", ylab = "Lambda Estimated on Y (ANOVA)")
-
-
+plot(DataTableMat$slope ~ DataTableMat$beta, pch = 19, xlab = "beta", ylab = "slope")
 
 # Writing Output Files ####
 file_name <- paste("Data_Analyses/Sim_Data/PB_ANOVA-", n, ".csv", sep = "")
