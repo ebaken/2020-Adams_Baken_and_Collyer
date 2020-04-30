@@ -55,18 +55,18 @@ tree<- phy.list[[5]] # pectinate
 n <- treesizes[5]
 
 # New Rep #####
-#DataTable_lambda <- data.frame(lambda.input = lambdas_expanded, 
-#                               lambda.est = rep(NA, nsim*length(lambdas)), 
-#                               kappa = rep(NA, nsim*length(lambdas)),
-#                               kappa.z = rep(NA, nsim*length(lambdas)),
-#                               CI.lower = rep(NA, nsim*length(lambdas)),
-#                               CI.upper = rep(NA, nsim*length(lambdas))) 
-#
-pb <- txtProgressBar(782, fullsimlength, style=1)
+DataTable_lambda <- data.frame(lambda.input = lambdas_expanded, 
+                               lambda.est = rep(NA, nsim*length(lambdas)), 
+                               kappa = rep(NA, nsim*length(lambdas)),
+                               kappa.z = rep(NA, nsim*length(lambdas)),
+                               CI.lower = rep(NA, nsim*length(lambdas)),
+                               CI.upper = rep(NA, nsim*length(lambdas))) 
+
+pb <- txtProgressBar(1, fullsimlength, style=1)
 
 Start.time<-Sys.time()
 Start.time
-for (j in 782:fullsimlength) {
+for (j in 1:fullsimlength) {
   while(TRUE){
 
     if(lambdas_expanded[j] > 0) {
