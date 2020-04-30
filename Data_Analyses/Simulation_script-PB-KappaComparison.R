@@ -1,7 +1,7 @@
 # Simulating pgls inference errors from estimated lambdas
 
 # Set up
-setwd("/Users/ericabaken/Documents/School/Projects/Lambda_Eval/Manuscript/2020-Adams_and_Baken/")
+# setwd("/Users/ericabaken/Documents/School/Projects/Lambda_Eval/Manuscript/2020-Adams_and_Baken/")
 
 library(phytools)
 library(geomorph)
@@ -16,7 +16,7 @@ lambdas <- seq(0,1,.05) # starting with just 3 lambda values
 lambdas_expanded <- rep(lambdas, each = nsim)
 fullsimlength <- length(lambdas_expanded)
 
-n <- treesizes[5] # number of tips: adjust each iteration
+n <- treesizes[1] # number of tips: adjust each iteration
 
 # New Rep #####
 DataTable_lambda <- data.frame(lambda.input = lambdas_expanded, 
@@ -76,14 +76,3 @@ length(which(is.na(DataTable_lambda$kappa.z)=="TRUE"))
 # Writing Output Files ####
 file_name <- paste("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_", n, ".csv", sep = "")
 write.csv(DataTable_lambda, file_name, row.names = F)
-
-
-
-# figure: 3 panels
-# A
-# first slide, dump top drawing
-# keep only svl and bwl
-# slide 4: top two panels go right below those. SA:V under the tubes
-
-# B emperical histograms of both traits overlaying 
-# C 2 dots for z scores with CIs
