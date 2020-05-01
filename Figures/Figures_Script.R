@@ -94,7 +94,7 @@ plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
           PlotList[[4]], PlotList[[5]], PlotList[[6]])
 dev.off()
 
-# Fig 3: same thing with regression beta = 0.5 ####
+# Fig 3: lambda_est~input with regression beta = 0.5 ####
 Data32 <- read.csv("Data_Analyses/Sim_Data/PB_reg-32.csv")
 Data64 <- read.csv("Data_Analyses/Sim_Data/PB_reg-64.csv")
 Data128 <- read.csv("Data_Analyses/Sim_Data/PB_reg-128.csv")
@@ -138,7 +138,7 @@ plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
           PlotList[[4]], PlotList[[5]], PlotList[[6]])
 dev.off()
 
-# Fig 4: Edited April 28 2020 ####
+# Fig 4: lambda_z~input and kappa_z~input at n = 32, coefficiences of variance ####
 
   Data32 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_32.csv")
   Data64 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_64.csv")
@@ -235,31 +235,26 @@ dev.off()
 
 # Panel A made in ppt, panels B and C made in Analysis_script
 
-# Fig S1: kappa~lambda_input 6 panel #####
-
+# Fig S1: lambda_est~input at each sample size, balanced (NOT YET FINISHED 512 OR 1024)####
 library(cowplot)
 library(ggplot2)
 
-Data32 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_32.csv")
-Data64 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_64.csv")
-Data128 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_128.csv")
-Data256 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_256.csv")
-Data512 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_512.csv")
-Data1024_1 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_1024_1.csv")
-Data1024_2 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_1024_2.csv")
-Data1024 <- rbind(Data1024_1,Data1024_2)
+Data32 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_32.csv")
+Data64 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_64.csv")
+Data128 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_128.csv")
+Data256 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_256.csv") 
+Data512 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_256.csv") # REPLACE WHEN SIM DONE
+Data1024 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_256.csv") # REPLACE WHEN SIM DONE
 
 data_list <- list(Data32, Data64, Data128,
                   Data256, Data512, Data1024)
 
-ylabelplacement <- unlist(lapply(1:6, function(i) max(data_list[[i]]$kappa)))
-
 PlotList <- lapply(1:6, function(j){
-   ggplot(data_list[[j]], aes(x = lambda.input, y = kappa)) +
+   ggplot(data_list[[j]], aes(x = lambda.input, y = lambda.est)) +
       geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent"),
                            panel.border = element_rect(color = "black", fill = NA), text = element_text(size = 12)) + 
-      xlab("Input Lambda") + ylab("Estimated Kappa") + 
-      annotate(geom="text", x=0, y=ylabelplacement[j], label= paste("n = ", treesizes[[j]], sep = ""), 
+      xlab("Input Lambda") + ylab("Estimated Lambda") + 
+      annotate(geom="text", x=0, y=.99, label= paste("n = ", treesizes[[j]], sep = ""), 
                color="black", size = 6, hjust = 0)
 })
 
@@ -273,10 +268,7 @@ plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
           PlotList[[4]], PlotList[[5]], PlotList[[6]])
 dev.off()
 
-
-
-
-# Fig S2: lambda_est~input at each sample size, PECTINATE (NOT YET FINISHED 512 AND 1024) ####
+# Fig S2: lambda_est~input at each sample size, pectinate (NOT YET FINISHED 1024) ####
 library(cowplot)
 library(ggplot2)
 
@@ -284,8 +276,8 @@ Data32 <- read.csv("Data_Analyses/Sim_Data/Pect_lambda_kappacomparison_32.csv")
 Data64 <- read.csv("Data_Analyses/Sim_Data/Pect_lambda_kappacomparison_64.csv")
 Data128 <- read.csv("Data_Analyses/Sim_Data/Pect_lambda_kappacomparison_128.csv")
 Data256 <- read.csv("Data_Analyses/Sim_Data/Pect_lambda_kappacomparison_256.csv")
-Data512 <- read.csv("Data_Analyses/Sim_Data/Pect_lambda_kappacomparison_256.csv") # REPLACE WHEN SIM DONE
-Data1024 <- read.csv("Data_Analyses/Sim_Data/Pect_lambda_kappacomparison_256.csv") # REPLACE WHEN SIM DONE
+Data512 <- read.csv("Data_Analyses/Sim_Data/Pect_lambda_kappacomparison_512.csv")
+Data1024 <- read.csv("Data_Analyses/Sim_Data/Pect_lambda_kappacomparison_512.csv") # REPLACE WHEN SIM DONE
 
 data_list <- list(Data32, Data64, Data128,
                   Data256, Data512, Data1024)
@@ -309,8 +301,7 @@ plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
           PlotList[[4]], PlotList[[5]], PlotList[[6]])
 dev.off()
 
-# Fig S3: lambda_est~input at each sample size, BALANCED (NO SIMULATIONS RUN YET)####
-# Fig S4: lambda_est~lambda_input (same as fig 3 but with ANOVA; NOT YET FINISHED 512 AND 1024) #####
+# Fig S3: lambda_est~lambda_input (same as fig 3 but with ANOVA; NOT YET FINISHED 512 AND 1024) #####
 
 Data32 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-32.csv")
 Data64 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-64.csv")
@@ -338,12 +329,200 @@ PlotList <- lapply(1:6, function(j){
                color="black", size = 6, hjust = 0)
 })
 
+tiff("Figures/FigS3.tiff", width = 1000, height = 660)
+plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
+          PlotList[[4]], PlotList[[5]], PlotList[[6]])
+dev.off()
+
+png("Figures/FigS3.png", width = 1000, height = 660)
+plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
+          PlotList[[4]], PlotList[[5]], PlotList[[6]])
+dev.off()
+
+# Fig S4: ####
+library(ggplot2)
+library(cowplot)
+
+Data32 <- read.csv("Data_Analyses/Sim_Data/PB_reg-32.csv")
+Data64 <- read.csv("Data_Analyses/Sim_Data/PB_reg-64.csv")
+Data128 <- read.csv("Data_Analyses/Sim_Data/PB_reg-128.csv")
+Data256 <- read.csv("Data_Analyses/Sim_Data/PB_reg-256.csv") 
+Data512_1 <- read.csv("Data_Analyses/Sim_Data/PB_reg-512-1.csv")
+Data512_2 <- read.csv("Data_Analyses/Sim_Data/PB_reg-512-2.csv")
+Data512 <- rbind(Data512_1, Data512_2)
+Data1024_1 <- read.csv("Data_Analyses/Sim_Data/PB_reg-1024-1.csv")
+Data1024_2 <- read.csv("Data_Analyses/Sim_Data/PB_reg-1024-2.csv")
+Data1024_3 <- read.csv("Data_Analyses/Sim_Data/PB_reg-1024-3.csv")
+Data1024_4 <- read.csv("Data_Analyses/Sim_Data/PB_reg-1024-4.csv")
+Data1024_5 <- read.csv("Data_Analyses/Sim_Data/PB_reg-1024-5.csv")
+Data1024 <- rbind(Data1024_1,Data1024_2,Data1024_3,Data1024_4,Data1024_5)
+
+
+data_list <- list(Data32, Data64, Data128,
+                  Data256, Data512, Data1024)
+
+ylabelplacement <- unlist(lapply(1:6, function(i) max(data_list[[i]]$slope)))
+
+PlotList <- lapply(1:6, function(j){
+   ggplot(data_list[[j]], aes(x = beta, y = slope)) +
+      geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent"),
+                           panel.border = element_rect(color = "black", fill = NA), text = element_text(size = 12)) + 
+      xlab("Input Beta") + ylab("Estimated Slope") + 
+      annotate(geom="text", x=0, y=ylabelplacement[j], label= paste("n = ", treesizes[[j]], sep = ""), 
+               color="black", size = 6, hjust = 0)
+})
+
 tiff("Figures/FigS4.tiff", width = 1000, height = 660)
 plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
           PlotList[[4]], PlotList[[5]], PlotList[[6]])
 dev.off()
 
 png("Figures/FigS4.png", width = 1000, height = 660)
+plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
+          PlotList[[4]], PlotList[[5]], PlotList[[6]])
+dev.off()
+
+# Fig S5: ####
+  # copied from Fig 4
+  Data32 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_32.csv")
+  Data64 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_64.csv")
+  Data128 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_128.csv")
+  Data256 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_256.csv")
+  Data512 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_512.csv")
+  Data1024 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_1024.csv")
+
+        # calculating z scores for lambdas 
+        tree.sizes <-  2^(5:10)
+        lambdas <- levels(as.factor(Data128$lambda.input))
+        nsim <- 50
+        data_list <- list(Data32, Data64, Data128, Data256, Data512, Data1024)
+        Z.lambda <- array(NA, dim = c(50,21,6))
+        
+        for (k in 1:6) {
+          
+            n <- tree.sizes[k]
+            data <- data_list[[k]]
+        
+            for (i in 1:21) {
+                data_pruned <- data[which(data$lambda.input == lambdas[i]),]
+                  lambda.std <- unlist(lapply(1:nsim, function(j) {
+                      if(data_pruned$CI.lower[j]==0 & data_pruned$CI.upper[j]==1) {lambda.std <- NA} # skipping all values for which CIs were (0,1)
+                    else{
+                      if(data_pruned$CI.lower[j]==0){lambda.std <- (data_pruned$CI.upper[j]-data_pruned$lambda.est[j])*sqrt(n)/qnorm(0.975)} 
+                      else {lambda.std <- (data_pruned$lambda.est[j]-data_pruned$CI.lower[j])*sqrt(n)/qnorm(0.975)}
+                    }
+                    }))
+                 Z.lambda[,i,k] <- data_pruned$lambda.est/lambda.std
+            }
+        }
+        Z.lambda[,,1]
+        
+    library(tidyr)
+        Data_list <- list(NA)
+      for (i in 1:6) { 
+        Data <- as.data.frame(Z.lambda[,,i])
+        colnames(Data) <- lambdas
+        Data_long <- gather(Data, key = "lambda.input", value = "lambda.est.z")
+        Data_long$lambda.input <- as.numeric(Data_long$lambda.input)
+        Data_list[[i]] <- Data_long
+        }
+        # copy from Fig 4 over
+        
+
+ylabelplacement <- unlist(lapply(1:6, function(i) max(na.omit(Data_list[[i]]$lambda.est.z))))
+  
+PlotList <- lapply(1:6, function(j){
+    ggplot(Data_list[[j]], aes(x = lambda.input, y = lambda.est.z)) + 
+      geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent"),
+                               panel.border = element_rect(color = "black", fill = NA), text = element_text(size = 12)) + 
+      xlab("Input Lambda") + ylab("Estimated Lambda Effect Size")  + 
+      annotate(geom="text", x=0, y=ylabelplacement[j], label= paste("n = ", treesizes[[j]], sep = ""), 
+               color="black", size = 6, hjust = 0)
+})
+
+tiff("Figures/FigS5.tiff", width = 1000, height = 660)
+plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
+          PlotList[[4]], PlotList[[5]], PlotList[[6]])
+dev.off()
+
+png("Figures/FigS5.png", width = 1000, height = 660)
+plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
+          PlotList[[4]], PlotList[[5]], PlotList[[6]])
+dev.off()
+
+
+
+# Fig S6: #####
+
+  Data32 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_32.csv")
+  Data64 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_64.csv")
+  Data128 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_128.csv")
+  Data256 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_256.csv")
+  Data512 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_512.csv")
+  Data1024 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_1024.csv")
+
+        # calculating z scores for lambdas 
+        tree.sizes <-  2^(5:10)
+        lambdas <- levels(as.factor(Data128$lambda.input))
+        nsim <- 50
+        data_list <- list(Data32, Data64, Data128, Data256, Data512, Data1024)
+
+        
+ylabelplacement <- unlist(lapply(1:6, function(i) max(data_list[[i]]$kappa.z)))
+  
+PlotList <- lapply(1:6, function(j){
+    ggplot(data_list[[j]], aes(x = lambda.input, y = kappa.z)) + 
+      geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent"),
+                               panel.border = element_rect(color = "black", fill = NA), text = element_text(size = 12)) + 
+      xlab("Input Lambda") + ylab("Estimated Kappa Effect Size")  + 
+      annotate(geom="text", x=0, y=ylabelplacement[j], label= paste("n = ", treesizes[[j]], sep = ""), 
+               color="black", size = 6, hjust = 0)
+})
+
+tiff("Figures/FigS6.tiff", width = 1000, height = 660)
+plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
+          PlotList[[4]], PlotList[[5]], PlotList[[6]])
+dev.off()
+
+png("Figures/FigS6.png", width = 1000, height = 660)
+plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
+          PlotList[[4]], PlotList[[5]], PlotList[[6]])
+dev.off()
+
+# Fig S7: kappa~lambda_input 6 panel #####
+
+library(cowplot)
+library(ggplot2)
+
+Data32 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_32.csv")
+Data64 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_64.csv")
+Data128 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_128.csv")
+Data256 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_256.csv")
+Data512 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_512.csv")
+Data1024_1 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_1024_1.csv")
+Data1024_2 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_1024_2.csv")
+Data1024 <- rbind(Data1024_1,Data1024_2)
+
+data_list <- list(Data32, Data64, Data128,
+                  Data256, Data512, Data1024)
+
+ylabelplacement <- unlist(lapply(1:6, function(i) max(data_list[[i]]$kappa)))
+
+PlotList <- lapply(1:6, function(j){
+   ggplot(data_list[[j]], aes(x = lambda.input, y = kappa)) +
+      geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent"),
+                           panel.border = element_rect(color = "black", fill = NA), text = element_text(size = 12)) + 
+      xlab("Input Lambda") + ylab("Estimated Kappa") + 
+      annotate(geom="text", x=0, y=ylabelplacement[j], label= paste("n = ", treesizes[[j]], sep = ""), 
+               color="black", size = 6, hjust = 0)
+})
+
+tiff("Figures/FigS7.tiff", width = 1000, height = 660)
+plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
+          PlotList[[4]], PlotList[[5]], PlotList[[6]])
+dev.off()
+
+png("Figures/FigS7.png", width = 1000, height = 660)
 plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
           PlotList[[4]], PlotList[[5]], PlotList[[6]])
 dev.off()

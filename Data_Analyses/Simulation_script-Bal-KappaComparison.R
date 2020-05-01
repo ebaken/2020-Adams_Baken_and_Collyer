@@ -15,44 +15,13 @@ lambdas_expanded <- rep(lambdas, each = nsim)
 fullsimlength <- length(lambdas_expanded)
 
 # Making all the trees ####
-library(TreeSimGM)
+phy.list <- lapply(1:length(treesizes), function(i) stree(n = treesizes[i], type = "balanced"))
+for (i in 1:length(treesizes)) {
+  phy.list[[i]]$edge.length <- rep(1, (length(phy.list[[i]]$tip.label) - 1)*2)
+}
 
-asymmetric_tree <- sim.age(age=63, numbsim=1, waitsp=function()2, waitext=function()2.5, symmetric=FALSE)
-length(asymmetric_tree[[1]]$tip.label)
-tree_ladder_32 <- force.ultrametric(asymmetric_tree[[1]], method = "extend")
-for (i in 5:12) {tree_ladder_32[[5]] <- NULL}
-
-asymmetric_tree <- sim.age(age=127, numbsim=1, waitsp=function()2, waitext=function()2.5, symmetric=FALSE)
-length(asymmetric_tree[[1]]$tip.label)
-tree_ladder_64 <- force.ultrametric(asymmetric_tree[[1]], method = "extend")
-for (i in 5:12) {tree_ladder_64[[5]] <- NULL}
-
-asymmetric_tree <- sim.age(age=255, numbsim=1, waitsp=function()2, waitext=function()2.5, symmetric=FALSE)
-length(asymmetric_tree[[1]]$tip.label)
-tree_ladder_128 <- force.ultrametric(asymmetric_tree[[1]], method = "extend")
-for (i in 5:12) {tree_ladder_128[[5]] <- NULL}
-
-asymmetric_tree <- sim.age(age=511, numbsim=1, waitsp=function()2, waitext=function()2.5, symmetric=FALSE)
-length(asymmetric_tree[[1]]$tip.label)
-tree_ladder_256 <- force.ultrametric(asymmetric_tree[[1]], method = "extend")
-for (i in 5:12) {tree_ladder_256[[5]] <- NULL}
-
-asymmetric_tree <- sim.age(age=1023, numbsim=1, waitsp=function()2, waitext=function()2.5, symmetric=FALSE)
-length(asymmetric_tree[[1]]$tip.label)
-tree_ladder_512 <- force.ultrametric(asymmetric_tree[[1]], method = "extend")
-for (i in 5:12) {tree_ladder_512[[5]] <- NULL}
-
-asymmetric_tree <- sim.age(age=2048, numbsim=1, waitsp=function()2, waitext=function()2.5, symmetric=FALSE)
-length(asymmetric_tree[[1]]$tip.label)
-tree_ladder_1024 <- force.ultrametric(asymmetric_tree[[1]], method = "extend")
-for (i in 5:12) {tree_ladder_1024[[5]] <- NULL}
-
-phy.list <- list(tree_ladder_32, tree_ladder_64, tree_ladder_128, tree_ladder_256, tree_ladder_512, tree_ladder_1024)
-
-# Change tree size ####
-
-tree<- phy.list[[6]] # pectinate
-n <- treesizes[6]
+tree<- phy.list[[4]] # BALANCED
+n <- treesizes[4]
 
 # New Rep #####
 DataTable_lambda <- data.frame(lambda.input = lambdas_expanded, 
@@ -112,5 +81,5 @@ anyNA(DataTable_lambda) # want FALSE
 plot(DataTable_lambda$lambda.est~DataTable_lambda$lambda.input, pch = 19)
 
 # Writing Output Files ####
-file_name <- paste("Data_Analyses/Sim_Data/Pect_lambda_kappacomparison_", n, "-1to152.csv", sep = "")
+file_name <- paste("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_", n, ".csv", sep = "")
 write.csv(DataTable_lambda, file_name, row.names = F)
