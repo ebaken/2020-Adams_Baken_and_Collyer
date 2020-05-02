@@ -16,6 +16,8 @@ bibliography: Lambda-Refs.bib
 ---
 # Supporting Information for: Estimates of Phylogenetic Signal Based on Lambda are Often Inaccurate
 
+*COPY FIGURES FROM FIGURES FOLDER INTO MANUSCRIPT FOLDER IN ORDER TO KNIT*
+
 Here we provide additional supporting information referenced in the main document: additional analyses, and simulation results across a wider set of input conditions.
 
 
@@ -69,7 +71,30 @@ include_graphics("FigS4.png")
 
 \textbf{Figure S4}. Precision of slope estimates across known input $\beta$ values of phylogenetic regression. Results shown include all input $\lambda$ values. \hfill\break
 
+\newpage
 
+*still needs heavy edits*
+
+```{r, echo = FALSE, out.width="95%"}
+include_graphics("FigS5.png")  
+
+```
+
+\textbf{Figure S5}. lambda_Z~lambda_input across tree sizes \hfill\break
+
+```{r, echo = FALSE, out.width="95%"}
+include_graphics("FigS6.png")  
+
+```
+
+\textbf{Figure S6}. kappa_Z~lambda_input across tree sizes \hfill\break
+
+```{r, echo = FALSE, out.width="95%"}
+include_graphics("FigS7.png")  
+
+```
+
+\textbf{Figure S7}. kappa~lambda_input across tree sizes \hfill\break
 
 \newpage
 

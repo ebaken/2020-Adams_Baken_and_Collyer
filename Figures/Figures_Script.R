@@ -235,7 +235,7 @@ dev.off()
 
 # Panel A made in ppt, panels B and C made in Analysis_script
 
-# Fig S1: lambda_est~input at each sample size, balanced (NOT YET FINISHED 512 OR 1024)####
+# Fig S1: lambda_est~input at each sample size, balanced (NOT YET FINISHED 1024)####
 library(cowplot)
 library(ggplot2)
 
@@ -243,7 +243,7 @@ Data32 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_32.csv")
 Data64 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_64.csv")
 Data128 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_128.csv")
 Data256 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_256.csv") 
-Data512 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_256.csv") # REPLACE WHEN SIM DONE
+Data512 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_512.csv") 
 Data1024 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_256.csv") # REPLACE WHEN SIM DONE
 
 data_list <- list(Data32, Data64, Data128,
@@ -301,13 +301,15 @@ plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
           PlotList[[4]], PlotList[[5]], PlotList[[6]])
 dev.off()
 
-# Fig S3: lambda_est~lambda_input (same as fig 3 but with ANOVA; NOT YET FINISHED 512 AND 1024) #####
+# Fig S3: lambda_est~lambda_input (same as fig 3 but with ANOVA; NOT YET FINISHED 1024) #####
 
 Data32 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-32.csv")
 Data64 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-64.csv")
 Data128 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-128.csv")
 Data256 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-256.csv") 
-Data512 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-256.csv") # REPLACE WHEN SIM DONE
+Data512_1 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-512-1.csv")
+Data512_2 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-512-2.csv")
+Data512 <- rbind(Data512_1, Data512_2)
 Data1024 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-256.csv") # REPLACE WHEN SIM DONE
 
 Data32_pruned <- Data32[which(Data32$beta == 0.5),]
