@@ -20,8 +20,8 @@ for (i in 1:length(treesizes)) {
   phy.list[[i]]$edge.length <- rep(1, (length(phy.list[[i]]$tip.label) - 1)*2)
 }
 
-tree<- phy.list[[4]] # BALANCED
-n <- treesizes[4]
+tree<- phy.list[[5]] # BALANCED
+n <- treesizes[5]
 
 # New Rep #####
 DataTable_lambda <- data.frame(lambda.input = lambdas_expanded, 
