@@ -301,7 +301,9 @@ plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
           PlotList[[4]], PlotList[[5]], PlotList[[6]])
 dev.off()
 
-# Fig S3: lambda_est~lambda_input (same as fig 3 but with ANOVA; NOT YET FINISHED 1024) #####
+# Fig S3: lambda_est~lambda_input (same as fig 3 but with ANOVA) #####
+library(ggplot2)
+library(cowplot)
 
 Data32 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-32.csv")
 Data64 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-64.csv")
@@ -310,7 +312,13 @@ Data256 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-256.csv")
 Data512_1 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-512-1.csv")
 Data512_2 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-512-2.csv")
 Data512 <- rbind(Data512_1, Data512_2)
-Data1024 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-256.csv") # REPLACE WHEN SIM DONE
+Data1024_1 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-1024-1.csv")
+Data1024_2 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-1024-2.csv")
+Data1024_3 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-1024-3.csv")
+Data1024_4 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-1024-4.csv")
+Data1024_5 <- read.csv("Data_Analyses/Sim_Data/PB_ANOVA-1024-5.csv")
+Data1024 <- rbind(Data1024_1,Data1024_2,Data1024_3,Data1024_4,Data1024_5)
+
 
 Data32_pruned <- Data32[which(Data32$beta == 0.5),]
 Data64_pruned <- Data64[which(Data64$beta == 0.5),]

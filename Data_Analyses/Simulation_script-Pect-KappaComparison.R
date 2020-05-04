@@ -62,11 +62,11 @@ DataTable_lambda <- data.frame(lambda.input = lambdas_expanded,
                                CI.lower = rep(NA, nsim*length(lambdas)),
                                CI.upper = rep(NA, nsim*length(lambdas))) 
 
-pb <- txtProgressBar(153, fullsimlength, style=1)
+pb <- txtProgressBar(585, fullsimlength, style=1)
 
 Start.time<-Sys.time()
 Start.time
-for (j in 153:fullsimlength) {
+for (j in 585:fullsimlength) {
   while(TRUE){
 
     if(lambdas_expanded[j] > 0) {
@@ -112,5 +112,7 @@ anyNA(DataTable_lambda) # want FALSE
 plot(DataTable_lambda$lambda.est~DataTable_lambda$lambda.input, pch = 19)
 
 # Writing Output Files ####
-file_name <- paste("Data_Analyses/Sim_Data/Pect_lambda_kappacomparison_", n, "-153andUp.csv", sep = "")
+file_name <- paste("Data_Analyses/Sim_Data/Pect_lambda_kappacomparison_", n, "585toEnd.csv", sep = "")
 write.csv(DataTable_lambda, file_name, row.names = F)
+
+
