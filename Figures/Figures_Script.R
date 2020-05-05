@@ -235,7 +235,7 @@ dev.off()
 
 # Panel A made in ppt, panels B and C made in Analysis_script
 
-# Fig S1: lambda_est~input at each sample size, balanced (NOT YET FINISHED 1024)####
+# Fig S1: lambda_est~input at each sample size, balanced ####
 library(cowplot)
 library(ggplot2)
 
@@ -244,7 +244,9 @@ Data64 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_64.csv")
 Data128 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_128.csv")
 Data256 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_256.csv") 
 Data512 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_512.csv") 
-Data1024 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_256.csv") # REPLACE WHEN SIM DONE
+Data1024_1 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_1024-1.csv")
+Data1024_2 <- read.csv("Data_Analyses/Sim_Data/Bal_lambda_kappacomparison_1024-2.csv")
+Data1024 <- rbind(Data1024_1, Data1024_2)
 
 data_list <- list(Data32, Data64, Data128,
                   Data256, Data512, Data1024)
@@ -268,7 +270,7 @@ plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
           PlotList[[4]], PlotList[[5]], PlotList[[6]])
 dev.off()
 
-# Fig S2: lambda_est~input at each sample size, pectinate (NOT YET FINISHED 1024) ####
+# Fig S2: lambda_est~input at each sample size, pectinate ####
 library(cowplot)
 library(ggplot2)
 
@@ -277,7 +279,7 @@ Data64 <- read.csv("Data_Analyses/Sim_Data/Pect_lambda_kappacomparison_64.csv")
 Data128 <- read.csv("Data_Analyses/Sim_Data/Pect_lambda_kappacomparison_128.csv")
 Data256 <- read.csv("Data_Analyses/Sim_Data/Pect_lambda_kappacomparison_256.csv")
 Data512 <- read.csv("Data_Analyses/Sim_Data/Pect_lambda_kappacomparison_512.csv")
-Data1024 <- read.csv("Data_Analyses/Sim_Data/Pect_lambda_kappacomparison_512.csv") # REPLACE WHEN SIM DONE
+Data1024 <- read.csv("Data_Analyses/Sim_Data/Pect_lambda_kappacomparison_1024.csv")
 
 data_list <- list(Data32, Data64, Data128,
                   Data256, Data512, Data1024)
