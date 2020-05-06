@@ -197,7 +197,7 @@ PanelA <- ggplot(Data_long, aes(x = lambda.input, y = lambda.est.z)) +
                 geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent"),
                                          panel.border = element_rect(color = "black", fill = NA), text = element_text(size = 12)) + 
                 xlab(latex2exp::TeX('Input Phylogenetic Signal ($\\lambda_{in}$)')) + 
-                ylab(latex2exp::TeX('Estimated Effect Size ($\\lambda_Z$)')) +
+                ylab(latex2exp::TeX('Estimated Effect Size ($\\Z_{\\lambda}$)')) +
                 annotate(geom="text", x=0, y=max(na.omit(Data_long)), label= "N = 32", color="black", size = 6, hjust = 0)
         # warning about removing missing values is ok, those are the CIs that were (0,1) and thus Lambda Z could not be calculated
 
@@ -207,7 +207,7 @@ PanelB <- ggplot(Data32, aes(x = lambda.input, y = kappa.z)) +
                 geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent"),
                                          panel.border = element_rect(color = "black", fill = NA), text = element_text(size = 12)) + 
                 xlab(latex2exp::TeX('Input Phylogenetic Signal ($\\lambda_{in}$)')) + 
-                ylab(latex2exp::TeX('Estimated Effect Size ($\\K_Z$)')) +
+                ylab(latex2exp::TeX('Estimated Effect Size ($\\Z_K$)')) +
                 annotate(geom="text", x=0, y=max(na.omit(Data32$kappa.z)), label= "N = 32", color="black", size = 6, hjust = 0)
 
 
@@ -229,7 +229,7 @@ PanelC <- ggplot(DF, aes(x = as.factor(n), y = CV, fill = Statistic)) +
   geom_bar(stat="identity", color="black", position=position_dodge())+
   theme_minimal() +
   xlab("Tree Size") + ylab("Coefficient of Variance") + 
-  scale_fill_manual(values=c("white","darkgray"), labels = list(latex2exp::TeX('$\\K_Z$'), latex2exp::TeX('$\\lambda_Z$'))) #+ 
+  scale_fill_manual(values=c("white","darkgray"), labels = list(latex2exp::TeX('$\\Z_K$'), latex2exp::TeX('$\\Z_{\\lambda}$'))) #+ 
   #scale_fill_discrete(name = "Statistic", labels = list(latex2exp::TeX('$\\K_Z$'), latex2exp::TeX('$\\lambda_Z$')))
 
 PanelC      
@@ -417,6 +417,9 @@ plot_grid(PlotList[[1]], PlotList[[2]], PlotList[[3]],
 dev.off()
 
 # Fig S5: lambda_Z~lambda_input across tree sizes####
+library(ggplot2)
+library(cowplot)
+tree.sizes <-  treesizes <- 2^(5:10)
   # copied from Fig 4
   Data32 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_32.csv")
   Data64 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_64.csv")
@@ -470,7 +473,7 @@ PlotList <- lapply(1:6, function(j){
       geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent"),
                                panel.border = element_rect(color = "black", fill = NA), text = element_text(size = 12)) + 
       xlab(latex2exp::TeX('Input Phylogenetic Signal ($\\lambda_{in}$)')) + 
-      ylab(latex2exp::TeX('Estimated Effect Size ($\\lambda_Z$)')) +
+      ylab(latex2exp::TeX('Estimated Effect Size ($\\Z_{\\lambda}$)')) +
       annotate(geom="text", x=0, y=ylabelplacement[j], label= paste("N = ", treesizes[[j]], sep = ""), 
                color="black", size = 6, hjust = 0)
 })
@@ -488,6 +491,9 @@ dev.off()
 
 
 # Fig S6: kappa_Z~lambda_input across tree sizes #####
+library(ggplot2)
+library(cowplot)
+tree.sizes <-  treesizes <- 2^(5:10)
 
   Data32 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_32.csv")
   Data64 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_64.csv")
@@ -510,7 +516,7 @@ PlotList <- lapply(1:6, function(j){
       geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent"),
                                panel.border = element_rect(color = "black", fill = NA), text = element_text(size = 12)) + 
       xlab(latex2exp::TeX('Input Phylogenetic Signal ($\\lambda_{in}$)')) + 
-      ylab(latex2exp::TeX('Estimated Effect Size ($\\K_Z$)')) +
+      ylab(latex2exp::TeX('Estimated Effect Size ($\\Z_K$)')) +
       annotate(geom="text", x=0, y=ylabelplacement[j], label= paste("N = ", treesizes[[j]], sep = ""), 
                color="black", size = 6, hjust = 0)
 })
@@ -529,6 +535,7 @@ dev.off()
 
 library(cowplot)
 library(ggplot2)
+tree.sizes <-  treesizes <- 2^(5:10)
 
 Data32 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_32.csv")
 Data64 <- read.csv("Data_Analyses/Sim_Data/PB_lambda_kappacomparison_64.csv")
