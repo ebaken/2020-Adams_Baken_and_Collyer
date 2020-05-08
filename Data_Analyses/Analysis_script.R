@@ -318,6 +318,10 @@ summary(interpreted$Compared) # 7 yeses
 library(caper)
 library(ape)
 library(stringr)
+library(plyr)
+library(geomorph)
+library(gplots)
+library(scales)
 
 sav_dataset <- read.csv("Data_Analyses/EmpiricalExample/SAtoV.AllSpecimens.csv")
 species_sums_sav <- ddply(sav_dataset, ~Species, summarise, SAtoV = mean(SAtoV), SVL = mean(SVL))
@@ -357,7 +361,7 @@ Nulls <- cbind(kappa_sav$random.K[-1], kappa_bwl$random.K[-1])
 colnames(Nulls) <- c("SAV.k.null", "BWL.k.null")
 Interval<-abs(qnorm(sav_vs_bwl$sample.r.sd.pk.stand)) # CI are represented without 
 
-png("Figures/Fig5_BC.png", width = 600, height = 300)
+png("Figures/Fig5_BC.png", width = 1200, height = 600, res = 150)
 par(mfrow=c(1,2), mar = c(5,4,2,2))
  # null distribution of kappas with observed kappas
 hist(Nulls[,1], col = alpha("red",0.5), xlim = c(0,.9), border = "red", breaks = 15, yaxs = "i", xlab = "Null and Observed Kappas", main = "")
@@ -369,7 +373,7 @@ box()
 
 plotCI(x = c(1,2), y = sav_vs_bwl$sample.z, xlim = c(.8, 2.2), 
        xlab = "Morphological Traits", yaxs="i", axes = F,
-       ylim = c(0,10), pch = 19, cex = 2, ylab = "Effect Sizes",
+       ylim = c(0,10), pch = 19, cex = 2, ylab = latex2exp::TeX('Effect Sizes ($\\Z_K$)'),
        uiw = Interval, col = c("red", "black"))
 axis(2, at=0:10, labels=0:10)
 axis(1, at=c(1,2), labels = c("SA:V", "Relative Body Width"))
