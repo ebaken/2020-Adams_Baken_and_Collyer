@@ -4,5 +4,5 @@
 # NOTE: need to install latexdiffr from: https://github.com/hughjonesd/latexdiffr
 
 library(latexdiffr)
-latexdiff("2020-Evol-MultiRR_Vsn6.Rmd", "2020-Evol-MultiRR_Vsn6_AK.Rmd", clean = TRUE)
+latexdiff("Manuscript-5.Rmd", "Manuscript-4-EKB.Rmd", clean = TRUE)
 
