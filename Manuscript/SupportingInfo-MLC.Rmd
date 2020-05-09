@@ -1,0 +1,94 @@
+---
+title:
+
+output: 
+  pdf_document:
+    fig_caption: yes
+    number_sections: no  #note: change to 'no' for most journals
+    keep_tex: true
+    pandoc_args:
+
+
+csl: evolution.csl
+bibliography: Lambda-Refs.bib
+
+
+---
+# Supporting Information for: A Standardized Effect Size for Evaluating the Strength of Phylogenetic Signal, and Why Lambda is not Appropriate
+
+
+Here we provide additional supporting information referenced in the main document: additional analyses, and simulation results across a wider set of input conditions.
+
+## Simulations on differently shaped phylogenies
+
+```{r setup, include=FALSE}
+  library(knitr)
+  knitr::opts_chunk$set(echo = TRUE)
+```
+
+In addition to using pure-birth phylogenies, we explored the effect of tree shape on our findings using both balanced and pectinate trees. As before, simulations were conducted on a range of tree sizes ($n=2^5 - 2^{10}$), and across a range of input levels of phylogenetic signal ($\lambda_{in} = 0.0 \to 1.0$; in 21 intervals of 0.05 units). For each $n$ and $\lambda_{in}$ combination, 50 replicates of a continuous trait were simulated using a Brownian motion model of evolution. Using these, we estimated the degree of phylogenetic signal using $\lambda$. \hfill\break
+
+*Results*. As found with pure-birth phylogenies, estimates of $\lambda$ varied most dramatically in simulations with fewer species and at intermediate values of lambda (Fig. S1, S2). Pectinate trees showed an interesting tendency to underestimate $\lambda$ across input values. Most dramatically, some simulations on the largest pectinate phylogeny ($n = 1024$) estimated $\lambda = 0$ for input values as high as 0.5 (Fig. S2). 
+
+```{r, echo = FALSE, out.width="95%"}
+include_graphics("FigS1.png")  
+
+```
+
+\textbf{Figure S1}. Accuracy of Pagel's lambda estimations across known lambda inputs on various tree sizes. Results obtained using balanced trees. \hfill\break
+
+```{r, echo = FALSE, out.width="95%"}
+include_graphics("FigS2.png")  
+
+```
+
+\textbf{Figure S2}. Accuracy of Pagel's lambda estimations across known lambda inputs on various tree sizes. Results obtained using pectinate trees.
+
+## Simulations of phylogenetic regression and ANOVA
+
+We analyzed the precision of parameter estimation when parameters were obtained in phylogenetic regression and ANOVA. This involved simulations of dependent variables with $\lambda$ values ranging from 0 to 1 (21 intervals of 0.05 units) across pure-birth trees ($n=2^5 - 2^{10}$). For each $\lambda$ input value, independent variables were then generated with a known relationship to the simulated dependent variable ($\beta = 0, 0.25, 0.5, 0.75, 1.0$), from which $\lambda$ was then estimated.
+
+*Results* As with the results from the regression analyses in the main text, we found poor precision of $\lambda$ estimation in smaller trees and at intermediate levels of phylogenetic signal with phylogenetic ANOVA (Fig. S3). Slope was reliably estimated across tree sizes and known $\lambda$ values (Fig. S4).
+
+```{r, echo = FALSE, out.width="95%"}
+include_graphics("FigS3.png")  
+
+```
+
+\textbf{Figure S3}. Precision of Pagel's $\lambda$ when incorporated in phylogenetic ANOVA. Results are from input $\beta$ values of $0.5$. \hfill\break
+
+```{r, echo = FALSE, out.width="95%"}
+include_graphics("FigS4.png")  
+
+```
+
+\textbf{Figure S4}. Precision of slope estimates across known input $\beta$ values of phylogenetic regression. Results shown include all input $\lambda$ values.
+
+## Effect Sizes of Pagel's Lambda ($Z_\lambda$) and Kappa ($Z_{\kappa}$) 
+
+We proposed the use of effect sizes (Z-scores) as a measure of the strength of phylogenetic signal. These were obtained from summary parameters of phylogenetic signal: $\lambda$ and $\kappa$. The precision of effect sizes $Z_\lambda$ and $Z_{\kappa}$ are summarized in the main text, primarily for simulations where $n=32$. Here we present results from additional simulations.
+
+*Results* Effect sizes for Pagel's $\lambda$ ($Z_\lambda$) scale nonlinearly with input levels of phylogenetic signal, and this pattern is consistent across all tree sizes examined (Figure S5). Further, the precision of $Z_\lambda$ varied widely across input levels of phylogenetic signal, with decidely greater variation (less precision) at stronger input levels of phylogenetic signal (Figure S5). By contrast, effect sizes for $\kappa$ ($Z_{\kappa}$) displayed a linear increase with increasing input levels of phylogenetic signal, which remained consistent across all tree sizes examined (Figure S6). Additionally, the precision of $Z_{\kappa}$ remained constant across input levels of phylogenetic signal (Figure S6). Together these results imply that $Z_{\kappa}$ is a more reliable estimate of the strength of phylogenetic signal. 
+
+```{r, echo = FALSE, out.width="95%"}
+include_graphics("FigS5.png")  
+
+```
+
+\textbf{Figure S5}. Variation in effect size (Z score) of Pagel's $\lambda$ across input $\lambda$ values on various tree sizes.  \hfill\break
+
+```{r, echo = FALSE, out.width="95%"}
+include_graphics("FigS6.png")  
+
+```
+
+\textbf{Figure S6}. Variation in effect size (Z score) of $\kappa$ across input $\lambda$ values on various tree sizes. \hfill\break
+
+```{r, echo = FALSE, out.width="95%"}
+include_graphics("FigS7.png")  
+
+```
+
+\textbf{Figure S7}. Estimates of phylogenetic signal using $\kappa$ across known lambda inputs on various tree sizes.  Plot shows that while $\kappa$ increases with increasing phylogenetic signal, the precision of this estimate also varies. Thus, conversion to a standardized effect size ($Z_{\kappa}$) is preferred. 
+ 
+
