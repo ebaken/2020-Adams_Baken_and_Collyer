@@ -4,5 +4,5 @@
 # NOTE: need to install latexdiffr from: https://github.com/hughjonesd/latexdiffr
 
 library(latexdiffr)
-latexdiff("Manuscript-5.Rmd", "Manuscript-6.Rmd", clean = TRUE, output = "V5-V6.diff.pdf")
+latexdiff("Manuscript-6-DCA.Rmd", "Manuscript-6-EKB.Rmd", clean = TRUE, output = "V6-V6EB.diff.pdf")
 
