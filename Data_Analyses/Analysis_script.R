@@ -362,9 +362,9 @@ colnames(Nulls) <- c("SAV.k.null", "BWL.k.null")
 Interval<-abs(qnorm(sav_vs_bwl$sample.r.sd.pk.stand)) # CI are represented without 
 
 png("Figures/Fig5_BC.png", width = 1200, height = 600, res = 150)
-par(mfrow=c(1,2), mar = c(5,4,2,2))
+par(mfrow=c(1,2), mar = c(5,5,2,2))
  # null distribution of kappas with observed kappas
-hist(Nulls[,1], col = alpha("red",0.5), xlim = c(0,.9), border = "red", breaks = 15, yaxs = "i", xlab = "Null and Observed Kappas", main = "")
+hist(Nulls[,1], col = alpha("red",0.5), xlim = c(0,.9), border = "red", breaks = 15, yaxs = "i", xlab = latex2exp::TeX('Null and Observed $\\kappa$s'), main = "")
 hist(Nulls[,2], col = alpha("black", 0.5), border = "black", xlim = c(0,.9), breaks = 15, yaxs = "i", add = T)
 abline(v = kappa_sav$random.K[1], col = "red", lwd = 3)
 abline(v = kappa_bwl$random.K[1], col = "black", lwd = 3)
@@ -373,7 +373,7 @@ box()
 
 plotCI(x = c(1,2), y = sav_vs_bwl$sample.z, xlim = c(.8, 2.2), 
        xlab = "Morphological Traits", yaxs="i", axes = F,
-       ylim = c(0,10), pch = 19, cex = 2, ylab = latex2exp::TeX('Effect Sizes ($\\Z_K$)'),
+       ylim = c(0,10), pch = 19, cex = 2, ylab = latex2exp::TeX('Effect Sizes ($\\Z_\\kappa$)'),
        uiw = Interval, col = c("red", "black"))
 axis(2, at=0:10, labels=0:10)
 axis(1, at=c(1,2), labels = c("SA:V", "Relative Body Width"))

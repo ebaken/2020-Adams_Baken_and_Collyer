@@ -15,21 +15,21 @@ published.lambdas.df <- as.data.frame(published.lambdas.pruned)
 colnames(published.lambdas.df) <- c("Published_Lambdas", "Taxa")
 
 published.lambdas.df$Taxa_Bins <- as.character(published.lambdas.df$Taxa)
-published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa<=tree.sizes[[1]])] <- "Up To 32"
-published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa>tree.sizes[[1]] & published.lambdas.df$Taxa<=tree.sizes[[2]])] <- "33 to 64"
-published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa>tree.sizes[[2]] & published.lambdas.df$Taxa<=tree.sizes[[3]])] <- "65 to 128"
-published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa>tree.sizes[[3]] & published.lambdas.df$Taxa<=tree.sizes[[4]])] <- "129 to 256"
-published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa>tree.sizes[[4]] & published.lambdas.df$Taxa<=tree.sizes[[5]])] <- "257 to 512"
-published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa>tree.sizes[[5]] & published.lambdas.df$Taxa<=tree.sizes[[6]])] <- "513 to 1024"
-published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa>tree.sizes[[6]])] <- "Over 1024"
+published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa<=tree.sizes[[1]])] <- "< 33"
+published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa>tree.sizes[[1]] & published.lambdas.df$Taxa<=tree.sizes[[2]])] <- "33 - 64"
+published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa>tree.sizes[[2]] & published.lambdas.df$Taxa<=tree.sizes[[3]])] <- "65 - 128"
+published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa>tree.sizes[[3]] & published.lambdas.df$Taxa<=tree.sizes[[4]])] <- "129 - 256"
+published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa>tree.sizes[[4]] & published.lambdas.df$Taxa<=tree.sizes[[5]])] <- "257 - 512"
+published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa>tree.sizes[[5]] & published.lambdas.df$Taxa<=tree.sizes[[6]])] <- "513 - 1024"
+published.lambdas.df$Taxa_Bins[which(published.lambdas.df$Taxa>tree.sizes[[6]])] <- "> 1024"
 
 published.lambdas.df$Taxa_Bins <- as.factor(published.lambdas.df$Taxa_Bins)
-published.lambdas.df$Taxa_Bins <- relevel(published.lambdas.df$Taxa_Bins, "513 to 1024")
-published.lambdas.df$Taxa_Bins <- relevel(published.lambdas.df$Taxa_Bins, "257 to 512")
-published.lambdas.df$Taxa_Bins <- relevel(published.lambdas.df$Taxa_Bins, "129 to 256")
-published.lambdas.df$Taxa_Bins <- relevel(published.lambdas.df$Taxa_Bins, "65 to 128")
-published.lambdas.df$Taxa_Bins <- relevel(published.lambdas.df$Taxa_Bins, "33 to 64")
-published.lambdas.df$Taxa_Bins <- relevel(published.lambdas.df$Taxa_Bins, "Up To 32")
+published.lambdas.df$Taxa_Bins <- relevel(published.lambdas.df$Taxa_Bins, "513 - 1024")
+published.lambdas.df$Taxa_Bins <- relevel(published.lambdas.df$Taxa_Bins, "257 - 512")
+published.lambdas.df$Taxa_Bins <- relevel(published.lambdas.df$Taxa_Bins, "129 - 256")
+published.lambdas.df$Taxa_Bins <- relevel(published.lambdas.df$Taxa_Bins, "65 - 128")
+published.lambdas.df$Taxa_Bins <- relevel(published.lambdas.df$Taxa_Bins, "33 - 64")
+published.lambdas.df$Taxa_Bins <- relevel(published.lambdas.df$Taxa_Bins, "< 33")
 
 length(which(published.lambdas.df$Published_Lambdas > 0.95))/nrow(published.lambdas.pruned)*100 # 18.509%
 length(which(published.lambdas.df$Published_Lambdas < 0.05))/nrow(published.lambdas.pruned)*100 # 25.321%
@@ -39,7 +39,7 @@ library(ggplot2)
 
 tiff("Figures/Fig1.tiff", width = 1000, height = 660, pointsize = 16)
 ggplot(published.lambdas.df, aes(x = Published_Lambdas, fill = Taxa_Bins)) + 
-      geom_histogram(binwidth = 0.02) + labs(fill='Tree Size') + 
+      geom_histogram(binwidth = 0.02) + labs(fill='Tree Size (n)') + 
       theme(legend.position = c(.85,.77), legend.background = element_rect(fill = "white", color = "grey50"),
             panel.background = element_rect(fill = "white"), panel.grid.major = element_line(colour = "grey80"),
             text = element_text(size = 16)) +
@@ -49,7 +49,7 @@ dev.off()
 
 png("Figures/Fig1.png", width = 1000, height = 660, pointsize = 16)
 ggplot(published.lambdas.df, aes(x = Published_Lambdas, fill = Taxa_Bins)) + 
-      geom_histogram(binwidth = 0.02) + labs(fill='Tree Size') + 
+      geom_histogram(binwidth = 0.02) + labs(fill='Tree Size (n)') + 
       theme(legend.position = c(.85,.77), legend.background = element_rect(fill = "white", color = "grey50"),
             panel.background = element_rect(fill = "white"), panel.grid.major = element_line(colour = "grey80"),
             text = element_text(size = 16)) +
@@ -207,9 +207,9 @@ PanelB <- ggplot(Data32, aes(x = lambda.input, y = kappa.z)) +
                 geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent"),
                                          panel.border = element_rect(color = "black", fill = NA), text = element_text(size = 12)) + 
                 xlab(latex2exp::TeX('Input Phylogenetic Signal ($\\lambda_{in}$)')) + 
-                ylab(latex2exp::TeX('Estimated Effect Size ($\\Z_K$)')) +
+                ylab(latex2exp::TeX('Estimated Effect Size ($\\Z_\\kappa$)')) +
                 annotate(geom="text", x=0, y=max(na.omit(Data32$kappa.z)), label= "N = 32", color="black", size = 6, hjust = 0)
-
+PanelB
 
 # panel C: coefficient of variation across precision estimates for each sample size ~ n, 
       lambda.z.vars <- lapply(1:6, function(i) { apply(na.omit(Z.lambda[,,i]), 2, var) }) # variances of z scores across each input lambda for each tree
@@ -229,7 +229,7 @@ PanelC <- ggplot(DF, aes(x = as.factor(n), y = CV, fill = Statistic)) +
   geom_bar(stat="identity", color="black", position=position_dodge())+
   theme_minimal() +
   xlab("Tree Size") + ylab("Coefficient of Variance") + 
-  scale_fill_manual(values=c("white","darkgray"), labels = list(latex2exp::TeX('$\\Z_K$'), latex2exp::TeX('$\\Z_{\\lambda}$'))) #+ 
+  scale_fill_manual(values=c("white","darkgray"), labels = list(latex2exp::TeX('$\\Z_\\kappa$'), latex2exp::TeX('$\\Z_\\lambda$'))) #+ 
   #scale_fill_discrete(name = "Statistic", labels = list(latex2exp::TeX('$\\K_Z$'), latex2exp::TeX('$\\lambda_Z$')))
 
 PanelC      
@@ -516,7 +516,7 @@ PlotList <- lapply(1:6, function(j){
       geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent"),
                                panel.border = element_rect(color = "black", fill = NA), text = element_text(size = 12)) + 
       xlab(latex2exp::TeX('Input Phylogenetic Signal ($\\lambda_{in}$)')) + 
-      ylab(latex2exp::TeX('Estimated Effect Size ($\\Z_K$)')) +
+      ylab(latex2exp::TeX('Estimated Effect Size ($\\Z_\\kappa$)')) +
       annotate(geom="text", x=0, y=ylabelplacement[j], label= paste("N = ", treesizes[[j]], sep = ""), 
                color="black", size = 6, hjust = 0)
 })
@@ -555,9 +555,9 @@ PlotList <- lapply(1:6, function(j){
    ggplot(data_list[[j]], aes(x = lambda.input, y = kappa)) +
       geom_point() + theme(legend.position= "none", panel.background = element_rect("transparent"),
                            panel.border = element_rect(color = "black", fill = NA), text = element_text(size = 12)) + 
-      xlab("Input Lambda") + ylab("Estimated Kappa") + 
+      xlab("Input Lambda") + ylab(latex2exp::TeX('Estimated $\\kappa$')) + 
       xlab(latex2exp::TeX('Input Phylogenetic Signal ($\\lambda_{in}$)')) + 
-      ylab(latex2exp::TeX('Estimated Phylogenetic Signal ($\\K_{est}$)')) +
+      ylab(latex2exp::TeX('Estimated Phylogenetic Signal ($\\kappa_{est}$)')) +
       annotate(geom="text", x=0, y=ylabelplacement[j], label= paste("N = ", treesizes[[j]], sep = ""), 
                color="black", size = 6, hjust = 0)
 })
