@@ -18,12 +18,14 @@ header-includes:
 
 ---
 \begin{center}
-\textbf{Dean C. Adams$^{1,*}$ and Erica K. Baken$^{1}$}
+\textbf{Dean C. Adams$^{1,*}$, Michael L. Collyer$^2$ and Erica K. Baken$^{1}$}
 \end{center}
 
 \begin{center}`r format(Sys.time(), '%d %B, %Y')`\end{center}
 
 $^{1}$Department of Ecology, Evolution, and Organismal Biology, Iowa State University, Ames, Iowa, USA.
+
+$^{2}$Department of Science, Chatham University, Pittsburgh, Pennsylvania, USA. 
 
 $^{*}$Correspondence: Dean C. Adams <dcadams@iastate.edu> 
 
@@ -37,7 +39,7 @@ $^{*}$Correspondence: Dean C. Adams <dcadams@iastate.edu>
 
 **Data Archiving**: Data will be made available on DRYAD upon publication. \hfill\break
 
-**Acknowledgments**: We thank XXX for comments on drafts of this manuscript; ...... This work was  sponsored in part by National Science Foundation Grant DBI-1902511 (to DCA).
+**Acknowledgments**: We thank XXX for comments on drafts of this manuscript; ...... This work was  sponsored in part by National Science Foundation Grant DBI-1902511 (to DCA) and DBI-1902694 (to MLC).
 
 
 
