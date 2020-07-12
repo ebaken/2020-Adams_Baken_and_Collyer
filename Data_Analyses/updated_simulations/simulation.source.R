@@ -25,7 +25,8 @@ effects.simulations <- function(treesize , tree.type = c("bal", "pect", "pb"),
   
   n <- treesize
 
-  x <- if(mod.type == "mean" || type == "reg") matrix(1, n) else matrix(rep(c(0, 1), each  = n/2)) 
+  x <- if(mod.type == "mean" || type == "reg") matrix(1, n) else 
+    sample(matrix(rep(c(0, 1), each  = n/2)))
   
   stat.args <- list(tree = 0, x = x, beta = beta[1], lambda = lambdas[1],
                     type = mod.type)
@@ -218,19 +219,19 @@ kappa.plot <- function(R, ...) {
   
 }
 
-lambda.z.plot <- function(R, var.col = 2, var.lwd = 2, ...) {
+lambda.z.plot <- function(R, mean.col = 2, mean.lwd = 2, ...) {
   df <- R$Result
   plot(df$lambda.in, df$lambda.z, ...)
-  vars <- by(df$lambda.z, df$lambda.in, var)
-  points(unique(df$lambda.in), vars, type = "l", col = var.col, lwd = var.lwd)
+  means <- by(df$lambda.z, df$lambda.in, mean)
+  points(unique(df$lambda.in), means, type = "l", col = mean.col, lwd = mean.lwd)
   
 }
 
-kappa.z.plot <- function(R, var.col = 2, var.lwd = 2, ...) {
+kappa.z.plot <- function(R, mean.col = 2, mean.lwd = 2, ...) {
   df <- R$Result
   plot(df$lambda.in, df$kappa.z, ...)
-  vars <- by(df$kappa.z, df$lambda.in, var)
-  points(unique(df$lambda.in), vars, type = "l", col = var.col, lwd = var.lwd)
+  means <- by(df$kappa.z, df$lambda.in, mean)
+  points(unique(df$lambda.in), means, type = "l", col = mean.col, lwd = mean.lwd)
   
 }
 
