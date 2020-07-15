@@ -1,0 +1,24 @@
+FIg 1/2: 
+
+thin gray: expected value (1:1 line)
+dark black: empirical estimate (mean)
+blue: Shapiro-Wilks (should be 1.0 if normal; less if skewed)
+red:  std dev
+
+####################
+
+1. lambda is treated as a stat but should only be treated as a tuning parameter 2. Once tuned, kappa is a stat that produces a reliable z-score 3. The z-score is the effect size, given a value of lambda.
+4. This does not undermine optimizing lambda but allows one to go from a likelihood framework to appropriate effect size estimation.  (We could also attempt to provide LRT for comparison of lambda = 0 and lambda = 1 in procD.pgls, but seems unneeded).
+5. Even though with multivariate data, lambda might tend to be optimized at 1, Z can inform us that phylogenetic signal can be weak even if “significant”.  So in the process, we resolve a univariate/multivariate problem in the Discussion.
+
+That right there would be a citable reason to update procD.pgls, thusly.
+
+I think maybe we will have an example in the PNAS discussion — enabled by such a thing in procD.pgls — where we show that if we do Kappa —> Z assuming BM and then tune lambda and repeat, we will get similar Z-scores.  If that happens, it is the successful PAT.  But we need to see what happens, first.
+
+Hmmm.
+
+A potentially cool plot (if it fits) is Z from kappa with lambda = 1 on the x-axis, Z from kappa after lambda-tuning on the y-axis, and the dots from a simulation heat-colored by the value of lambda-hat.  First we would need to establish my conjecture is true but if it is, that would be an awesome figure!
+
+OK, time for another BS summer meeting!
+
+
