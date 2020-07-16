@@ -196,7 +196,10 @@ get.stats <- function(tree, x, beta, lambda, type) {
     try(pgls(y ~ x, data = df, lambda='ML'), silent = T)
   kappa_est <- physignal(cbind(y,0), phy = tree, iter = 999, print.progress = F)
   if(!inherits(pgls_est, "try-error")) {
-    res <- c(unlist(pgls_est$model), unlist(pgls_est$param.CI)[c(1,6,7)],
+    summ <- summary(pgls_est)
+    Pval <- unlist(summ$coefficients[,4])
+    names(Pval) <- paste("Pval", names(Pval), sep = ".")
+    res <- c(unlist(pgls_est$model), Pval, unlist(pgls_est$param.CI)[c(1,6,7)],
              lambda.z = lambda.Z(pgls_est), 
              unlist(kappa_est[c("phy.signal", "Z")]))
     names(res)[length(res)] <- "kappa.z"
