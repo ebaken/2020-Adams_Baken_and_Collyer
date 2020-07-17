@@ -98,7 +98,7 @@ Formalizing the suggestion of Adams and Collyer [@AdamsCollyer2019],  an effect 
 
 where $\kappa_{obs}$ is the observed phylogenetic signal, and $\hat\mu_\kappa$ and $\hat\sigma_\kappa$ are the mean and standard deviation of the empirical sampling distribution of $\kappa$ obtained via permutation. The empirical sampling distribution of $\kappa$ is first transformed via Box-Cox to better adhere to the assumption of normality. 
 
-For $\lambda$, deriving an effect size is more challenging, as $\lambda$ does not have a sampling distribution from which the standard error and confidence intervals may be obtained. Confidence intervals are therefore generated for the values of $\lambda$ that intersect the log-likehihood profile for corresponding percentiles of the $\chi^2$ distribution used to compare the putative model to a null model with $\lambda = 0$ [**add ref: MLC thinks Boettiger paper?**]. Thus, an effect size for $\lambda$ may be found as:
+For $\lambda$, deriving an effect size is more challenging, as $\lambda$ does not have a sampling distribution from which the standard error and confidence intervals may be obtained, and estimates from the Hessian matrix from PGLS are unreliable [@Boettiger_et_al2012]. Confidence intervals are therefore generated for the values of $\lambda$ that intersect the log-likehihood profile for corresponding percentiles of the $\chi^2$ distribution used to compare the putative model to a null model with $\lambda = 0$ [**add ref: MLC thinks Boettiger paper?**]. Thus, an effect size for $\lambda$ may be found as:
 
 \begin{align}
    \lvert Z_{\lambda} \rvert = \sqrt{\chi^2_{\hat{\lambda}}}
