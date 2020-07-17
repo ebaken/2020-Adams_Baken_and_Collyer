@@ -15,7 +15,7 @@ source("simulation.source.R")
 
 nsim <- 10 # change to 50 for final runs
 treesizes <- 2^(4:7) # change to 5:10 for final runs
-lambdas <- seq(0, 1, 0.1) # change to seq(0, 1, 0.1) for final runs
+lambdas <- seq(0, 1, 0.1) # change to seq(0, 1, 0.05) for final runs
 
 ### Prepare results
 
