@@ -6,7 +6,7 @@ library(readxl)
 library(latex2exp)
 source("simulation.source.R")
 
-#### Pure-birth tree analyses ------------------------------------------
+#### Pure-birth tree analyses  with Regression ---------------------------------------
 
 ### Do this now: set working directory to same location as this file
 ### Can do that with drop-drown in R Studio
@@ -14,7 +14,7 @@ source("simulation.source.R")
 ### Parameters
 
 nsim <- 10 # change to 50 for final runs
-treesizes <- 2^(4:7) # change to 5:10 for final runs
+treesizes <- 2^(3:4) # change to 5:10 for final runs
 lambdas <- seq(0, 1, 0.1) # change to seq(0, 1, 0.05) for final runs
 
 ### Prepare results
@@ -26,7 +26,8 @@ destination <- paste(getwd(), "/results", sep = "")
 
 sim.args <- list(treesize = treesizes[1], tree.type = "pb",
                 nsim = nsim, lambdas = lambdas, poly.per = 0,
-                beta = 1, mod.type = "mean")
+                beta = c(0, .25, .5, .75, 1), 
+                mod.type = "reg")
 
 setwd(destination)
 
@@ -49,7 +50,7 @@ save(sim.sets, file = nm)
 setwd(location)
 
 
-### plot lambdas
+### plot lambdas for beta = 0.5
 
 par(mfrow = c(2, length(treesizes)/2))
 for(i in 1:length(treesizes)) {
@@ -78,7 +79,7 @@ for(i in 1:length(treesizes)) {
 }
 
 
-### plot kappas
+### plot kappas for beta = 0.5
 
 par(mfrow = c(2, length(treesizes)/2))
 for(i in 1:length(treesizes)) {
@@ -115,7 +116,7 @@ for(i in 1:2) {
   maxZ <- max(na.omit(cbind(R$Result$lambda.z, R$Result$kappa.z)))
   minZ <- min(na.omit(cbind(R$Result$lambda.z, R$Result$kappa.z)))
   
-  lambda.z.plot(R, pch = 19,col = gray.colors(1, start = 0.6, end = 0.6, alpha = 0.5),
+  lambda.z.plot(R, pch = 19, col = gray.colors(1, start = 0.6, end = 0.6, alpha = 0.5),
                 xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
                 ylab = latex2exp::TeX("$Z_{\\lambda}$"),
                 mean.col = 1, mean.lwd = 3, ylim = c(-3, 25))
@@ -123,7 +124,7 @@ for(i in 1:2) {
   
   legend("topleft", paste("N =", treesizes[zref[i]]), bty = "n", cex = 1.5)
   
-  kappa.z.plot(R, pch = 19,col = gray.colors(1, start = 0.6, end = 0.6, alpha = 0.5),
+  kappa.z.plot(R, pch = 19, col = gray.colors(1, start = 0.6, end = 0.6, alpha = 0.5),
                 xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
                 ylab = latex2exp::TeX("$Z_{\\kappa}$"),
                 mean.col = 1, mean.lwd = 3, ylim = c(-3, 25))
@@ -156,5 +157,23 @@ for(i in 2:ncol(KZ)) points(lambdas, KZ[,i], type = "l", lwd = i)
 legend("topleft", as.character(treesizes), lwd = 1:length(treesizes))
 
 
+
+
+### regression precision plot
+
+par(mfrow = c(2, length(treesizes)/2))
+for(i in 1:length(treesizes)) {
+  R <- sim.sets[[i]]
+  Rr <- R$Result
+  regression.precision.plot(R, pch = 19, col = gray.colors(1, start = 0.6, end = 0.6, alpha = 0.5),
+             xlab = latex2exp::TeX("Input Effect ($\\beta_{in}$)"),
+             ylab = latex2exp::TeX("Estimated Phylogenetic Signal ($\\kappa$),, $s$, or $W$"),
+             ylim = c(0, 2))
+  
+  legend("topleft", paste("N =", treesizes[i]), bty = "n", cex = 1.5)
+}
+
+
 par(mfcol = c(1,1))
+
 

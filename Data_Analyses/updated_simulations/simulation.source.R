@@ -25,7 +25,7 @@ effects.simulations <- function(treesize , tree.type = c("bal", "pect", "pb"),
   
   n <- treesize
 
-  x <- if(mod.type == "mean" || type == "reg") matrix(1, n) else 
+  x <- if(mod.type == "mean" || mod.type == "reg") matrix(1, n) else 
     sample(matrix(rep(c(0, 1), each  = n/2)))
   
   stat.args <- list(tree = 0, x = x, beta = beta[1], lambda = lambdas[1],
@@ -34,12 +34,12 @@ effects.simulations <- function(treesize , tree.type = c("bal", "pect", "pb"),
  
   Result <- lapply(1:nsim, function(j) {
     
-    result <- sapply(1:length(lambdas), function(jj){
+    result <- lapply(1:length(lambdas), function(jj){
       lambda <- lambdas[jj]
       stat.args$lambda <- tree.args$lambda <- lambda
       stat.args$tree  <- do.call(make.tree, tree.args)
     
-      stats <- lapply(1:length(beta), function(jjj){
+      stats <- sapply(1:length(beta), function(jjj){
         TE <- TRUE
         stat.args$beta <- beta[jjj]
         while(TE) {
@@ -47,15 +47,18 @@ effects.simulations <- function(treesize , tree.type = c("bal", "pect", "pb"),
           TE <- inherits(res, "try-error")
         }
         res <- c(lambda.in = stat.args$lambda, beta.in = stat.args$beta, res)
+        res
       })
-      stats
+      t(stats)
     })
     
+    result <- do.call(rbind, result)
     setTxtProgressBar(pb, j)
-
-    t(simplify2array(result))
+    result
     
   })
+  
+  Result <- do.call(rbind, Result)
   
   close(pb)
   endtime <- Sys.time()
@@ -64,7 +67,7 @@ effects.simulations <- function(treesize , tree.type = c("bal", "pect", "pb"),
   cat(diff, attr(diff, "units"))
   cat("\n")
 
- list(Result = as.data.frame(do.call(rbind, Result)), file.name = file.name)
+  list(Result = as.data.frame(Result), file.name = file.name)
   
 }
 
@@ -88,7 +91,7 @@ effects.simulations.PP <- function(treesize , tree.type = c("bal", "pect", "pb")
   
   n <- treesize
   
-  x <- if(mod.type == "mean" || type == "reg") matrix(1, n) else matrix(rep(c(0, 1), each  = n/2)) 
+  x <- if(mod.type == "mean" || mod.type == "reg") matrix(1, n) else matrix(rep(c(0, 1), each  = n/2)) 
   
   stat.args <- list(tree = 0, x = x, beta = beta[1], lambda = lambdas[1],
                     type = mod.type)
@@ -97,12 +100,12 @@ effects.simulations.PP <- function(treesize , tree.type = c("bal", "pect", "pb")
   
   Result <- mclapply(1:nsim, function(j) {
     
-    result <- sapply(1:length(lambdas), function(jj){
+    result <- lapply(1:length(lambdas), function(jj){
       lambda <- lambdas[jj]
       stat.args$lambda <- tree.args$lambda <- lambda
       stat.args$tree  <- do.call(make.tree, tree.args)
       
-      stats <- lapply(1:length(beta), function(jjj){
+      stats <- sapply(1:length(beta), function(jjj){
         TE <- TRUE
         stat.args$beta <- beta[jjj]
         while(TE) {
@@ -110,13 +113,18 @@ effects.simulations.PP <- function(treesize , tree.type = c("bal", "pect", "pb")
           TE <- inherits(res, "try-error")
         }
         res <- c(lambda.in = stat.args$lambda, beta.in = stat.args$beta, res)
+        res
       })
-      stats
+      t(stats)
     })
     
-    t(simplify2array(result))
+    result <- do.call(rbind, result)
+    setTxtProgressBar(pb, j)
+    result
     
   }, mc.cores = cores)
+  
+  Result <- do.call(rbind, Result)
   
   endtime <- Sys.time()
   cat("\nSimulations completed in: ")
@@ -124,7 +132,7 @@ effects.simulations.PP <- function(treesize , tree.type = c("bal", "pect", "pb")
   cat(diff, attr(diff, "units"))
   cat("\n")
   
-  list(Result = as.data.frame(do.call(rbind, Result)), file.name = file.name)
+  list(Result = as.data.frame(Result), file.name = file.name)
   
 }
 
@@ -186,7 +194,8 @@ get.stats <- function(tree, x, beta, lambda, type) {
   mu <- x * beta
   y <- if(type != "mean") mu + resid[,1] else resid[,1]
   y <- as.matrix(y)
-  if(type == "reg") x <- resid[,2]
+  x <- as.matrix(x)
+  resid <- as.matrix(resid)
   rownames(y) <- rownames(x) <- rownames(resid)
   
   df <- data.frame(x = x, y = y, Species = rownames(y))
@@ -210,32 +219,43 @@ get.stats <- function(tree, x, beta, lambda, type) {
 }
 
 
-lambda.plot <- function(R, ...) {
+lambda.plot <- function(R, beta = 1, ...) {
   df <- R$Result
+  df <- df[df$beta.in == beta,]
   plot(df$lambda.in, df$lambda.opt.lambda, ...)
   
 }
 
-kappa.plot <- function(R, ...) {
+kappa.plot <- function(R, beta = 1, ...) {
   df <- R$Result
+  df <- df[df$beta.in == beta,]
   plot(df$lambda.in, df$phy.signal, ...)
   
 }
 
-lambda.z.plot <- function(R, mean.col = 2, mean.lwd = 2, ...) {
+lambda.z.plot <- function(R, mean.col = 2, mean.lwd = 2, beta = 1, ...) {
   df <- R$Result
+  df <- df[df$beta.in == beta,]
   plot(df$lambda.in, df$lambda.z, ...)
   means <- by(df$lambda.z, df$lambda.in, mean)
   points(unique(df$lambda.in), means, type = "l", col = mean.col, lwd = mean.lwd)
   
 }
 
-kappa.z.plot <- function(R, mean.col = 2, mean.lwd = 2, ...) {
+kappa.z.plot <- function(R, mean.col = 2, mean.lwd = 2, beta = 1, ...) {
   df <- R$Result
+  df <- df[df$beta.in == beta,]
   plot(df$lambda.in, df$kappa.z, ...)
   means <- by(df$kappa.z, df$lambda.in, mean)
   points(unique(df$lambda.in), means, type = "l", col = mean.col, lwd = mean.lwd)
   
 }
 
-
+regression.precision.plot <- function(R, mean.col = 2, mean.lwd = 2,  ...) {
+  df <- R$Result
+  plot(df$beta.in, df$coef.x, ...)
+  means <- by(df$coef.x, df$beta.in, mean)
+  points(unique(df$beta.in), means, type = "l", col = mean.col, lwd = mean.lwd)
+  abline(0, 1)
+}
+  
