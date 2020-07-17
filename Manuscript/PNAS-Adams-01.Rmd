@@ -4,7 +4,7 @@ title: A Standardized Effect Size for Evaluating and Comparing the Strength of P
 # Use letters for affiliations, numbers to show equal authorship (if applicable) and to indicate the corresponding author
 author:
   - name: Dean C. Adams
-    affiliation: a,1
+    affiliation: a,2
   - name: Erica K. Baken
     affiliation: a,b
   - name: Michael L. Collyer
@@ -16,7 +16,7 @@ address:
     address: Department of Science, Chatham University, Pittsburgh, Pennsylvania, 15232. USA.
 
 corresponding_author:
-  - code: 1
+  - code: 2
     text: "To whom correspondence should be addressed. E-mail: dcadams@iastate.edu"
 
 # For footer text
@@ -31,7 +31,7 @@ conflict_of_interest: |
   
   Data deposition: Data for the empirical example may be found on DRYAD: doi:10.5061/dryad.b554m44 and doi:10.5061/dryad.59zw3r23m. R-scripts for simulation tests are found on Github: XXX. Computer code for implementing the two-sample comparison of effect sizes is found in geomorph: https://cran.r-project.org/web/packages/geomorph/index.html \hfill\break
   
-  ^1^To whom correspondence should be addressed. E-mail: dcadams@iastate.edu
+  ^2^To whom correspondence should be addressed. E-mail: dcadams\@iastate.edu
   
 abstract: |
   Macroevolutionary studies frequently characterize the phylogenetic signal in phenotypes, however, analytical tools for comparing the strength of that signal across traits remain largely underdeveloped. Here we evaluate the efficacy of of Pagel's $\lambda$ to correctly estimate the strength of phylogenetic signal in phenotypic traits across a range of input values. We find that $\lambda$ behaves as a Bernoulli random variable, where estimates are increasingly skewed at larger and smaller input levels of phylogenetic signal. Further, the precision of $\lambda$ varies with input signal. Another measure, Blomberg's $\kappa$, is more consistent across a range of tree sizes, and exhibits a positive relationship with input levels of phylogenetic signal. However, that relationship is decidedly nonlinear. Thus, neither $\lambda$ nor $\kappa$ are suitable as effect sizes for measuring the strength of phylogenetic signal, and comparing that signal across datasets. As an alternative, we propose a standardized effect size based on $\kappa$, ($Z_\kappa$), which measures the strength of phylogenetic signal more reliably than does $\lambda$, and places that signal on a common scale for statistical comparison. We develop tests based on $Z_\kappa$ to provide a mechanism for formally comparing the strength of phylogenetic signal across datasets, in much the same manner as effect sizes may be used to summarize patterns in quantitative meta-analysis. Our approach extends the phylogenetic comparative toolkit to address hypotheses that compare the strength of phylogenetic signal between various phenotypic traits, even when those traits are found in different evolutionary lineages or have different units or scales.
@@ -108,7 +108,7 @@ where, $\hat{\lambda}$ is the maximized likelihood value of $\lambda$ and $\chi^
 
 Here we evaluate the ability of $Z_{\lambda}$ and $Z_{\kappa}$ to characterize known levels of phylogenetic signal. Both $Z_{\lambda}$ and $Z_{\kappa}$ are associated with input phylogenetic signal ($\lambda$), indicating that both statistics capture the observed signal (Fig. 3). However, effect sizes from $\hat{\lambda}$ made little sense, as they are more strongly associated with tree size than they are with the actual phylogenetic signal in the data (Fig. 3). By contrast, $Z_{\kappa}$ is much more consistent accross tree sizes, and increases more linearly with incrasing levels of phylogenetic signal. Additionally, $Z_{\kappa}$ exhibits a much stronger association with phylogenetic signal strength as compared to tree size (Fig. 3), and its standard deviation across input signal is more consistent. This implies that similar levels of precision are found with $Z_{\kappa}$ across the range of input values. Thus between the two statistics, $Z_{\kappa}$ is a more reliable measure of the strength of phylogenetic signal, and may be used to compare levels of phylogenetic signal across datasets. 
 
-![Response of effect sizes $Z_\lambda$ and $Z_\kappa$ to increasing strength of Brownian motion.<span data-label="fig:f3"></span>](new.fig.3.temp.png)
+![Response of effect sizes $Z_{\lambda}$ and $Z_{\kappa}$ to increasing strength of Brownian motion.<span data-label="fig:f3"></span>](new.fig.3.temp.png)
 
 **A test statistic ($\hat{Z}_{12}$) allows meaningful comparisons across datasets.** To statistically compare the strength of phylogenetic signal across datasets we propose a two-sample test statistic ($\hat{Z}_{12}$). Based on statistical theory, a two-sample test statistic may be calculated as: 
 
