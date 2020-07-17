@@ -69,7 +69,8 @@ for(i in 1:length(treesizes)) {
   points(lambdas, sds,
          type = "l", lwd = 3, col = 2)
   
-  Ws <- by(Rr$lambda.opt.lambda, Rr$lambda.in, function(x) shapiro.test(x)$statistic)
+  Ws <- by(Rr$lambda.opt.lambda, Rr$lambda.in, function(x) if(length(unique(x)) == 1) 1 else
+    shapiro.test(x)$statistic)
   
   points(lambdas, Ws,
          type = "l", lwd = 3, col = 4)
@@ -97,7 +98,8 @@ for(i in 1:length(treesizes)) {
   points(lambdas, sds,
          type = "l", lwd = 3, col = 2)
   
-  Ws <- by(Rr$phy.signal, Rr$lambda.in, function(x) shapiro.test(x)$statistic)
+  Ws <- by(Rr$phy.signal, Rr$lambda.in, function(x) if(length(unique(x)) == 1) 1 else
+    shapiro.test(x)$statistic)
   
   points(lambdas, Ws,
          type = "l", lwd = 3, col = 4)

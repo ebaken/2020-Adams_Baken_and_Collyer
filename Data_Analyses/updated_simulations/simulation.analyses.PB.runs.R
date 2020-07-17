@@ -55,7 +55,7 @@ par(mfrow = c(2, length(treesizes)/2))
 for(i in 1:length(treesizes)) {
   R <- sim.sets[[i]]
   Rr <- R$Result
-  lambda.plot(R, pch = 19, beta = 0.5, col = gray.colors(1, start = 0.6, end = 0.6, alpha = 0.5),
+  lambda.plot(R, pch = 19,  col = gray.colors(1, start = 0.6, end = 0.6, alpha = 0.5),
               xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
               ylab = latex2exp::TeX("Estimated Phylogenetic Signal ($\\hat{lambda}$), $s$, or $W$"),
               ylim = c(0, 1.1))
@@ -69,7 +69,8 @@ for(i in 1:length(treesizes)) {
   points(lambdas, sds,
          type = "l", lwd = 3, col = 2)
   
-  Ws <- by(Rr$lambda.opt.lambda, Rr$lambda.in, function(x) shapiro.test(x)$statistic)
+  Ws <- by(Rr$lambda.opt.lambda, Rr$lambda.in, function(x) if(length(unique(x)) == 1) 1 else
+    shapiro.test(x)$statistic)
   
   points(lambdas, Ws,
          type = "l", lwd = 3, col = 4)
@@ -84,7 +85,7 @@ par(mfrow = c(2, length(treesizes)/2))
 for(i in 1:length(treesizes)) {
   R <- sim.sets[[i]]
   Rr <- R$Result
-  kappa.plot(R, pch = 19, beta = 0.5, col = gray.colors(1, start = 0.6, end = 0.6, alpha = 0.5),
+  kappa.plot(R, pch = 19,  col = gray.colors(1, start = 0.6, end = 0.6, alpha = 0.5),
               xlab = latex2exp::TeX("Input Phylogenetic Signal($\\lambda_{in}$)"),
               ylab = latex2exp::TeX("Estimated Phylogenetic Signal ($\\kappa$),, $s$, or $W$"),
               ylim = c(0, 2))
@@ -97,7 +98,8 @@ for(i in 1:length(treesizes)) {
   points(lambdas, sds,
          type = "l", lwd = 3, col = 2)
   
-  Ws <- by(Rr$phy.signal, Rr$lambda.in, function(x) shapiro.test(x)$statistic)
+  Ws <- by(Rr$phy.signal, Rr$lambda.in, function(x) if(length(unique(x)) == 1) 1 else
+    shapiro.test(x)$statistic)
   
   points(lambdas, Ws,
          type = "l", lwd = 3, col = 4)
