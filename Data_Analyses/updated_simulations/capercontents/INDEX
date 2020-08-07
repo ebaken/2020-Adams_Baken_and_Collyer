@@ -1,0 +1,44 @@
+BritishBirds            Conservation status of British birds (Thomas
+                        2008)
+IsaacEtAl               Example dataset for the caper package
+VCV.array               Create a 2D or 3D variance-covariance matrix
+                        from a phylogeny
+anova.caic              Anova and model checking methods for
+                        independent contrast models.
+anova.pgls              Anova and AIC tables for 'pgls' models.
+brunch                  Comparative analysis using the brunch
+                        algorithm.
+caic-class              The 'caic' S3 object class and methods
+caic.diagnostics        Diagnostic tools for independent contrasts
+                        models
+caper-benchmarks        Datasets used for benchmarking caper
+caper-package           Comparative analysis of phylogenetics and
+                        evolution in R (caper)
+clade.matrix            Create a clade matrix from a phylogeny
+clade.members           Identify tips descended from a node
+coef.pgls               Generic model methods for 'pgls' models.
+comparative.data        Comparative dataset creation
+crunch                  Comparative analysis using the crunch
+                        algorithm.
+fusco.test              Imbalance statistics using Fusco and Cronk's
+                        method.
+fuscoBirdData           Example dataset for Fusco imbalance
+                        calculations
+growTree                Tree simulation with traits.
+macrocaic               Comparative analysis using independent
+                        contrasts on species richness data.
+pd.calc                 Calculate and bootstrap phylogenetic diversity
+                        measurements.
+perissodactyla          Example dataset for the CAIC package
+pgls                    Phylogenetic generalized linear models
+pgls.profile            Likelihood profiles and confidence intervals
+                        for 'pgls' models.
+phylo.d                 Calculates the phylogenetic D statistic
+phylo.d.subset          Calculates the phylogenetic D statistic across
+                        clades within a phylogeny
+plot.pgls               Diagnostic plots for 'pgls' models.
+shorebird               Example dataset for the caper package
+summary.caic            Summarize a crunch, brunch or macrocaic
+                        analysis
+syrphidae               The syrphidae dataset of Katzourakis et al.
+                        2001

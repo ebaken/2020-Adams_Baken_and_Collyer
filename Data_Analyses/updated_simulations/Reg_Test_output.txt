@@ -1,0 +1,32 @@
+
+R version 3.5.0 (2018-04-23) -- "Joy in Playing"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> # Simulation analyses
+> 
+> # general phy-signal analyses
+> .libPaths( c( .libPaths(), "/home/ebaken/Rlibs") )
+> setwd("/work/LAS/dcadams-lab/baken/updated_simulations/")
+> 
+> 
+> library(readxl)
+Error: package or namespace load failed for ‘readxl’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ namespace ‘Rcpp’ 0.12.16 is being loaded, but >= 0.12.18 is required
+In addition: Warning message:
+package ‘readxl’ was built under R version 3.6.3 
+Execution halted

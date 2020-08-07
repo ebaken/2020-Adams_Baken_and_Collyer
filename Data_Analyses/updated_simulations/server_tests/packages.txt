@@ -1,0 +1,7 @@
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=128G
+#SBATCH --time=0-00:30:00
+module load r/3.6.0-py2-fupx2uq
+R CMD BATCH /work/LAS/dcadams-lab/baken/updated_simulations/packages.R /work/LAS/dcadams-lab/baken/updated_simulations/packages_output.txt

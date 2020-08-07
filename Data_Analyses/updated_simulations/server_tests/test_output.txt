@@ -1,0 +1,42 @@
+
+R version 3.5.0 (2018-04-23) -- "Joy in Playing"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> library(geomorph)
+Loading required package: rgl
+Loading required package: ape
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE 
+> 
+> a<-3
+> b<-66
+> c <- a*b
+> d<-seq(a,b)
+> 
+> plot(d, (d*2 + rnorm(length(d))), pch = 1)
+> 
+> source("/work/LAS/dcadams-lab/baken/updated_simulations/test_func.R")
+> pth <- test_func(6,9)
+> write.csv(pth, "test_pth.csv")
+> 
+> proc.time()
+   user  system elapsed 
+  0.921   0.394   7.608 

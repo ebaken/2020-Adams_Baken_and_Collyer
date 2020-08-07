@@ -1,0 +1,9 @@
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=2
+#SBATCH --mem=128G
+#SBATCH --time=0-00:10:02
+module load r/3.6.3-py3-sxv6dw3
+module load r-geomorph
+cd /work/LAS/dcadams-lab/baken/updated_simulations/
+R CMD BATCH test.R test_output.txt

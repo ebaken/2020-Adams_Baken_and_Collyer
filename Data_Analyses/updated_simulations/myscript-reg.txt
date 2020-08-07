@@ -1,0 +1,12 @@
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=3
+#SBATCH --mem=128G
+#SBATCH --time=5-00:00:00
+#SBATCH --partition=biocrunch
+module load r/3.6.3-py3-sxv6dw3
+module load r-phytools/0.6-60-py2-r3.5-wu3halp
+module load r-geiger/2.0.6-py2-r3.5-wuil5in
+module load r-geomorph/3.0.7-py2-r3.5-nvekbs
+cd /work/LAS/dcadams-lab/baken/updated_simulations/
+R CMD BATCH simulation.analyses.Regression.runs.R Reg_Test_output.txt

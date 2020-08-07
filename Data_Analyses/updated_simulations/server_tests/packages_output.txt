@@ -1,0 +1,209 @@
+
+R version 3.6.0 (2019-04-26) -- "Planting of a Tree"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> install.packages("caper", lib="/home/ebaken/Rlibs", repos="https://mirror.las.iastate.edu/CRAN")
+trying URL 'https://mirror.las.iastate.edu/CRAN/src/contrib/caper_1.0.1.tar.gz'
+Content type 'application/x-gzip' length 1658197 bytes (1.6 MB)
+==================================================
+downloaded 1.6 MB
+
+* installing *source* package ‘caper’ ...
+** package ‘caper’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+** inst
+** byte-compile and prepare package for lazy loading
+Warning messages:
+1: package ‘ape’ was built under R version 3.6.3 
+2: package ‘MASS’ was built under R version 3.6.3 
+3: package ‘mvtnorm’ was built under R version 3.6.3 
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+Warning: package ‘ape’ was built under R version 3.6.3
+Warning: package ‘MASS’ was built under R version 3.6.3
+Warning: package ‘mvtnorm’ was built under R version 3.6.3
+** testing if installed package can be loaded from final location
+Warning: package ‘ape’ was built under R version 3.6.3
+Warning: package ‘MASS’ was built under R version 3.6.3
+Warning: package ‘mvtnorm’ was built under R version 3.6.3
+** testing if installed package keeps a record of temporary installation path
+* DONE (caper)
+
+The downloaded source packages are in
+	‘/tmp/RtmpUlMrAc/downloaded_packages’
+> install.packages("latex2exp", lib="/home/ebaken/Rlibs", repos="https://mirror.las.iastate.edu/CRAN")
+trying URL 'https://mirror.las.iastate.edu/CRAN/src/contrib/latex2exp_0.4.0.tar.gz'
+Content type 'application/x-gzip' length 288749 bytes (281 KB)
+==================================================
+downloaded 281 KB
+
+* installing *source* package ‘latex2exp’ ...
+** package ‘latex2exp’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+  unable to load shared object '/home/ebaken/Rlibs/stringi/libs/stringi.so':
+  libicui18n.so.65: cannot open shared object file: No such file or directory
+Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
+Execution halted
+ERROR: lazy loading failed for package ‘latex2exp’
+* removing ‘/home/ebaken/Rlibs/latex2exp’
+* restoring previous ‘/home/ebaken/Rlibs/latex2exp’
+
+The downloaded source packages are in
+	‘/tmp/RtmpUlMrAc/downloaded_packages’
+Warning message:
+In install.packages("latex2exp", lib = "/home/ebaken/Rlibs", repos = "https://mirror.las.iastate.edu/CRAN") :
+  installation of package ‘latex2exp’ had non-zero exit status
+> install.packages("readxl", lib="/home/ebaken/Rlibs", repos="https://mirror.las.iastate.edu/CRAN")
+trying URL 'https://mirror.las.iastate.edu/CRAN/src/contrib/readxl_1.3.1.tar.gz'
+Content type 'application/x-gzip' length 2056165 bytes (2.0 MB)
+==================================================
+downloaded 2.0 MB
+
+* installing *source* package ‘readxl’ ...
+** package ‘readxl’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+g++ -I"/opt/rit/spack-app/linux-rhel7-x86_64/gcc-4.8.5/r-3.6.0-fupx2uq2oqmfmqxunjwi34sh3zxna25p/rlib/R/include" -DNDEBUG -Iunix -I. -DRCPP_DEFAULT_INCLUDE_CALL=false -I"/home/ebaken/Rlibs/progress/include" -I"/home/ebaken/Rlibs/Rcpp/include" -I/usr/local/include -fvisibility=hidden -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -I"/opt/rit/spack-app/linux-rhel7-x86_64/gcc-4.8.5/r-3.6.0-fupx2uq2oqmfmqxunjwi34sh3zxna25p/rlib/R/include" -DNDEBUG -Iunix -I. -DRCPP_DEFAULT_INCLUDE_CALL=false -I"/home/ebaken/Rlibs/progress/include" -I"/home/ebaken/Rlibs/Rcpp/include" -I/usr/local/include -fvisibility=hidden -fpic  -g -O2  -c XlsWorkBook.cpp -o XlsWorkBook.o
+g++ -I"/opt/rit/spack-app/linux-rhel7-x86_64/gcc-4.8.5/r-3.6.0-fupx2uq2oqmfmqxunjwi34sh3zxna25p/rlib/R/include" -DNDEBUG -Iunix -I. -DRCPP_DEFAULT_INCLUDE_CALL=false -I"/home/ebaken/Rlibs/progress/include" -I"/home/ebaken/Rlibs/Rcpp/include" -I/usr/local/include -fvisibility=hidden -fpic  -g -O2  -c XlsWorkSheet.cpp -o XlsWorkSheet.o
+g++ -I"/opt/rit/spack-app/linux-rhel7-x86_64/gcc-4.8.5/r-3.6.0-fupx2uq2oqmfmqxunjwi34sh3zxna25p/rlib/R/include" -DNDEBUG -Iunix -I. -DRCPP_DEFAULT_INCLUDE_CALL=false -I"/home/ebaken/Rlibs/progress/include" -I"/home/ebaken/Rlibs/Rcpp/include" -I/usr/local/include -fvisibility=hidden -fpic  -g -O2  -c XlsxWorkBook.cpp -o XlsxWorkBook.o
+g++ -I"/opt/rit/spack-app/linux-rhel7-x86_64/gcc-4.8.5/r-3.6.0-fupx2uq2oqmfmqxunjwi34sh3zxna25p/rlib/R/include" -DNDEBUG -Iunix -I. -DRCPP_DEFAULT_INCLUDE_CALL=false -I"/home/ebaken/Rlibs/progress/include" -I"/home/ebaken/Rlibs/Rcpp/include" -I/usr/local/include -fvisibility=hidden -fpic  -g -O2  -c XlsxWorkSheet.cpp -o XlsxWorkSheet.o
+cc -I"/opt/rit/spack-app/linux-rhel7-x86_64/gcc-4.8.5/r-3.6.0-fupx2uq2oqmfmqxunjwi34sh3zxna25p/rlib/R/include" -DNDEBUG -Iunix -I. -DRCPP_DEFAULT_INCLUDE_CALL=false -I"/home/ebaken/Rlibs/progress/include" -I"/home/ebaken/Rlibs/Rcpp/include" -I/usr/local/include -fvisibility=hidden -fpic  -g -O2  -c cran.c -o cran.o
+cc -I"/opt/rit/spack-app/linux-rhel7-x86_64/gcc-4.8.5/r-3.6.0-fupx2uq2oqmfmqxunjwi34sh3zxna25p/rlib/R/include" -DNDEBUG -Iunix -I. -DRCPP_DEFAULT_INCLUDE_CALL=false -I"/home/ebaken/Rlibs/progress/include" -I"/home/ebaken/Rlibs/Rcpp/include" -I/usr/local/include -fvisibility=hidden -fpic  -g -O2  -c endian.c -o endian.o
+cc -I"/opt/rit/spack-app/linux-rhel7-x86_64/gcc-4.8.5/r-3.6.0-fupx2uq2oqmfmqxunjwi34sh3zxna25p/rlib/R/include" -DNDEBUG -Iunix -I. -DRCPP_DEFAULT_INCLUDE_CALL=false -I"/home/ebaken/Rlibs/progress/include" -I"/home/ebaken/Rlibs/Rcpp/include" -I/usr/local/include -fvisibility=hidden -fpic  -g -O2  -c ole.c -o ole.o
+cc -I"/opt/rit/spack-app/linux-rhel7-x86_64/gcc-4.8.5/r-3.6.0-fupx2uq2oqmfmqxunjwi34sh3zxna25p/rlib/R/include" -DNDEBUG -Iunix -I. -DRCPP_DEFAULT_INCLUDE_CALL=false -I"/home/ebaken/Rlibs/progress/include" -I"/home/ebaken/Rlibs/Rcpp/include" -I/usr/local/include -fvisibility=hidden -fpic  -g -O2  -c xls.c -o xls.o
+cc -I"/opt/rit/spack-app/linux-rhel7-x86_64/gcc-4.8.5/r-3.6.0-fupx2uq2oqmfmqxunjwi34sh3zxna25p/rlib/R/include" -DNDEBUG -Iunix -I. -DRCPP_DEFAULT_INCLUDE_CALL=false -I"/home/ebaken/Rlibs/progress/include" -I"/home/ebaken/Rlibs/Rcpp/include" -I/usr/local/include -fvisibility=hidden -fpic  -g -O2  -c xlstool.c -o xlstool.o
+g++ -I"/opt/rit/spack-app/linux-rhel7-x86_64/gcc-4.8.5/r-3.6.0-fupx2uq2oqmfmqxunjwi34sh3zxna25p/rlib/R/include" -DNDEBUG -Iunix -I. -DRCPP_DEFAULT_INCLUDE_CALL=false -I"/home/ebaken/Rlibs/progress/include" -I"/home/ebaken/Rlibs/Rcpp/include" -I/usr/local/include -fvisibility=hidden -fpic  -g -O2  -c zip.cpp -o zip.o
+g++ -shared -L/opt/rit/spack-app/linux-rhel7-x86_64/gcc-4.8.5/r-3.6.0-fupx2uq2oqmfmqxunjwi34sh3zxna25p/rlib/R/lib -L/usr/local/lib64 -o readxl.so RcppExports.o XlsWorkBook.o XlsWorkSheet.o XlsxWorkBook.o XlsxWorkSheet.o cran.o endian.o ole.o xls.o xlstool.o zip.o -L/opt/rit/spack-app/linux-rhel7-x86_64/gcc-4.8.5/r-3.6.0-fupx2uq2oqmfmqxunjwi34sh3zxna25p/rlib/R/lib -lR
+installing to /home/ebaken/Rlibs/00LOCK-readxl/00new/readxl/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (readxl)
+
+The downloaded source packages are in
+	‘/tmp/RtmpUlMrAc/downloaded_packages’
+> install.packages("ape", lib="/home/ebaken/Rlibs", repos="https://mirror.las.iastate.edu/CRAN")
+trying URL 'https://mirror.las.iastate.edu/CRAN/src/contrib/ape_5.4.tar.gz'
+Content type 'application/x-gzip' length 798642 bytes (779 KB)
+==================================================
+downloaded 779 KB
+
+* installing *source* package ‘ape’ ...
+** package ‘ape’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+cc -I"/opt/rit/spack-app/linux-rhel7-x86_64/gcc-4.8.5/r-3.6.0-fupx2uq2oqmfmqxunjwi34sh3zxna25p/rlib/R/include" -DNDEBUG  -I"/home/ebaken/Rlibs/Rcpp/include" -I/usr/local/include  -fpic  -g -O2  -c BIONJ.c -o BIONJ.o
+cc -I"/opt/rit/spack-app/linux-rhel7-x86_64/gcc-4.8.5/r-3.6.0-fupx2uq2oqmfmqxunjwi34sh3zxna25p/rlib/R/include" -DNDEBUG  -I"/home/ebaken/Rlibs/Rcpp/include" -I/usr/local/include  -fpic  -g -O2  -c NNI.c -o NNI.o
+g++ -I"/opt/rit/spack-app/linux-rhel7-x86_64/gcc-4.8.5/r-3.6.0-fupx2uq2oqmfmqxunjwi34sh3zxna25p/rlib/R/include" -DNDEBUG  -I"/home/ebaken/Rlibs/Rcpp/include" -I/usr/local/include  -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+cc -I"/opt/rit/spack-app/linux-rhel7-x86_64/gcc-4.8.5/r-3.6.0-fupx2uq2oqmfmqxunjwi34sh3zxna25p/rlib/R/include" -DNDEBUG  -I"/home/ebaken/Rlibs/Rcpp/include" -I/usr/local/include  -fpic  -g -O2  -c SPR.c -o SPR.o
+cc -I"/opt/rit/spack-app/linux-rhel7-x86_64/gcc-4.8.5/r-3.6.0-fupx2uq2oqmfmqxunjwi34sh3zxna25p/rlib/R/include" -DNDEBUG  -I"/home/ebaken/Rlibs/Rcpp/include" -I/usr/local/include  -fpic  -g -O2  -c additive.c -o additive.o
+cc -I"/opt/rit/spack-app/linux-rhel7-x86_64/gcc-4.8.5/r-3.6.0-fupx2uq2oqmfmqxunjwi34sh3zxna25p/rlib/R/include" -DNDEBUG  -I"/home/ebaken/Rlibs/Rcpp/include" -I/usr/local/include  -fpic  -g -O2  -c ape.c -o ape.o
+ape.c: In function ‘getListElement’:
+ape.c:23:5: error: ‘for’ loop initial declarations are only allowed in C99 mode
+     for (int i = 0; i < length(list); i++) {
+     ^
+ape.c:23:5: note: use option -std=c99 or -std=gnu99 to compile your code
+make: *** [ape.o] Error 1
+ERROR: compilation failed for package ‘ape’
+* removing ‘/home/ebaken/Rlibs/ape’
+* restoring previous ‘/home/ebaken/Rlibs/ape’
+
+The downloaded source packages are in
+	‘/tmp/RtmpUlMrAc/downloaded_packages’
+Warning message:
+In install.packages("ape", lib = "/home/ebaken/Rlibs", repos = "https://mirror.las.iastate.edu/CRAN") :
+  installation of package ‘ape’ had non-zero exit status
+> 
+> install.packages("magick", lib="/home/ebaken/Rlibs", repos="https://mirror.las.iastate.edu/CRAN")
+trying URL 'https://mirror.las.iastate.edu/CRAN/src/contrib/magick_2.4.0.tar.gz'
+Content type 'application/x-gzip' length 4758058 bytes (4.5 MB)
+==================================================
+downloaded 4.5 MB
+
+* installing *source* package ‘magick’ ...
+** package ‘magick’ successfully unpacked and MD5 sums checked
+** using staged installation
+Package Magick++ was not found in the pkg-config search path.
+Perhaps you should add the directory containing `Magick++.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'Magick++' found
+Using PKG_CFLAGS=
+Using PKG_LIBS=-lMagick++-6.Q16
+--------------------------- [ANTICONF] --------------------------------
+Configuration failed to find the Magick++ library. Try installing:
+ - deb: libmagick++-dev (Debian, Ubuntu)
+ - rpm: ImageMagick-c++-devel (Fedora, CentOS, RHEL)
+ - csw: imagemagick_dev (Solaris)
+ - brew imagemagick@6 (MacOS)
+For Ubuntu versions Trusty (14.04) and Xenial (16.04) use our PPA:
+   sudo add-apt-repository -y ppa:cran/imagemagick
+   sudo apt-get update
+   sudo apt-get install -y libmagick++-dev
+If Magick++ is already installed, check that 'pkg-config' is in your
+PATH and PKG_CONFIG_PATH contains a Magick++.pc file. If pkg-config
+is unavailable you can set INCLUDE_DIR and LIB_DIR manually via:
+R CMD INSTALL --configure-vars='INCLUDE_DIR=... LIB_DIR=...'
+-------------------------- [ERROR MESSAGE] ---------------------------
+<stdin>:1:22: fatal error: Magick++.h: No such file or directory
+compilation terminated.
+--------------------------------------------------------------------
+ERROR: configuration failed for package ‘magick’
+* removing ‘/home/ebaken/Rlibs/magick’
+
+The downloaded source packages are in
+	‘/tmp/RtmpUlMrAc/downloaded_packages’
+Warning message:
+In install.packages("magick", lib = "/home/ebaken/Rlibs", repos = "https://mirror.las.iastate.edu/CRAN") :
+  installation of package ‘magick’ had non-zero exit status
+> install.packages("igraph", lib="/home/ebaken/Rlibs", repos="https://mirror.las.iastate.edu/CRAN")
+trying URL 'https://mirror.las.iastate.edu/CRAN/src/contrib/igraph_1.2.5.tar.gz'
+Content type 'application/x-gzip' length 2726569 bytes (2.6 MB)
+==================================================
+downloaded 2.6 MB
+
+ERROR: failed to lock directory ‘/home/ebaken/Rlibs’ for modifying
+Try removing ‘/home/ebaken/Rlibs/00LOCK-igraph’
+
+The downloaded source packages are in
+	‘/tmp/RtmpUlMrAc/downloaded_packages’
+Warning message:
+In install.packages("igraph", lib = "/home/ebaken/Rlibs", repos = "https://mirror.las.iastate.edu/CRAN") :
+  installation of package ‘igraph’ had non-zero exit status
+> install.packages("animation", lib="/home/ebaken/Rlibs", repos="https://mirror.las.iastate.edu/CRAN")
+also installing the dependency ‘magick’
+
+trying URL 'https://mirror.las.iastate.edu/CRAN/src/contrib/magick_2.4.0.tar.gz'

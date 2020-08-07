@@ -177,3 +177,5 @@ for(i in 1:length(treesizes)) {
 
 
 par(mfcol = c(1,1))
+
+
