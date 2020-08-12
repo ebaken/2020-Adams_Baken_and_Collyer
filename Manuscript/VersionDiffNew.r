@@ -7,7 +7,7 @@ rmarkdown::render(input =  "2020-Evol-MultiRR_Submitted.Rmd")
 rmarkdown::render(input = "2020-Evol-MultiRR_Rvsn.Rmd")
 
 #2: latexdiff of tex files
-shell(cmd="latexdiff.exe 2020-Evol-MultiRR_Submitted.tex 2020-Evol-MultiRR_Rvsn.tex > diff.tex")
+shell(cmd="latexdiff.exe PNAS-Adams-01.tex PNAS-Adams-01-EKB.tex > diff.tex")
 
 #3: PDF of diff.tex
 tinytex::latexmk("diff.tex") 
