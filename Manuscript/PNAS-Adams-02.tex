@@ -167,9 +167,10 @@ descriptive statistics is that they provide a basis for interpreting
 ``weak'' versus ``strong'' phylogenetic signal; i.e., small versus large
 values of \(\hat{\lambda}\) or \(\kappa\), respectively, in a
 comparative sense (28--30). Nonetheless, an important question that has
-yet to be considered is whether these statistics are or can be converted
-to effect sizes for comparative analyses across datasets? To be
-statistics representing phylogenetic signal, they should have reliable
+yet to be considered is whether such comparisons are analytically
+appropriate, and whether these statistics are, or can be, converted to
+effect sizes for comparative analyses across datasets. To be statistics
+representing phylogenetic signal, they should have reliable
 distributional properties, which could be revealed with simulation
 experiments. For instance, as a proportional random variable bounded by
 \(0\) and \(1\), we might expect that \(\hat{\lambda}\) follows a
@@ -193,7 +194,7 @@ simulated as a varied weighted-average of data simulated on trees with
 \(\lambda=0\) and \(\lambda=1\) and not as prescribed values of
 \(\lambda\) (18), interpretation of these patterns is challenging.
 
-By contrast, for Blomberg's \(\kappa\), which is positively uNbounded,
+By contrast, for Blomberg's \(\kappa\), which is positively unbounded,
 we might expect that for any \(\lambda\) used to generate data,
 estimates of \(\kappa\) might follow a normal distribution, with values
 distributed symmetrically about the input value. This attribute seemed
@@ -206,14 +207,13 @@ inferences are not possible (and distributional attributes were not the
 intended result of their simulations). Thus, for both Pagel's
 \(\lambda\) or Blomberg's \(\kappa\), evaluation of statistical moments
 across a range of \(\lambda\) used to generate data would be valuable
-for adjudicating the --relibalilty-- RELIABILITY of these statistics.
-Furthermore, --these are statistics that appear to have expected values
-that vary with tree size-- the expected values of these statistics
-appear to vary with tree size (18), making comparisons across studies
-challenging. Therefore, transformation of these statistics into
-\(Z\)-scores would allow evaluation of the efficacy of each statistic to
-yield effect sizes that could be used for comparisons of the strength of
-phylogenetic signal across traits and lineages.
+for adjudicating the reliability of these statistics as effect sizes.
+Furthermore, the expected values of these statistics appear to vary with
+tree size (18), making comparisons across studies challenging.
+Therefore, transformation of these statistics into \(Z\)-scores would
+allow evaluation of the efficacy of each statistic to yield effect sizes
+that could be used for comparisons of the strength of phylogenetic
+signal across traits and lineages.
 
 Here we use simulation experiments to compare the distributional
 attributes of \(\hat{\lambda}\) and \(\kappa\), plus their effect sizes
@@ -242,8 +242,8 @@ increases, but it is negatively-biased (particularly for small tree
 sizes), and is consistently less than the input \(\lambda\) value across
 most of its range (Fig. 1 black line). Second, the standard deviation of
 \(\hat{\lambda}\) is largest at intermediate values of \(\lambda\) and
-smallest at extreme values , implying that the precision in estimating
-\(\lambda\) varies across the range of input values (Fig. 1 red line).
+smallest at extreme values (Fig.1 red line), implying that the precision
+in estimating \(\lambda\) varies across the range of input values.
 Additionally, standard deviations of \(\hat{\lambda}\) are negatively
 associated with tree size, and for tress of 128 species or less,
 \(\hat{\lambda}\) are quite variable, except for cases when \(\lambda\)
@@ -262,8 +262,9 @@ reasonable to incorporate \(\hat\lambda\) in PGLS as a parameter for
 tuning the degree of phylogenetic signal in the dependent variables
 during the analysis. However, the statistical properties shown in Fig. 1
 demonstrate that \(\lambda\) is unsuitable as an effect size for
-measuring the strength of phylogenetic signal in data, or for comparing
-that signal across datasets.
+measuring the strength of phylogenetic signal in data, and thus
+\(\lambda\) should not be used for comparing phylogenetic signal across
+datasets.
 
 \begin{figure}
 \centering
@@ -291,11 +292,10 @@ finding is perhaps unsurprising, as \(\hat\kappa\) is lower-bounded by
 0, and is never large for small values of \(\lambda\). Importantly,
 \(\hat\kappa\) is normally distributed across the range of input
 \(\lambda\), and remains consistent in this pattern regardless of tree
-size (Fig. 2 blue line). In fact, distributions of \(\hat\kappa\)
-display slight skewing only at small tree sizes and when \(\lambda\) is
-near or equal to \(1\). This result differs from those of (18), where
-skewing appears to be from combining random values generated
-independently. These findings reveal that while \(\kappa\) is more
+size (Fig. 2 blue line). This result differs from those of (18), where
+the skewing appears to be the result of combining random values
+generated independently, rather than being a property of \(\kappa\)
+itself. Overall, these findings reveal that while \(\kappa\) is more
 reliable as an estimate of phylogenetic signal, the non-linear scaling
 with input signal implies that it should not be considered an effect
 size that measures the strength of phylogenetic signal on a common scale
@@ -316,7 +316,7 @@ skewed distributions).{}}
 
 \textbf{Effect sizes from \(\kappa\) (\(Z_{\kappa}\)) better
 characterize phylogenetic signal.} To measure the strength of
-phylogenetic signal on a common scale, here we propose effect sizes
+phylogenetic signal on a common scale, we propose effect sizes
 (Z-scores) for both \(\lambda\) and \(\kappa\). Statistically, a
 standardized effect size may be found as:
 
@@ -373,8 +373,8 @@ and \(Z_{\kappa}\) are associated with input phylogenetic signal
 signal (Fig. 3). However, effect sizes from \(\hat{\lambda}\) made
 little sense, as they are more strongly associated with tree size than
 they are with the actual phylogenetic signal in the data (Fig. 3). By
-contrast, \(Z_{\kappa}\) is much more consistent accross tree sizes, and
-increases more linearly with incrEasing levels of phylogenetic signal.
+contrast, \(Z_{\kappa}\) is much more consistent across tree sizes, and
+increases more linearly with increasing levels of phylogenetic signal.
 Additionally, \(Z_{\kappa}\) exhibits a much stronger association with
 phylogenetic signal strength as compared to tree size (Fig. 3), and its
 standard deviation across input signal is more consistent. This implies
@@ -601,23 +601,22 @@ of 100 trees we measured the mean values of \(\hat{\lambda}\) and
 \(W\) statistic as a departure from normality (symmetry). For the
 latter, a value of \(1.0\) indicates normally distributed values, while
 departures from \(1.0\) indicate skewness. Simulations were then
-repeated for both --bananced-- BALANCED and pectinate trees, which
-yielded qualitatively similar results (see Supporting Information).
-Trees containing polytomies, and an evaluation of \(\hat{\lambda}\) from
+repeated for both balanced and pectinate trees, which yielded
+qualitatively similar results (see Supporting Information). Trees
+containing polytomies, and an evaluation of \(\hat{\lambda}\) from
 models of linear regression and phylogenetic ANOVA, were also
 investigated, and results were qualitatively similar to those reported
 above (see Supporting Information).
 
 \textbf{Empirical Data.} Surface area to volume ratios (SA:V) and
-relative body width (\(\frac{BW}{SVL}\)) measures were obtained --from
-as species means-- from individuals of 305 species, from which species
-means were obtained (39, 40). A time-dated molecular phylogeny for the
-group (45) was pruned to match the species in the phenotypic dataset.
-The phylogenetic signal in each trait was then characterized using
-\(\kappa\), which was converted to its effect size (\(Z_\kappa\)) using
-\texttt{geomorph} 3.3.1 (46, 47), and routines by the authors
-(\textbf{to be incorporated in \texttt{geomorph} upon manuscript
-acceptance}).
+relative body width (\(\frac{BW}{SVL}\)) measures were obtained from
+individuals of 305 species, from which species means were obtained (39,
+40). A time-dated molecular phylogeny for the group (45) was pruned to
+match the species in the phenotypic dataset. The phylogenetic signal in
+each trait was then characterized using \(\kappa\), which was converted
+to its effect size (\(Z_\kappa\)) using \texttt{geomorph} 3.3.1 (46,
+47), and routines by the authors (\textbf{to be incorporated in
+\texttt{geomorph} upon manuscript acceptance}).
 
 \showmatmethods
 \showacknow
