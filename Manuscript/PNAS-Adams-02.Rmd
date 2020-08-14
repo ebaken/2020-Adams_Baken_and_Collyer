@@ -58,6 +58,7 @@ csl: pnas.csl
 lineno: true
 
 output: rticles::pnas_article
+
 ---
 Investigating macroevolutionary patterns of trait variation requires a phylogenetic perspective, because the shared ancestry among species violates the assumption of independence among trait values that is common for statistical tests [@Felsenstein1985; @HarveyPagel1991]. Accounting for this evolutionary non-independence is the purview of *phylogenetic comparative methods* (PCMs): a suite of analytical tools that condition trends in the data on the phylogenetic relatedness of observations [@Grafen1989; @GarlandIves2000; @Rohlf2001; @MartinsHansen1997; @OMeara_et_al2006;  @Beaulieu_et_al2012; @Adams2014b; @AdamsCollyer2018b]. These methods are predicated on the notion that phylogenetic signal -- the tendancy for closely related species to display similar trait values -- is present in cross-species datasets [@Felsenstein1985; @Pagel1999; @Blomberg_et_al2003]. Indeed, under numerous evolutionary models, phylogenetic signal is to be expected, as stochastic character change along the hierarchical structure of the tree of life generates trait covaration among related taxa [@Felsenstein1985; @Blomberg_et_al2003; @Revell_et_al2008]. 
 
@@ -73,13 +74,32 @@ Here we use simulation experiments to compare the distributional attributes of $
 
 # Results
 
+\begin{figure}
+\centering
+\includegraphics[width=8.25cm]{fig.1.png}
+\caption{Response of Pagel's \(\lambda\) to increasing strength of
+Brownian motion. Gray line signifies the 1:1 line where the input value
+matches the estimate \(\hat\lambda\). At each input level, the dark
+black line represents the empirically derived expected value (mean) of
+\(\hat\lambda\), the red line is the standard deviation of
+\(\hat\lambda\), and the blue line is Shapiro Wilks statistic of
+\(\hat\lambda\) (\(W=1.0\) signifies normality, \(W< 1.0\) represent
+skewed distributions).{}}
+\end{figure}
+
 **Lambda ($\lambda$) estimates of phylogenetic signal are innacurate.** Computer simulations reveal that for $\hat{\lambda}$, the distributional expectations of a Bernoulli variable were mostly upheld. First, the mean value of $\hat{\lambda}$ increases as $\lambda$ increases, but it is negatively-biased (particularly for small tree sizes), and is consistently less than the input $\lambda$ value across most of its range (Fig. 1 black line). Second, the standard deviation of $\hat{\lambda}$ is largest at intermediate values of $\lambda$ and smallest at extreme values (Fig.1 red line), implying that the precision in estimating $\lambda$ varies across the range of input values. Additionally, standard deviations of $\hat{\lambda}$ are negatively associated with tree size, and for tress of 128 species or less, $\hat{\lambda}$ are quite variable, except for cases when $\lambda$ is near or equal to $1$. Third, the distributions of $\hat{\lambda}$ are not normal across its range, but become increasingly skewed at more extreme values of $\lambda$ (Fig. 1 blue line). For small tree sizes, it is also clear that distributions are more platykurtic at intermediate values of $\hat{\lambda}$. Taken together these results reveal that $\hat\lambda$ inconsistently estimates  phylogenetic signal, both across tree sizes and across the range of input values. Additional simulations (Supplemental Information) reveal that incorporating $\hat\lambda$ in PGLS anova and regression does not adversely affect the statistical properties of PGLS parameter estimation or model evaluation (type I error, power, bias in coefficients). Thus, it is reasonable to incorporate $\hat\lambda$ in PGLS as a parameter for tuning the degree of phylogenetic signal in the dependent variables during the analysis. However, the statistical properties shown in Fig. 1 demonstrate that $\lambda$ is unsuitable as an effect size for measuring the strength of phylogenetic signal in data, and thus $\lambda$ should not be used for comparing phylogenetic signal across datasets.  
 
-![Response of Pagel's $\lambda$ to increasing strength of Brownian motion. Gray line signifies the 1:1 line where the input value matches the estimate $\hat\lambda$. At each input level, the dark black line represents the empirically derived expected value (mean) of $\hat\lambda$, the red line is the standard deviation of $\hat\lambda$, and the blue line is Shapiro Wilks statistic of $\hat\lambda$ ($W=1.0$ signifies normality, $W< 1.0$ represent skewed distributions).<span data-label="fig:f1"></span>](fig.1.png)
+\begin{figure}
+\centering
+\includegraphics[width=8.25cm]{fig.2.png}
+\caption{Response of Blomberg's \(\hat\kappa\) to increasing strength of Brownian motion. Gray line signifies the 1:1 line where the input value matches the estimate \(\hat\kappa\). At each input level, the dark black line represents the empirically derived expected value (mean) of
+\(\hat\kappa\), the red line is the standard deviation of
+\(\hat\kappa\), and the blue line is Shapiro Wilks statistic of
+\(\hat\kappa\) (\(W=1.0\) signifies normality, \(W< 1.0\) represent
+skewed distributions).{}}
+\end{figure}
 
 **Kappa ($\kappa$) estimates of phylogenetic signal are more reliable.** Simulation results for $\hat\kappa$ demonstrate that $\hat\kappa$ displays better statistical properties. First, as expected, mean values of $\hat\kappa$ increase with increasing signal ($\lambda$) irrespective of tree size, though the increase does not scale linearly with input levels of phylogenetic signal (Fig. 2 black line). Additionally, the standard deviation of $\hat\kappa$ is consistent across tree sizes (Fig. 2 red line), and while it increases with $\lambda$, it is always less than the corresponding mean. This finding is perhaps unsurprising, as $\hat\kappa$ is lower-bounded by 0, and is never large for small values of $\lambda$. Importantly, $\hat\kappa$ is normally distributed across the range of input $\lambda$, and remains consistent in this pattern regardless of tree size (Fig. 2 blue line). This result differs from those of [@Munkemuller_et_al2012], where the skewing appears to be the result of combining random values generated independently, rather than being a property of $\kappa$ itself. Overall, these findings reveal that while $\kappa$ is more reliable as an estimate of phylogenetic signal, the non-linear scaling with input signal implies that it should not be considered an effect size that measures the strength of phylogenetic signal on a common scale for comparison across datasets.
-
-![Response of Blomberg's $\hat\kappa$ to increasing strength of Brownian motion. Gray line signifies the 1:1 line where the input value matches the estimate $\hat\kappa$. At each input level, the dark black line represents the empirically derived expected value (mean) of $\hat\kappa$, the red line is the standard deviation of $\hat\kappa$, and the blue line is Shapiro Wilks statistic of $\hat\kappa$ ($W=1.0$ signifies normality, $W< 1.0$ represent skewed distributions).<span data-label="fig:f2"></span>](fig.2.png)
 
 **Effect sizes from $\kappa$ ($Z_{\kappa}$) better characterize phylogenetic signal.**
 To measure the strength of phylogenetic signal on a common scale, we propose effect sizes (Z-scores) for both $\lambda$ and $\kappa$. Statistically, a standardized effect size may be found as: 
@@ -108,7 +128,11 @@ where, $\hat{\lambda}$ is the maximized likelihood value of $\lambda$ and $\chi^
 
 Here we evaluate the ability of $Z_{\lambda}$ and $Z_{\kappa}$ to characterize known levels of phylogenetic signal. Both $Z_{\lambda}$ and $Z_{\kappa}$ are associated with input phylogenetic signal ($\lambda$), indicating that both statistics capture the observed signal (Fig. 3). However, effect sizes from $\hat{\lambda}$ made little sense, as they are more strongly associated with tree size than they are with the actual phylogenetic signal in the data (Fig. 3). By contrast, $Z_{\kappa}$ is much more consistent across tree sizes, and increases more linearly with increasing levels of phylogenetic signal. Additionally, $Z_{\kappa}$ exhibits a much stronger association with phylogenetic signal strength as compared to tree size (Fig. 3), and its standard deviation across input signal is more consistent. This implies that similar levels of precision are found with $Z_{\kappa}$ across the range of input values. Thus between the two statistics, $Z_{\kappa}$ is a more reliable measure of the strength of phylogenetic signal, and may be used to compare levels of phylogenetic signal across datasets. 
 
-![Response of effect sizes $Z_{\lambda}$ and $Z_{\kappa}$ to increasing strength of Brownian motion.<span data-label="fig:f3"></span>](fig.3.png)
+\begin{figure}
+\centering
+\includegraphics[width=8.25cm]{fig.3.png}
+\caption{Response of effect sizes \(Z_{\lambda}\) and \(Z_{\kappa}\) to increasing strength of Brownian motion.{}}
+\end{figure}
 
 **A test statistic ($\hat{Z}_{12}$) allows meaningful comparisons across datasets.** To statistically compare the strength of phylogenetic signal across datasets we propose a two-sample test statistic ($\hat{Z}_{12}$). Based on statistical theory, a two-sample test statistic may be calculated as: 
 
