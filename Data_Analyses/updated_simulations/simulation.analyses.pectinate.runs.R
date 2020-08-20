@@ -151,7 +151,7 @@ for(i in 1:2) {
   
   kappa.z.plot(R, pch = 19,col = gray.colors(1, start = 0.6, end = 0.6, alpha = 0.5),
                xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
-               ylab = latex2exp::TeX("$Z_{\\kappa}$"),
+               ylab = latex2exp::TeX("$Z_{K}$"),
                mean.col = 1, mean.lwd = 3, ylim = c(-3, 25))
   
   abline(h = sqrt(qchisq(0.95,1)))
@@ -176,7 +176,7 @@ legend("topleft", as.character(treesizes), lwd = 1:length(treesizes))
 KZ <- sapply(1:length(sim.sets), function(j) by(sim.sets[[j]]$kappa.z, sim.sets[[j]]$lambda.in, mean))
 plot(lambdas, KZ[,1], ylim = c(-3, 25), 
      xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
-     ylab = latex2exp::TeX("$Z_{\\kappa}$"),type = "l")
+     ylab = latex2exp::TeX("$Z_{K}$"),type = "l")
 for(i in 2:ncol(KZ)) points(lambdas, KZ[,i], type = "l", lwd = i)
 
 legend("topleft", as.character(treesizes), lwd = 1:length(treesizes))
