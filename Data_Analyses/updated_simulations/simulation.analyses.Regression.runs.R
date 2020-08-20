@@ -207,3 +207,34 @@ for(i in 1:length(treesizes)) {
 dev.off()
 
 par(mfcol = c(1,1))
+
+
+### power curves
+library(dplyr)
+
+png(filename = "Manuscript/fig.S19.png", width = 800, 
+    height = 1000, units = "px", pointsize = 18)
+par(mfrow = c(3,2), 
+    mar = c(5,5,1,2))
+for(i in 1:length(treesizes)) {
+  df <- sim.sets[[i]][,c("beta.in", "lambda.in", "Pval.x")] 
+  df$beta.in <- as.factor(df$beta.in)
+  df$lambda.in <- as.factor(df$lambda.in)
+  new.df <- df %>% group_by(lambda.in, beta.in) %>% summarise(power = length(which(Pval.x < 0.05))/nsim)
+  new.df$beta.in <- as.character(new.df$beta.in)
+  new.df$beta.in <- as.numeric(new.df$beta.in)
+  lambda.cols <- rep(gray.colors(nlevels(new.df$lambda.in), start = 0.2, end = 0.9, alpha = 0.5), each = 5)
+  
+  plot(new.df$beta.in, new.df$power, pch = 19,  col = lambda.cols,
+             xlab = latex2exp::TeX("Input Effect ($\\beta_{in}$)"),
+             ylab = latex2exp::TeX("Statistical Power"),
+             ylim = c(0, 1))
+
+  for(j in 1:21){ points(new.df$beta.in[(j*5-4):(j*5)], new.df$power[(j*5-4):(j*5)], type = "l", 
+                         col = lambda.cols[(j*5-4):(j*5)])}
+
+ legend(title =  latex2exp::TeX("$\\lambda_{in}$"), x = .85, y = .47, title.adj = .5,
+        legend = levels(new.df$lambda.in)[c(21, 15, 11, 7, 1)], fill = unique(lambda.cols)[c(21, 15, 11, 7, 1)], cex = .8)
+ legend("bottomright", paste("N =", treesizes[i]), bty = "n", cex = 1.5)
+}
+dev.off()

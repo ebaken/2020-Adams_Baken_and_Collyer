@@ -185,3 +185,5 @@ legend("topleft", as.character(treesizes), lwd = 1:length(treesizes))
 par(mfcol = c(1,1))
 
 dev.off()
+
+
