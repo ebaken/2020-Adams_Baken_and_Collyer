@@ -147,7 +147,7 @@ for(i in 1:2) {
   lambda.z.plot(R, pch = 19, col = gray.colors(1, start = 0.6, end = 0.6, alpha = 0.5),
                 xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
                 ylab = latex2exp::TeX("$Z_{\\lambda}$"),
-                mean.col = 1, mean.lwd = 3, ylim = c(-3, 25))
+                mean.col = 1, mean.lwd = 3, ylim = c(-3, 50))
   abline(h = sqrt(qchisq(0.95,1)))
   
   legend("topleft", paste("N =", treesizes[zref[i]]), bty = "n", cex = 1.5)
@@ -155,7 +155,7 @@ for(i in 1:2) {
   kappa.z.plot(R, pch = 19, col = gray.colors(1, start = 0.6, end = 0.6, alpha = 0.5),
                 xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
                 ylab = latex2exp::TeX("$Z_{K}$"),
-                mean.col = 1, mean.lwd = 3, ylim = c(-3, 25))
+                mean.col = 1, mean.lwd = 3, ylim = c(-3, 50))
   
   abline(h = sqrt(qchisq(0.95,1)))
   
@@ -167,7 +167,7 @@ LZ <- sapply(1:length(sim.sets), function(j) by(sim.sets[[j]]$lambda.z, sim.sets
 
 # Note! change ylim below, if needed.  Too difficult to automate!
 
-plot(lambdas, LZ[,1], ylim = c(-3, 25), 
+plot(lambdas, LZ[,1], ylim = c(-3, 50), 
      xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
      ylab = latex2exp::TeX("$Z_{\\lambda}$"), type = "l")
 for(i in 2:ncol(LZ)) points(lambdas, LZ[,i], type = "l", lwd = i)
@@ -177,7 +177,7 @@ legend("topleft", as.character(treesizes), lwd = 1:length(treesizes))
 # Note! change ylim below, if needed.  Too difficult to automate!
 
 KZ <- sapply(1:length(sim.sets), function(j) by(sim.sets[[j]]$kappa.z, sim.sets[[j]]$lambda.in, mean))
-plot(lambdas, KZ[,1], ylim = c(-3, 25), 
+plot(lambdas, KZ[,1], ylim = c(-3, 50), 
      xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
      ylab = latex2exp::TeX("$Z_{K}$"),type = "l")
 for(i in 2:ncol(KZ)) points(lambdas, KZ[,i], type = "l", lwd = i)
@@ -212,7 +212,7 @@ par(mfcol = c(1,1))
 ### power curves
 library(dplyr)
 
-png(filename = "Manuscript/fig.S19.png", width = 800, 
+png(filename = "Manuscript/fig.S18.png", width = 800, 
     height = 1000, units = "px", pointsize = 18)
 par(mfrow = c(3,2), 
     mar = c(5,5,1,2))
