@@ -164,7 +164,7 @@ dev.off()
 
 
 
-png(filename = "Manuscript/fig.S20.png", width = 800, height = 667, units = "px", pointsize = 18)
+png(filename = "Manuscript/fig.S20.png", width = 800, height = 667, units = "px", pointsize = 14)
 
 par(mfrow = c(2,2), mar = c(5,5,1,2))
 zref <- c(1, length(sim.sets))
