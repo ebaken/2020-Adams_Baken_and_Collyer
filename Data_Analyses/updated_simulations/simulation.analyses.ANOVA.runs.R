@@ -219,6 +219,7 @@ png(filename = "Manuscript/fig.S19.png", width = 800,
 par(mfrow = c(3,2), 
     mar = c(5,5,1,2))
 for(i in 1:length(treesizes)) {
+  i <- 1
   df <- sim.sets[[i]][,c("beta.in", "lambda.in", "Pval.x")] 
   df$beta.in <- as.factor(df$beta.in)
   df$lambda.in <- as.factor(df$lambda.in)

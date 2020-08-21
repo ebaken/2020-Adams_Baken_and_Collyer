@@ -131,35 +131,11 @@ dev.off()
 
 ### plot z profiles
 ### only plot all points for smallest and largest, followed by means trends for all
-png(filename = "Manuscript/fig.3.png", width = 800, 
-    height = 1000, units = "px", pointsize = 18)
+png(filename = "Manuscript/fig.3?.png", width = 800, 
+    height = 330, units = "px", pointsize = 10)
 
-par(mfrow = c(3,2), 
+par(mfrow = c(1,2), 
     mar = c(5,5,1,2))
-zref <- c(1, length(sim.sets))
-for(i in 1:2) {
-  R <- list("Result" = sim.sets[[zref[i]]], "file.name" = "filler")
-  maxZ <- max(na.omit(cbind(R$Result$lambda.z, R$Result$kappa.z)))
-  minZ <- min(na.omit(cbind(R$Result$lambda.z, R$Result$kappa.z)))
-  
-  lambda.z.plot(R, pch = 19,col = gray.colors(1, start = 0.6, end = 0.6, alpha = 0.5),
-                xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
-                ylab = latex2exp::TeX("$Z_{\\lambda}$"),
-                mean.col = 1, mean.lwd = 3, ylim = c(-3, 50))
-  abline(h = sqrt(qchisq(0.95,1)))
-  
-  legend("topleft", paste("N =", treesizes[zref[i]]), bty = "n", cex = 1.5)
-  
-  kappa.z.plot(R, pch = 19,col = gray.colors(1, start = 0.6, end = 0.6, alpha = 0.5),
-               xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
-               ylab = latex2exp::TeX("$Z_{K}$"),
-               mean.col = 1, mean.lwd = 3, ylim = c(-3, 50))
-  
-  abline(h = sqrt(qchisq(0.95,1)))
-  
-  legend("topleft", paste("N =", treesizes[zref[i]]), bty = "n", cex = 1.5)
-  
-}
 
 LZ <- sapply(1:length(sim.sets), function(j) by(sim.sets[[j]]$lambda.z, sim.sets[[j]]$lambda.in, mean))
 
@@ -187,3 +163,34 @@ par(mfcol = c(1,1))
 dev.off()
 
 
+
+png(filename = "Manuscript/fig.S20.png", width = 800, height = 667, units = "px", pointsize = 18)
+
+par(mfrow = c(2,2), mar = c(5,5,1,2))
+zref <- c(1, length(sim.sets))
+
+for(i in 1:2) {
+  R <- list("Result" = sim.sets[[zref[i]]], "file.name" = "filler")
+  maxZ <- max(na.omit(cbind(R$Result$lambda.z, R$Result$kappa.z)))
+  minZ <- min(na.omit(cbind(R$Result$lambda.z, R$Result$kappa.z)))
+  
+  lambda.z.plot(R, pch = 19,col = gray.colors(1, start = 0.6, end = 0.6, alpha = 0.5),
+                xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
+                ylab = latex2exp::TeX("$Z_{\\lambda}$"),
+                mean.col = 1, mean.lwd = 3, ylim = c(-3, 50))
+  abline(h = sqrt(qchisq(0.95,1)))
+  
+  legend("topleft", paste("N =", treesizes[zref[i]]), bty = "n", cex = 1.5)
+  
+  kappa.z.plot(R, pch = 19,col = gray.colors(1, start = 0.6, end = 0.6, alpha = 0.5),
+               xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
+               ylab = latex2exp::TeX("$Z_{K}$"),
+               mean.col = 1, mean.lwd = 3, ylim = c(-3, 50))
+  
+  abline(h = sqrt(qchisq(0.95,1)))
+  
+  legend("topleft", paste("N =", treesizes[zref[i]]), bty = "n", cex = 1.5)
+  
+}
+
+dev.off()
