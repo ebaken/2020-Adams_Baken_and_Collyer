@@ -66,7 +66,7 @@ sim.sets_1024 <- read.csv("Data_Analyses/updated_simulations/results/bal.1024.50
 sim.sets <- list(sim.sets_32, sim.sets_64, sim.sets_128, sim.sets_256, sim.sets_512, sim.sets_1024)
 names(sim.sets) <- treesizes
 
-png(filename = "Manuscript/fig.S4.png",width = 800, height = 1000, units = "px", pointsize = 18)
+png(filename = "Manuscript/fig.S5.png",width = 800, height = 1000, units = "px", pointsize = 18)
 par(mfrow = c(3, 2), 
     mar = c(5,5,1,2))
 for(i in 1:length(treesizes)) {
@@ -98,7 +98,7 @@ dev.off()
 
 
 ### plot kappas
-png(filename = "Manuscript/fig.S5.png",width = 800, 
+png(filename = "Manuscript/fig.S6.png",width = 800, 
     height = 1000, units = "px", pointsize = 18)
 par(mfrow = c(3,2), 
     mar = c(5,5,1,2))
@@ -130,7 +130,7 @@ dev.off()
 
 ### plot z profiles
 ### only plot all points for smallest and largest, followed by means trends for all
-png(filename = "Manuscript/fig.S6.png",width = 800, 
+png(filename = "Manuscript/fig.S7.png",width = 800, 
     height = 1000, units = "px", pointsize = 18)
 
 par(mfrow = c(3,2), 
@@ -144,11 +144,7 @@ for(i in 1:2) {
   lambda.z.plot(R, pch = 19,col = gray.colors(1, start = 0.6, end = 0.6, alpha = 0.5),
                 xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
                 ylab = latex2exp::TeX("$Z_{\\lambda}$"),
-<<<<<<< HEAD
                 mean.col = 1, mean.lwd = 3, ylim = c(-3, 80))
-=======
-                mean.col = 1, mean.lwd = 3, ylim = c(-3, 60))
->>>>>>> 4a60e041cdc823625c5b1cef2aea7c11e094e8a2
   abline(h = sqrt(qchisq(0.95,1)))
   
   legend("topleft", paste("N =", treesizes[zref[i]]), bty = "n", cex = 1.5)
@@ -156,11 +152,7 @@ for(i in 1:2) {
   kappa.z.plot(R, pch = 19,col = gray.colors(1, start = 0.6, end = 0.6, alpha = 0.5),
                xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
                ylab = latex2exp::TeX("$Z_{K}$"),
-<<<<<<< HEAD
                mean.col = 1, mean.lwd = 3, ylim = c(-3, 80))
-=======
-               mean.col = 1, mean.lwd = 3, ylim = c(-3, 60))
->>>>>>> 4a60e041cdc823625c5b1cef2aea7c11e094e8a2
   
   abline(h = sqrt(qchisq(0.95,1)))
   
@@ -172,11 +164,7 @@ LZ <- sapply(1:length(sim.sets), function(j) by(sim.sets[[j]]$lambda.z, sim.sets
 
 # Note! change ylim below, if needed.  Too difficult to automate!
 
-<<<<<<< HEAD
 plot(lambdas, LZ[,1], ylim = c(-3, 80), 
-=======
-plot(lambdas, LZ[,1], ylim = c(-3, 60), 
->>>>>>> 4a60e041cdc823625c5b1cef2aea7c11e094e8a2
      xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
      ylab = latex2exp::TeX("$Z_{\\lambda}$"), type = "l")
 for(i in 2:ncol(LZ)) points(lambdas, LZ[,i], type = "l", lwd = i)
@@ -186,11 +174,8 @@ legend("topleft", as.character(treesizes), lwd = 1:length(treesizes))
 # Note! change ylim below, if needed.  Too difficult to automate!
 
 KZ <- sapply(1:length(sim.sets), function(j) by(sim.sets[[j]]$kappa.z, sim.sets[[j]]$lambda.in, mean))
-<<<<<<< HEAD
+
 plot(lambdas, KZ[,1], ylim = c(-3, 80), 
-=======
-plot(lambdas, KZ[,1], ylim = c(-3, 60), 
->>>>>>> 4a60e041cdc823625c5b1cef2aea7c11e094e8a2
      xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
      ylab = latex2exp::TeX("$Z_{K}$"),type = "l")
 for(i in 2:ncol(KZ)) points(lambdas, KZ[,i], type = "l", lwd = i)

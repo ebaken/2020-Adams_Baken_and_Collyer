@@ -66,7 +66,7 @@ sim.sets_1024 <- read.csv("Data_Analyses/updated_simulations/results/pb.1024.50.
 sim.sets <- list(sim.sets_32, sim.sets_64, sim.sets_128, sim.sets_256, sim.sets_512, sim.sets_1024)
 names(sim.sets) <- treesizes
 
-png(filename = "Manuscript/fig.S7.png",width = 800, height = 1000, units = "px", pointsize = 18)
+png(filename = "Manuscript/fig.S8.png",width = 800, height = 1000, units = "px", pointsize = 18)
 par(mfrow = c(3, 2), 
     mar = c(5,5,1,2))
 for(i in 1:length(treesizes)) {
@@ -98,7 +98,7 @@ dev.off()
 
 
 ### plot kappas
-png(filename = "Manuscript/fig.S8.png",width = 800, 
+png(filename = "Manuscript/fig.S9.png",width = 800, 
     height = 1000, units = "px", pointsize = 18)
 par(mfrow = c(3,2), 
     mar = c(5,5,1,2))
@@ -130,7 +130,7 @@ dev.off()
 
 ### plot z profiles
 ### only plot all points for smallest and largest, followed by means trends for all
-png(filename = "Manuscript/fig.S9.png",width = 800, 
+png(filename = "Manuscript/fig.S10.png",width = 800, 
     height = 1000, units = "px", pointsize = 18)
 
 par(mfrow = c(3,2), 
