@@ -29,7 +29,7 @@ Results from the simulations on pure-birth trees revealed that both $Z_{\lambda}
 include_graphics("fig.S1.png")  
 ```
 
-\textbf{Figure S1}. Response of effect sizes \(Z_{\lambda}\) and \(Z_K\) to increasing strength of Brownian motion for pure-birth trees.
+\textbf{Figure S1}. Response of effect sizes \(Z_{\lambda}\) and \(Z_K\) to increasing strength of Brownian motion for pure-birth trees.  All results are shown for smallest and largest trees in the top four panels; only means of results are shown in the bottom two panels, to facilitate comparison with respect to tree size.
 
 \newpage
 
@@ -67,7 +67,7 @@ skewed distributions).
 include_graphics("fig.S4.png")  
 ```
 
-\textbf{Figure S4}. Response of effect sizes \(Z_{\lambda}\) and \(Z_K\) to increasing strength of Brownian motion for pectinate trees.
+\textbf{Figure S4}. Response of effect sizes \(Z_{\lambda}\) and \(Z_K\) to increasing strength of Brownian motion for pectinate trees.   All results are shown for smallest and largest trees in the top four panels; only means of results are shown in the bottom two panels, to facilitate comparison with respect to tree size.
 
 \newpage
 
@@ -95,7 +95,7 @@ include_graphics("fig.S6.png")
 include_graphics("fig.S7.png")  
 ```
 
-\textbf{Figure S7}. Response of effect sizes \(Z_{\lambda}\) and \(Z_K\) to increasing strength of Brownian motion for balanced trees.
+\textbf{Figure S7}. Response of effect sizes \(Z_{\lambda}\) and \(Z_K\) to increasing strength of Brownian motion for balanced trees.  All results are shown for smallest and largest trees in the top four panels; only means of results are shown in the bottom two panels, to facilitate comparison with respect to tree size.
 
 \newpage
 
@@ -123,7 +123,7 @@ include_graphics("fig.S9.png")
 include_graphics("fig.S10.png")  
 ```
 
-\textbf{Figure S10}. Response of effect sizes \(Z_{\lambda}\) and \(Z_K\) to increasing strength of Brownian motion for pure-birth trees containing polytomies.
+\textbf{Figure S10}. Response of effect sizes \(Z_{\lambda}\) and \(Z_K\) to increasing strength of Brownian motion for pure-birth trees containing polytomies. All results are shown for smallest and largest trees in the top four panels; only means of results are shown in the bottom two panels, to facilitate comparison with respect to tree size.
 
 \newpage
 
@@ -161,13 +161,13 @@ include_graphics("fig.S14.png")
 include_graphics("fig.S15.png")  
 ```
 
-\textbf{Figure S15}. Response of effect sizes \(Z_{\lambda}\) and \(Z_K\) to increasing strength of Brownian motion in phylogenetic regression (incorporating $\lambda$).
+\textbf{Figure S15}. Response of effect sizes \(Z_{\lambda}\) and \(Z_K\) to increasing strength of Brownian motion in phylogenetic regression (incorporating $\lambda$). All results are shown for smallest and largest trees in the top four panels; only means of results are shown in the bottom two panels, to facilitate comparison with respect to tree size.
 
 ```{r, echo = FALSE, out.width="95%", align= "center"}
 include_graphics("fig.S16.png")  
 ```
 
-\textbf{Figure S16}. Response of effect sizes \(Z_{\lambda}\) and \(Z_K\) to increasing strength of Brownian motion in phylogenetic ANOVA (incorporating $\lambda$).
+\textbf{Figure S16}. Response of effect sizes \(Z_{\lambda}\) and \(Z_K\) to increasing strength of Brownian motion in phylogenetic ANOVA (incorporating $\lambda$). All results are shown for smallest and largest trees in the top four panels; only means of results are shown in the bottom two panels, to facilitate comparison with respect to tree size.
 
 ```{r, echo = FALSE, out.width="95%", align= "center"}
 include_graphics("fig.S17.png")  
