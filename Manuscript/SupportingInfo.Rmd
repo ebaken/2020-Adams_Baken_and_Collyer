@@ -1,7 +1,7 @@
 ---
-title: "Supporting Information for: A Standardized Effect Size for Evaluating and Comparing the Strength of Phylogenetic Signal"
+title: 
 
-author: "Dean C. Adams, Erica K. Baken, and Michael L. Collyer"
+author: 
 
 output: 
   pdf_document:
@@ -18,6 +18,31 @@ bibliography: Lambda-Refs.bib
   knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r, echo = FALSE, out.width="95%", align= "center"}
+include_graphics("SI-Title.png")  
+```
+\hfill\break
+\hfill\break
+
+## Supplementary Information for 
+\hfill\break
+
+A Standardized Effect Size for Evaluating and Comparing the Strength of Phylogenetic Signal \hfill\break
+\hfill\break
+Dean C. Adams, Erica K. Baken, and Michael L. Collyer \hfill\break
+
+\hfill\break
+Dean C. Adams\hfill\break
+Email:  dcadams@iastate.edu\hfill\break
+
+
+## This PDF file includes:
+\hfill\break
+- Supplementary text 
+- Figures S1 to S20 
+- SI References 
+
+\newpage
 
 Here we provide additional supporting information referenced in the main document, which include additional analyses, and simulation results across a wider set of input conditions. As before, simulations were conducted on six different tree sizes ($n=2^5, 2^6, \cdots, 2^{10}$), and with differing levels of phylogenetic signal ($\lambda=0.0, 0.5, \cdots, 1.0$). We generated 50 random trees for each intersection of tree size and $\lambda$. For each $\lambda$ within each tree size, continuous traits were then simulated on each phylogeny under a BM model of evolution. For each set of 50 trees we measured the mean values of $\hat{\lambda}$ and $K$, their standard deviation, and calculated the Shapiro-Wilk $W$ statistic as a departure from normality (symmetry). For the latter, a value of $1.0$ indicates normally distributed values, while departures from $1.0$ indicate skewness.
 
