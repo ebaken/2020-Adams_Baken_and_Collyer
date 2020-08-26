@@ -1,0 +1,50 @@
+---
+output:
+  pdf_document:
+    fig_caption: yes
+    number_sections: no  #note: change to 'no' for most journals
+    keep_tex: false
+
+---
+
+```{r setup, include=FALSE}
+  library(knitr)
+  knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+
+```{r, echo = FALSE, fig.align='center', out.width="100%"}
+include_graphics("CovLettTop.png")  
+```
+
+`r format(Sys.time(), '%d %B, %Y')`
+\hfill\break
+
+Prof. May Berenbaum, Editor in Chief\hfill\break
+*Proceedings of the National Academy of Sciences*
+
+\hfill\break
+
+Prof. Berenbaum,
+
+Please find attached our manuscript “A standardized effect size for evaluating and comparing the strength of phylogenetic signal” which we are submitting for consideration for publication in *PNAS*. This manuscript is not being considered elsewhere for publication, and both authors are aware of this submission. We are submitting this for consideration in the **Biological Sciences** in the **Evolution** minor category. \hfill\break
+
+
+Why appropriate for *PNAS*: Evolutionary biologists wish to quantify and compare the strength of phylogenetic signal across datasets, but analytical tools for these comparisons are generally lacking. Here we develop a standardized effect size, $Z_K$, which measures the strength of phylogenetic signal on a common statistical scale. We also provide a test statistic, $\hat{Z}_{12}$, for comparing the strength of phylogenetic signal across datasets. We find that two commonly used parameters (Pagel's $\lambda$ and Blomberg's *K*), not converted to effect sizes, are unsuitable for this purpose. Our effect-size procedure enables biologists to quantitatively address hypotheses that compare the strength of phylogenetic signal between various phenotypic traits, even when those traits are found in different evolutionary lineages or have different units or scales.  \hfill\break
+
+**Editorial Board Members:** As potential Editorial Board Members who could adjudicate our work, we suggest: Dr. Scott Edwards, Dr. Douglas Futuyma, and Dr. Hopi Hoekstra. \hfill\break
+
+**NAS Members:**  NAS Members who could evaluate this work include: Dr. Joseph Felsenstein, Dr. David Hillis, and Dr. Sarah Otto.\hfill\break
+
+**Qualified Reviewers:** Additional qualified reviewers include: Dr. Simon Blomberg, Dr. Anthony Ives, and Dr. Mark Pagel. \hfill\break
+
+Sincerely,
+
+```{r, echo = FALSE, fig.align='left', out.width="30%"}
+include_graphics("DCA-DigitalSignature.png")  
+```
+
+Dean C. Adams, Professor\hfill\break
+Department of Ecology, Evolution, and Organismal Biology\hfill\break
+Iowa State University
