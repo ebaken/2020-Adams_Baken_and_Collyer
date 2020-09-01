@@ -29,7 +29,7 @@ author_contributions: |
 conflict_of_interest: |
   The authors declare no conflict of interest.  \hfill\break
   
-  Data deposition: Data for the empirical example may be found on DRYAD: doi:10.5061/dryad.b554m44 and doi:10.5061/dryad.59zw3r23m. R-scripts for simulation tests are found on Github: XXX. Computer code for implementing the two-sample comparison of effect sizes is found in geomorph: https://cran.r-project.org/web/packages/geomorph/index.html \hfill\break
+  Data deposition: Data for the empirical example may be found on DRYAD: doi:10.5061/dryad.b554m44 and doi:10.5061/dryad.59zw3r23m. R-scripts for simulation tests are found at: https://github.com/deanadams/PhySigCompareZ. Computer code for implementing the two-sample comparison of effect sizes is found in geomorph: https://cran.r-project.org/web/packages/geomorph/index.html \hfill\break
   
   ^2^To whom correspondence should be addressed. E-mail: dcadams\@iastate.edu
   
