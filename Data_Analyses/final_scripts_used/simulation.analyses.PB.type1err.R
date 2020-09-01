@@ -48,11 +48,13 @@ for (i in 1:length(treesizes)) { # for each tree size
 write.csv(type1error.zk, "results/pb.error.difftrees.zk.csv")
 write.csv(type1error.zl, "results/pb.error.difftrees.zl.csv")
 
+
 # error and false discovery rates over original Fig 3
 # same code as what generated original fig 3 except added points, abline, and axis lines, plus edit to legends to add color
 
 type1error.zk <- read.csv("results/pb.error.difftrees.zk.csv")
 type1error.zl <- read.csv("results/pb.error.difftrees.zl.csv")
+
 
 zk.fd.sum <- rowMeans(type1error.zk[,-1])
 zk.fd.sum[1] # 0.04680272 <- type 1 error for Z_K on diff trees
@@ -196,8 +198,6 @@ for (i in 1:length(treesizes)){
 
 write.csv(type1error.zk, "results/pb.error.sametrees.zk.csv")
 write.csv(type1error.zl, "results/pb.error.sametrees.zl.csv")
-
-
 
 type1error.zk <- read.csv("results/pb.error.sametrees.zk.csv") # this is in a slightly diff format than the difftrees file equivalent
 type1error.zl <- read.csv("results/pb.error.sametrees.zl.csv") # this is in a slightly diff format than the difftrees file equivalent
