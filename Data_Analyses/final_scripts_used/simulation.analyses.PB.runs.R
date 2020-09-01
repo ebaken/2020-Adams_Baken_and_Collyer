@@ -22,15 +22,16 @@ lambdas <- seq(0, 1, 0.1) # change to seq(0, 1, 0.05) for final runs
 location <- getwd() 
 destination <- paste(getwd(), "/results", sep = "")
 
-### Arguments for pure-birth tree analyses
+### Arguments for pure-birth tree analyses. Supporting information data came from changing these arguments
 
-sim.args <- list(treesize = treesizes[1], tree.type = "pb",
-                 nsim = nsim, lambdas = lambdas, poly.per = 0,
-                 beta = 1, mod.type = "mean")
+sim.args <- list(treesize = treesizes[1], tree.type = "pb", # can change tree.type to "bal" for balanced trees or "pect" for pectinate trees
+                 nsim = nsim, lambdas = lambdas, poly.per = 0, # can change poly.per to 0.2 for 20% polytomies
+                 beta = 1, mod.type = "mean") # can adjust beta to a vector of input betas for investigating ANOVA and regression analyses (e.g., c(0, .25, .5, .75, 1))
+# can change mod.type to "anova" or "reg" for investigating ANOVA and regression analyses respectively
 
 setwd(destination)
 
-### RUNS!  change effects.simulations.PP to effects.simulations below to avoid parallel processing
+### RUNS!  change effects.simulations to effects.simulations.PP below if parallel processing is available and preferred
 
 sim.sets <- lapply(1:length(treesizes), function(j){
   sim.args$treesize = treesizes[j]
@@ -50,19 +51,13 @@ setwd(location)
 
 
 ### plot lambdas
-library(readxl)
-library(latex2exp)
-source("Data_Analyses/updated_simulations/simulation.source.R")
-nsim <- 50 # change to 50 for final runs
-treesizes <- 2^(5:10) # change to 5:10 for final runs
-lambdas <- seq(0, 1, 0.05) # change to seq(0, 1, 0.05) for final runs
-sim.sets_32 <- read.csv("Data_Analyses/updated_simulations/results/pb.32.50.sim.0.poly.mean.type.csv")
-sim.sets_64 <- read.csv("Data_Analyses/updated_simulations/results/pb.64.50.sim.0.poly.mean.type.csv")
-sim.sets_128 <- read.csv("Data_Analyses/updated_simulations/results/pb.128.50.sim.0.poly.mean.type.csv")
-sim.sets_256 <- read.csv("Data_Analyses/updated_simulations/results/pb.256.50.sim.0.poly.mean.type.csv")
-sim.sets_512 <- read.csv("Data_Analyses/updated_simulations/results/pb.512.50.sim.0.poly.mean.type.csv")
-sim.sets_1024 <- read.csv("Data_Analyses/updated_simulations/results/pb.1024.50.sim.0.poly.mean.type.csv")
 
+sim.sets_32 <- read.csv("results/pb.32.50.sim.0.poly.mean.type.csv")
+sim.sets_64 <- read.csv("results/pb.64.50.sim.0.poly.mean.type.csv")
+sim.sets_128 <- read.csv("results/pb.128.50.sim.0.poly.mean.type.csv")
+sim.sets_256 <- read.csv("results/pb.256.50.sim.0.poly.mean.type.csv")
+sim.sets_512 <- read.csv("results/pb.512.50.sim.0.poly.mean.type.csv")
+sim.sets_1024 <- read.csv("results/pb.1024.50.sim.0.poly.mean.type.csv")
 sim.sets <- list(sim.sets_32, sim.sets_64, sim.sets_128, sim.sets_256, sim.sets_512, sim.sets_1024)
 names(sim.sets) <- treesizes
 
