@@ -2,11 +2,11 @@ library(geiger)
 library(phytools)
 library(geomorph)
 
-treesizes <- 2^(8) # 2^(5:7) done, 2^8 being run by EKB, still need to run 2^(9:10)
+treesizes <- 2^(5:8) # 2^(5:7) done, 2^8 being run by EKB, still need to run 2^(9:10)
 lambdas <- seq(0, 1, 0.05)
-ntrees <- 2
-ndatasets <- 50
-physig_iter <- 999
+ntrees <- 10
+ndatasets <- 10
+physig_iter <- 99
 
 #### functions from develop branch ######
 center <- function(x){
@@ -73,10 +73,10 @@ results <- lapply(1:length(treesizes), function(i){
       datasets_output <-  lapply(1:ndatasets,  function(k) {
         kappa_est <- physignal(as.matrix(resid_all[,,k]), phy = tree_scaled, iter = physig_iter, print.progress = F)
         random.K.trans <- center(box.cox(kappa_est$random.K)$transformed)
-        mu <- mean(random.K.trans)
-        sd <- sd(random.K.trans)*sqrt((physig_iter - 1)/physig_iter)
+        mu <- mean(random.K.trans[-1])
+        sd <- sd(random.K.trans[-1])*sqrt((physig_iter - 1)/physig_iter)
         
-        list("K" = kappa_est$phy.signal, "mu" = mu, "sd" = sd)
+        list("K" = random.K.trans[1], "mu" = mu, "sd" = sd)
       })
       for (jjj in 1:ndatasets) names(datasets_output)[jjj] <- paste("dataset", jjj, sep = ".")
       datasets_output
@@ -99,36 +99,37 @@ results <- lapply(1:length(treesizes), function(i){
   write.csv(lambda_output_mat, file.name, row.names = F)
   
   
-  for(jj in 1:length(lambdas)) {names(lambdas_output)[jj] <- paste("lambda", lambdas[jj], sep = ".")}
+  for(jj in 1:length(lambdas)) {names(lambdas_output)[jj] <- paste("lambda", lambdas[jj], sep = ".")} # does using jj again in this loop have an effect? it shouldnt...
   lambdas_output
   
 })
 names(results) <- treesizes
 
 results_mat <- matrix(unlist(results), ncol = 3, byrow = TRUE)
-results_mat <- cbind(rep(treesizes, each = ndatasets*ntrees*length(lambdas)), rep(lambdas, each = ndatasets*ntrees), rep(1:ntrees, each = ndatasets),  results_mat)
+results_mat <- cbind(rep(treesizes, each = ndatasets*ntrees*length(lambdas)), 
+                     rep(lambdas, each = ndatasets*ntrees), 
+                     rep(1:ntrees, each = ndatasets), 
+                     results_mat)
 colnames(results_mat) <- c("treesize", "lambda_input", "rand.tree", "K", "mu", "sd")
 results_df <- as.data.frame(results_mat)
 
 #### Calculate Z12s ####
 
 # if simulations already done, read in simulation data and munge together:
-treesizes <- 2^(5:10)
-lambdas <- seq(0, 1, 0.05)
-ntrees <- 20
-ndatasets <- 50
-files <- list.files(path = "Data_Analyses/updated_simulations/results", pattern = "*.error.csv", full.names = T)
-all_files <- lapply(files[-c(2,6,10)], read.csv) # excluding the 1000 tree files 
-results_in <- do.call(rbind,all_files)
-results_df <- as.data.frame(results_in) # edit rand.tree names manually if diff reps had diff ntrees***
+#treesizes <- 2^(5:10)
+#lambdas <- seq(0, 1, 0.05)
+#ntrees <- 20
+#ndatasets <- 50
+#files <- list.files(path = "Data_Analyses/updated_simulations/results", pattern = "*.error.csv", full.names = T)
+#all_files <- lapply(files[-c(2,6,10)], read.csv) # excluding the 1000 tree files 
+#results_in <- do.call(rbind,all_files)
+#results_df <- as.data.frame(results_in) # edit rand.tree names manually if diff reps had diff ntrees***
 
 # reordering results to match completely
 library(dplyr)
 results_df_ordered <- arrange(results_df, rand.tree)
 results_df_ordered <- arrange(results_df_ordered, lambda_input)
 results_df_ordered <- arrange(results_df_ordered, treesize)
-
-identical(results_df_ordered[which(results_df_ordered$treesize == 32),"lambda_input"], results_df_ordered[which(results_df_ordered$treesize == 512),"lambda_input"])
 
 pair.comps <- combn(ndatasets, 2)
 z12 <- lapply(1:length(treesizes), function(i){
@@ -163,11 +164,11 @@ z12_mat <- cbind(rep(treesizes, each = length(lambdas)*ntrees*ncol(pair.comps)),
                  rep(rep(1:ntrees, each = ncol(pair.comps)), length(treesizes)*length(lambdas)), 
                  z12_mat)
 colnames(z12_mat) <- c("treesize", "lambda_input", "rand.tree", "z12")
-write.csv(z12_mat, "Data_Analyses/updated_simulations/results/pb.alltreesizes.20trees.50datasets.z12s.csv", row.names = F)
+#write.csv(z12_mat, "Data_Analyses/updated_simulations/results/pb.alltreesizes.20trees.50datasets.z12s.csv", row.names = F)
 
 
 #### Calculating Type 1 Error & False Discovery Rates ####
-z12_mat <- read.csv("Data_Analyses/updated_simulations/results/pb.alltreesizes.20trees.50datasets.z12s.csv")
+#z12_mat <- read.csv("Data_Analyses/updated_simulations/results/pb.alltreesizes.20trees.50datasets.z12s.csv")
 
 
 z12_mat <- as.data.frame(z12_mat)
