@@ -4,7 +4,7 @@ library(geomorph)
 
 treesizes <- 2^(8) # 2^(5:7) done, 2^8 being run by EKB, still need to run 2^(9:10)
 lambdas <- seq(0, 1, 0.05)
-ntrees <- 20
+ntrees <- 2
 ndatasets <- 50
 physig_iter <- 999
 
@@ -56,7 +56,7 @@ box.cox <- function(y, eps = 0.02) {
 }
 
 #### Run the simulations ####
- 
+
 results <- lapply(1:length(treesizes), function(i){ 
   starttime <- Sys.time()
   filenames <- list.files(path="Data_Analyses/updated_simulations/results/")
@@ -113,28 +113,37 @@ results_df <- as.data.frame(results_mat)
 #### Calculate Z12s ####
 
 # if simulations already done, read in simulation data and munge together:
-treesizes <- 2^(5:7)
+treesizes <- 2^(5:10)
 lambdas <- seq(0, 1, 0.05)
 ntrees <- 20
 ndatasets <- 50
 files <- list.files(path = "Data_Analyses/updated_simulations/results", pattern = "*.error.csv", full.names = T)
-all_files <- lapply(files[-3], read.csv) # EXCLUDING INCOMPLETE 256 RUNS
+all_files <- lapply(files[-c(2,6,10)], read.csv) # excluding the 1000 tree files 
 results_in <- do.call(rbind,all_files)
 results_df <- as.data.frame(results_in) # edit rand.tree names manually if diff reps had diff ntrees***
 
+# reordering results to match completely
+library(dplyr)
+results_df_ordered <- arrange(results_df, rand.tree)
+results_df_ordered <- arrange(results_df_ordered, lambda_input)
+results_df_ordered <- arrange(results_df_ordered, treesize)
+
+identical(results_df_ordered[which(results_df_ordered$treesize == 32),"lambda_input"], results_df_ordered[which(results_df_ordered$treesize == 512),"lambda_input"])
+
 pair.comps <- combn(ndatasets, 2)
-z12 <- lapply(1:length(treesizes), function(i){ # 3.5 hours if every dataset is compared to every other dataset within treesize and lambda, 11 min if only cmparing within rand.tree
-  results_by_treesize <- results_df[which(results_df$treesize == treesizes[i]),]
+z12 <- lapply(1:length(treesizes), function(i){
+  results_by_treesize <- results_df_ordered[which(results_df_ordered$treesize == treesizes[i]),]
   lambdas.out <- lapply(1:length(lambdas), function(j) {
     results_by_lambda <- results_by_treesize[which(results_by_treesize$lambda_input == as.character(lambdas[j])),]
     rand.tree.out <- lapply(1:ntrees, function(k) {
       results_by_rand_tree <- results_by_lambda[which(results_by_lambda$rand.tree == k),]
+      
       dataset.out <- lapply(1:ncol(pair.comps), function(l){
-        abs((results_by_lambda[pair.comps[1,l],]$K - 
-               results_by_lambda[pair.comps[1,l],]$mu) - 
-              (results_by_lambda[pair.comps[2,l],]$K - 
-                 results_by_lambda[pair.comps[2,l],]$mu)) / 
-          sqrt(results_by_lambda[pair.comps[1,l],]$sd^2 + results_by_lambda[pair.comps[2,l],]$sd^2)
+        abs((results_by_rand_tree[pair.comps[1,l],]$K - 
+               results_by_rand_tree[pair.comps[1,l],]$mu) - 
+              (results_by_rand_tree[pair.comps[2,l],]$K - 
+                 results_by_rand_tree[pair.comps[2,l],]$mu)) / 
+          sqrt(results_by_rand_tree[pair.comps[1,l],]$sd^2 + results_by_rand_tree[pair.comps[2,l],]$sd^2)
       })
       for (jj in 1:ncol(pair.comps)) { names(dataset.out)[jj] <- paste(pair.comps[1,jj], pair.comps[2,jj], sep = "-") }
       dataset.out
@@ -144,21 +153,21 @@ z12 <- lapply(1:length(treesizes), function(i){ # 3.5 hours if every dataset is 
   })
   names(lambdas.out) <- lambdas
   lambdas.out
-}) # ~ 11 min for 3 tree sizes, 20 random trees, 50 datasets per tree
+}) # 23 min for full dataset
 names(z12) <- treesizes
 anyNA(z12)
 
 z12_mat <- matrix(unlist(z12), ncol = 1, byrow = F)
 z12_mat <- cbind(rep(treesizes, each = length(lambdas)*ntrees*ncol(pair.comps)), 
-                 rep(rep(lambdas, each = ntrees*ncol(pair.comps)), 3), 
-                 rep(1:ntrees, each = ncol(pair.comps)),  
+                 rep(rep(lambdas, each = ntrees*ncol(pair.comps)), length(treesizes)), 
+                 rep(rep(1:ntrees, each = ncol(pair.comps)), length(treesizes)*length(lambdas)), 
                  z12_mat)
 colnames(z12_mat) <- c("treesize", "lambda_input", "rand.tree", "z12")
-write.csv(z12_mat, "Data_Analyses/updated_simulations/results/pb.32-124.error.20trees.z12s.csv", row.names = F) # change name manually to show what these z scores are
+write.csv(z12_mat, "Data_Analyses/updated_simulations/results/pb.alltreesizes.20trees.50datasets.z12s.csv", row.names = F)
 
 
 #### Calculating Type 1 Error & False Discovery Rates ####
-z12_mat <- read.csv("Data_Analyses/updated_simulations/results/pb.32-124.error.20trees.z12s.csv")
+z12_mat <- read.csv("Data_Analyses/updated_simulations/results/pb.alltreesizes.20trees.50datasets.z12s.csv")
 
 
 z12_mat <- as.data.frame(z12_mat)
@@ -175,16 +184,38 @@ type1error.zk <- lapply(1:length(treesizes), function(i){
 names(type1error.zk) <- treesizes
 
 #### Plot ####
-png("Manuscript/fig.s21-new.png")
+
+t1err_mat <- matrix(unlist(type1error.zk), ncol = 21, byrow = T)
+colnames(t1err_mat) <- lambdas
+rownames(t1err_mat) <- treesizes
+
+errormeans <- colMeans(t1err_mat)
+cis <- lapply(1:length(lambdas), function(i) qnorm(0.975)*(sd(t1err_mat[,i])/sqrt(6)))
+
+library(gplots)
+png("Manuscript/fig.s21.png")
+plotCI(x = lambdas, y = errormeans, gap = 0.5,
+       xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
+       ylab = latex2exp::TeX("Type 1 Error/False Discovery Rates"), 
+       ylim = c(0,1), uiw = unlist(cis), pch = 19)
+points(x = lambdas, y = errormeans, type = "l", col =  "black")
+abline(h = 0.05, col = "red")
+dev.off()
+
+
+
+
+# 
+png("Manuscript/fig.S21-NotUsed.png")
 plot(x = lambdas, y = unlist(type1error.zk$`32`), 
      xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
      ylab = latex2exp::TeX("Type 1 Error/False Discovery Rates"), 
      type = "l", ylim = c(0,1), col = "purple")
 points(x = lambdas, y = unlist(type1error.zk$`64`), type = "l", col =  "blue")
 points(x = lambdas, y = unlist(type1error.zk$`128`), type = "l", col = "darkgreen")
-#points(x = lambdas, y = unlist(type1error.zk$`256`), type = "l", col =  "green")
-#points(x = lambdas, y = unlist(type1error.zk$`512`), type = "l", col = "yellow")
-#points(x = lambdas, y = unlist(type1error.zk$`1024`), type = "l", col = "orange")
+points(x = lambdas, y = unlist(type1error.zk$`256`), type = "l", col =  "green")
+points(x = lambdas, y = unlist(type1error.zk$`512`), type = "l", col = "yellow")
+points(x = lambdas, y = unlist(type1error.zk$`1024`), type = "l", col = "orange")
 abline(h = 0.05, col = "red")
 
 legend("topleft", as.character(treesizes), fill =  c("purple", "blue", "darkgreen", "green", "yellow", "orange")[1:length(treesizes)])
