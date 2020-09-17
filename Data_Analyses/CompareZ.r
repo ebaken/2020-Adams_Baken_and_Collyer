@@ -50,13 +50,13 @@ compare.Z <- function(...,two.tailed = TRUE){
   if(length(dots) < 2) stop("At least two objects are needed")
   if(is.null(list.names)) list.names <- paste("Analysis", 1:n, sep = ".")
   names(dots) <- list.names
-  random.val <- lapply(1:length(dots), function(j) { #Check class; log random values as needed
+  random.val <- lapply(1:length(dots), function(j) { 
     if (is(dots[[j]],"lm.rrpp")  && is.null(dots[[j]]$ANOVA$SS))  { rep(0,dim(dots[[j]]$Y)[1])}  #For intercept model
-    else if (is(dots[[j]],"lm.rrpp") && !is.null(dots[[j]]$ANOVA$SS))  {log(dots[[j]]$ANOVA$SS)}  #NOTE: SS  only for now
+    else if (is(dots[[j]],"lm.rrpp") && !is.null(dots[[j]]$ANOVA$SS))  {(dots[[j]]$ANOVA$SS)}  #NOTE: SS  only for now
     else if (is(dots[[j]],"CR")) {t(as.matrix(dots[[j]]$random.CR))} 
     else if (is(dots[[j]],"pls")) {t(as.matrix(dots[[j]]$random.r))} 
-    else if (is(dots[[j]],"physignal")) {t(as.matrix(log(dots[[j]]$random.K)))} 
-    else if (is(dots[[j]],"evolrate")) {t(as.matrix(log(dots[[j]]$random.sigma)))}
+    else if (is(dots[[j]],"physignal")) {t(as.matrix((dots[[j]]$random.K)))} 
+    else if (is(dots[[j]],"evolrate")) {t(as.matrix((dots[[j]]$random.sigma)))}
   })
   sdn <- function(x) sqrt(sum((x-mean(x))^2)/length(x))
   getdrs <- function(fit){  
@@ -71,10 +71,13 @@ compare.Z <- function(...,two.tailed = TRUE){
     if(is.null(fit)) 0 else
       RRPP:::effect.size(as.vector(fit))
   }
+  ## box.cox
+  random.val <- lapply(1:length(random.val), function(j) box.cox(random.val[[j]])$transformed)
+  
   #added unlist b/c could have multiple factors in lm.rrpp
-  list.drs <- unlist(sapply(1:length(random.val), function(j) { apply(random.val[[j]],1,getdrs) }))
-  list.sds <- unlist(sapply(1:length(random.val), function(j) { apply(random.val[[j]],1,getsds) }))
-  list.zs <- unlist(sapply(1:length(random.val), function(j) { apply(random.val[[j]],1,getZ) }))
+  list.drs <- unlist(sapply(1:length(random.val), function(j) { getdrs(random.val[[j]]) }))
+  list.sds <- unlist(sapply(1:length(random.val), function(j) { getsds(random.val[[j]]) }))
+  list.zs <- unlist(sapply(1:length(random.val), function(j) { getZ(random.val[[j]]) }))
 
   k <- length(list.drs)
   k.combn <- combn(k,2)  
