@@ -29,7 +29,7 @@ author_contributions: |
 conflict_of_interest: |
   The authors declare no conflict of interest.  \hfill\break
   
-  Data deposition: Data for the empirical example may be found on DRYAD: doi:10.5061/dryad.b554m44 and doi:10.5061/dryad.59zw3r23m. R-scripts for simulation tests are found on Github: XXX. Computer code for implementing the two-sample comparison of effect sizes is found in geomorph: https://cran.r-project.org/web/packages/geomorph/index.html \hfill\break
+  Data deposition: Data for the empirical example may be found on DRYAD: doi:10.5061/dryad.b554m44 and doi:10.5061/dryad.59zw3r23m. R-scripts for simulation tests are found at: https://github.com/deanadams/PhySigCompareZ. Computer code for implementing the two-sample comparison of effect sizes is found in geomorph: https://cran.r-project.org/web/packages/geomorph/index.html \hfill\break
   
   ^2^To whom correspondence should be addressed. E-mail: dcadams\@iastate.edu
   
@@ -136,10 +136,10 @@ Simulations reveal that both $Z_{\lambda}$ and $Z_K$ are associated with input p
 **A test statistic ($\hat{Z}_{12}$) allows meaningful comparisons across datasets.** To statistically compare the strength of phylogenetic signal across datasets we propose a two-sample test statistic ($\hat{Z}_{12}$). Based on statistical theory, a two-sample test statistic may be calculated as: 
 
 \begin{align}
-  \hat{Z}_{12}=\frac{\lvert{(K_{1}-\hat\mu_{K_1})-(K_{2}-\hat\mu_{K_2})}\rvert}{\sqrt{\hat\sigma^2_{K_1}+\hat\sigma^2_{K_2}}} = \frac{\lvert Z_{K_1} - Z_{K_2}\rvert}{\sqrt{2}}
+  \hat{Z}_{12}=\frac{\lvert{(K_{1}-\hat\mu_{K_1})-(K_{2}-\hat\mu_{K_2})}\rvert}{\sqrt{\hat\sigma^2_{K_1}+\hat\sigma^2_{K_2}}} 
 \end{align}
 
-where $K_1$, $K_2$, $\hat\mu_{K_1}$, $\hat\mu_{K_2}$, $\hat\sigma_{K_1}$, and $\hat\sigma_{K_2}$ are as defined above for equation 2. The right side of the equation illustrates that if $Z_K$ has already been calculated for two sampling distributions, both have unit variance for each of the $Z_K$ statistics. Estimates of significance of $\hat{Z}_{12}$ may be obtained from a standard normal distribution. Typically, $\hat{Z}_{12}$ is considered a two-tailed test, however directional (one-tailed) tests may be specified should the empirical situation require it [@AdamsCollyer2016; @AdamsCollyer2019b].
+where $K_1$, $K_2$, $\hat\mu_{K_1}$, $\hat\mu_{K_2}$, $\hat\sigma_{K_1}$, and $\hat\sigma_{K_2}$ are as defined above. Estimates of significance of $\hat{Z}_{12}$ may be obtained from a standard normal distribution, or permutation. Typically, $\hat{Z}_{12}$ is considered a two-tailed test, however directional (one-tailed) tests may be specified should the empirical situation require it [@AdamsCollyer2016; @AdamsCollyer2019b]. Simulations reveal that tests based on $\hat{Z}_{12}$ have appropriate type I error rates (~0.05) and reasonable model misspecification rates (~7-12%: Supporting Information).
 
 To demonstrate the utility of $\hat{Z}_{12}$, we compared  $Z_K$ for two ecologically-relevant traits in plethodontid salamander (Fig. 4): surface area to volume ratios (SA:V) and relative body width ($\frac{BW}{SVL}$) [@Baken2019; @Baken2020]. While both traits contained significant phylogenetic signal, tests based on $\hat{Z}_{12}$ revealed that the degree of phylogenetic signal was significantly stronger in SA:V ($\hat{Z}_{12}=4.13$; $P=0.000036$: Fig. 4). Biologically, this observation may be interpreted by the fact that the tropical species -- which form a monophyletic group within plethodontids -- display greater variation in SA:V, which covaries with disparity in their climatic niches [@Baken2020]. Thus, greater phylogenetic signal in SA:V is to be expected.
 

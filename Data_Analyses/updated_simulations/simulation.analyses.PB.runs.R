@@ -35,7 +35,7 @@ setwd(destination)
 sim.sets <- lapply(1:length(treesizes), function(j){
   sim.args$treesize = treesizes[j]
   R <- do.call(effects.simulations, sim.args)
-  #write.csv(R$Result, file = R$file.name, row.names = FALSE)
+  write.csv(R$Result, file = R$file.name, row.names = FALSE)
   cat(j, "tree of", length(treesizes), "trees, completed\n")
   R
 })
@@ -71,7 +71,7 @@ png(filename = "Manuscript/fig.1.png", width = 800,
 par(mfrow = c(3, 2), 
     mar = c(5,5,1,2))
 for(i in 1:length(treesizes)) {
- 
+  
   R <- list("Result" = sim.sets[[i]], "file.name" = "filler")
   Rr <- R$Result
   lambda.plot(R, pch = 19,  col = gray.colors(1, start = 0.6, end = 0.6, alpha = 0.5),
@@ -193,7 +193,7 @@ for(i in 1:2) {
   
   legend("topleft", paste("N =", treesizes[zref[i]]), bty = "n", cex = 1.5)
 }
-  LZ <- sapply(1:length(sim.sets), function(j) by(sim.sets[[j]]$lambda.z, sim.sets[[j]]$lambda.in, mean))
+LZ <- sapply(1:length(sim.sets), function(j) by(sim.sets[[j]]$lambda.z, sim.sets[[j]]$lambda.in, mean))
 
 # Note! change ylim below, if needed.  Too difficult to automate!
 

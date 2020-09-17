@@ -55,8 +55,9 @@ research and wrote the paper.}
 
 Data deposition: Data for the empirical example may be found on DRYAD:
 \url{doi:10.5061/dryad.b554m44} and \url{doi:10.5061/dryad.59zw3r23m}.
-R-scripts for simulation tests are found on Github: XXX. Computer code
-for implementing the two-sample comparison of effect sizes is found in
+R-scripts for simulation tests are found at:
+\url{https://github.com/deanadams/PhySigCompareZ}. Computer code for
+implementing the two-sample comparison of effect sizes is found in
 geomorph:
 \url{https://cran.r-project.org/web/packages/geomorph/index.html}
 \hfill\break
@@ -388,18 +389,19 @@ statistic (\(\hat{Z}_{12}\)). Based on statistical theory, a two-sample
 test statistic may be calculated as:
 
 \begin{align}
-  \hat{Z}_{12}=\frac{\lvert{(K_{1}-\hat\mu_{K_1})-(K_{2}-\hat\mu_{K_2})}\rvert}{\sqrt{\hat\sigma^2_{K_1}+\hat\sigma^2_{K_2}}} = \frac{\lvert Z_{K_1} - Z_{K_2}\rvert}{\sqrt{2}}
+  \hat{Z}_{12}=\frac{\lvert{(K_{1}-\hat\mu_{K_1})-(K_{2}-\hat\mu_{K_2})}\rvert}{\sqrt{\hat\sigma^2_{K_1}+\hat\sigma^2_{K_2}}} 
 \end{align}
 
 where \(K_1\), \(K_2\), \(\hat\mu_{K_1}\), \(\hat\mu_{K_2}\),
-\(\hat\sigma_{K_1}\), and \(\hat\sigma_{K_2}\) are as defined above for
-equation 2. The right side of the equation illustrates that if \(Z_K\)
-has already been calculated for two sampling distributions, both have
-unit variance for each of the \(Z_K\) statistics. Estimates of
-significance of \(\hat{Z}_{12}\) may be obtained from a standard normal
-distribution. Typically, \(\hat{Z}_{12}\) is considered a two-tailed
-test, however directional (one-tailed) tests may be specified should the
-empirical situation require it (36, 38).
+\(\hat\sigma_{K_1}\), and \(\hat\sigma_{K_2}\) are as defined above.
+Estimates of significance of \(\hat{Z}_{12}\) may be obtained from a
+standard normal distribution, or permutation. Typically,
+\(\hat{Z}_{12}\) is considered a two-tailed test, however directional
+(one-tailed) tests may be specified should the empirical situation
+require it (36, 38). Simulations reveal that tests based on
+\(\hat{Z}_{12}\) have appropriate type I error rates
+(\textasciitilde0.05) and reasonable model misspecification rates
+(\textasciitilde7-12\%: Supporting Information).
 
 To demonstrate the utility of \(\hat{Z}_{12}\), we compared \(Z_K\) for
 two ecologically-relevant traits in plethodontid salamander (Fig. 4):
