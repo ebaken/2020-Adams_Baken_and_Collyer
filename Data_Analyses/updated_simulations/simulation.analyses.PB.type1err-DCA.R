@@ -4,10 +4,10 @@ library(geomorph)
 
 ##DCA: adjusted BC to not use observed in calculating the transformation,
 
-treesizes <- 2^(10) # 2^(5:7) done, 2^8 being run by EKB, still need to run 2^(9:10)
+treesizes <- 2^(5:10) 
 lambdas <- seq(0, 1, 0.05)
 ntrees <- 2
-ndatasets <- 25  #was 50, put back
+ndatasets <- 50  
 physig_iter <- 999
 
 #### functions from develop branch ######
@@ -176,7 +176,6 @@ write.csv(z12_mat, "results-DCA/pb.alltreesizes.20trees.50datasets.z12s.csv", ro
 #### Calculating Type 1 Error & False Discovery Rates ####
 z12_mat <- read.csv("results-DCA/pb.alltreesizes.20trees.50datasets.z12s.csv")
 
-
 z12_mat <- as.data.frame(z12_mat)
 
 type1error.zk <- lapply(1:length(treesizes), function(i){
@@ -197,9 +196,10 @@ colnames(t1err_mat) <- lambdas
 rownames(t1err_mat) <- treesizes
 
 errormeans <- colMeans(t1err_mat)
+
 cis <- lapply(1:length(lambdas), function(i) qnorm(0.975)*(sd(t1err_mat[,i])/sqrt(6)))
 
-png("results-DCA/fig.4.png")
+png("results-DCA/fig.S21.png")
 
 plot(x = lambdas, y = unlist(type1error.zk$`32`), 
      xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
@@ -220,7 +220,7 @@ dev.off()
 
 # 
 library(gplots)
-png("results-DCA/fig.S4-NotUsed.png")
+png("results-DCA/fig.4.png")
 plotCI(x = lambdas, y = errormeans, gap = 0.5,
        xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
        ylab = latex2exp::TeX("Type 1 Error/False Discovery Rates"), 

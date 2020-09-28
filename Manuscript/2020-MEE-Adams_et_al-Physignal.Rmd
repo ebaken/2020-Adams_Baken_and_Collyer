@@ -172,7 +172,7 @@ where $K_1$, $K_2$, $\hat\mu_{K_1}$, $\hat\mu_{K_2}$, $\hat\sigma_{K_1}$, and $\
 
 We evaluated the type I error and false discovery rates of tests based on $\hat{Z}_{12}$ using a procedure similar to that above. Simulations were performed using pure-birth trees of different sizes ($n=2^5, 2^6, \cdots, 2^{10}$), and with differing levels of phylogenetic signal ($\lambda=0.0, 0.5, \cdots, 1.0$). For each combination of $n$ and $\lambda$, a total of 100 traits were simulated on pure-birth trees (50 traits per tree) under a Brownian motion model of evolution. Next, the phylogenetic signal between traits was compared in pairwise fashion for all combinations of traits, using $\hat{Z}_{12}$. The proportion of significant results provided an estimate of the type I error or false discovery rate. Specifically, type I error was evaluated when traits were simulated using no input phylogenetic signal (i.e., $\lambda = 0$). Likewise, false discovery rates were evaluated for data simulated with some known, but equal, level of phylogenetic signal (i.e., $\lambda > 0$). \hfill\break
 
-Tests revealed that across simulation conditions, the average type I error of $\hat{Z}_{12}$ was approximately 0.05 (Fig. 4). Likewise, false discovery rates were also low, and were at or below the nominal 5% level (Fig. 4). Importantly, the statistical performance of $\hat{Z}_{12}$ appears unaffected by phylogeny size. Overall, these results reveal that tests based on $\hat{Z}_{12}$ have acceptable type I error and false discovery rates. Therefore, $\hat{Z}_{12}$ is an appropriate statistic for comparing the degree of phylogenetic signal across traits. 
+Tests revealed that across simulation conditions, the average type I error of $\hat{Z}_{12}$ was approximately 0.05 (Fig. 4). Likewise, average false discovery rates were also low, and were at or below the nominal 5% level (Fig. 4). Importantly, the statistical performance of $\hat{Z}_{12}$ appears unaffected by phylogeny size (Supporting Information). Overall, these results reveal that tests based on $\hat{Z}_{12}$ have acceptable type I error and false discovery rates. Therefore, $\hat{Z}_{12}$ is an appropriate statistic for comparing the degree of phylogenetic signal across traits. 
 
 # Empirical example
 
@@ -215,7 +215,7 @@ Figure 2. Response of Blomberg's $K$ to increasing strength of Brownian motion. 
 
 Figure 3. Response of effect sizes $Z_\lambda$ and $Z_K$ to increasing strength of Brownian motion.  Means from simulation runs are shown for comparative ease. Individual values from each simulation run are available in Supporting Information. \hfill\break
 
-Figure 4. Type I error rates and model misspecification for $\hat{Z}_{12}$. Type I error is found on the far-left of the plot ($\lambda = 0$).
+Figure 4. Type I error rates and model misspecification for $\hat{Z}_{12}$. Type I error is found on the far-left of the plot ($\lambda = 0$). The black line signifies the average type I error and false discovery rates across simulations of different tree sizes.
 
 Figure 5. (A) Linear measures for relative body size, and regions of the body used to estimate surface area to volume (SA:V) ratios. (B) Permutation distributions of phylogenetic signal for SA:V and $\frac{BW}{SVL}$, with observed values shown as vertical bars. (C) Effect sizes ($Z_K$) for SA:V and $\frac{BW}{SVL}$, with their 95% confidence intervals (CI not standardized by $\sqrt(n)$). \hfill\break
 
@@ -238,7 +238,7 @@ include_graphics("Figs/fig.2.png")
 include_graphics("Figs/fig.3.png")
 ```
 
-```{r, echo = FALSE, out.height="75%", fig.cap="Type I error rates and model misspecification for $\\hat{Z}_{12}$. Type I error is found on the far-left of the plot ($\\lambda = 0$)."}
+```{r, echo = FALSE, out.height="75%", fig.cap="Type I error rates and model misspecification for $\\hat{Z}_{12}$. Type I error is found on the far-left of the plot ($\\lambda = 0$). The black line signifies the average type I error and false discovery rates across simulations of different tree sizes."}
 include_graphics("Figs/fig.4.png")  
 ```
 

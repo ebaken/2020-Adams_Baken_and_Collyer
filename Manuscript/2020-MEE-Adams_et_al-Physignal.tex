@@ -106,7 +106,7 @@ Pennsylvania, USA.
 words & characters\tabularnewline
 \midrule
 \endhead
-4201 & 26493\tabularnewline
+4221 & 26607\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -516,13 +516,13 @@ level of phylogenetic signal (i.e., \(\lambda > 0\)). \hfill\break
 
 Tests revealed that across simulation conditions, the average type I
 error of \(\hat{Z}_{12}\) was approximately 0.05 (Fig. 4). Likewise,
-false discovery rates were also low, and were at or below the nominal
-5\% level (Fig. 4). Importantly, the statistical performance of
-\(\hat{Z}_{12}\) appears unaffected by phylogeny size. Overall, these
-results reveal that tests based on \(\hat{Z}_{12}\) have acceptable type
-I error and false discovery rates. Therefore, \(\hat{Z}_{12}\) is an
-appropriate statistic for comparing the degree of phylogenetic signal
-across traits.
+average false discovery rates were also low, and were at or below the
+nominal 5\% level (Fig. 4). Importantly, the statistical performance of
+\(\hat{Z}_{12}\) appears unaffected by phylogeny size (Supporting
+Information). Overall, these results reveal that tests based on
+\(\hat{Z}_{12}\) have acceptable type I error and false discovery rates.
+Therefore, \(\hat{Z}_{12}\) is an appropriate statistic for comparing
+the degree of phylogenetic signal across traits.
 
 \hypertarget{empirical-example}{%
 \section{Empirical example}\label{empirical-example}}
@@ -991,7 +991,8 @@ are available in Supporting Information. \hfill\break
 
 Figure 4. Type I error rates and model misspecification for
 \(\hat{Z}_{12}\). Type I error is found on the far-left of the plot
-(\(\lambda = 0\)).
+(\(\lambda = 0\)). The black line signifies the average type I error and
+false discovery rates across simulations of different tree sizes.
 
 Figure 5. (A) Linear measures for relative body size, and regions of the
 body used to estimate surface area to volume (SA:V) ratios. (B)
@@ -1014,13 +1015,9 @@ confidence intervals (CI not standardized by \(\sqrt(n)\)). \hfill\break
 \includegraphics[width=1\linewidth]{Figs/fig.3} \caption{Response of effect sizes $Z_\lambda$ and $Z_K$ to increasing strength of Brownian motion.  Means from simulation runs are shown for comparative ease. Individual values from each simulation run are available in Supporting Information.}\label{fig:unnamed-chunk-5}
 \end{figure}
 
-\newpage
-
 \begin{figure}
-\includegraphics[width=28.51in,height=0.75\textheight]{Figs/fig.4} \caption{Type I error rates and model misspecification for $\hat{Z}_{12}$. Type I error is found on the far-left of the plot ($\lambda = 0$).}\label{fig:unnamed-chunk-6}
+\includegraphics[width=24.22in,height=0.75\textheight]{Figs/fig.4} \caption{Type I error rates and model misspecification for $\hat{Z}_{12}$. Type I error is found on the far-left of the plot ($\lambda = 0$). The black line signifies the average type I error and false discovery rates across simulations of different tree sizes.}\label{fig:unnamed-chunk-6}
 \end{figure}
-
-\newpage
 
 \begin{figure}
 \includegraphics[width=0.9\linewidth]{Figs/fig.5} \caption{(A) Linear measures for relative body size, and regions of the body used to estimate surface area to volume (SA:V) ratios. (B) Permutation distributions of phylogenetic signal for SA:V and $\frac{BW}{SVL}$, with observed values shown as vertical bars. (C) Effect sizes ($Z_K$) for SA:V and $\frac{BW}{SVL}$, with their 95\% confidence intervals (CI not standardized by $\sqrt(n)$).}\label{fig:unnamed-chunk-7}
