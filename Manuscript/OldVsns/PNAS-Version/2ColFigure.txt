@@ -1,0 +1,14 @@
+Figure \[fig:frog\] shows an example of how to insert a column-wide
+figure. To insert a figure wider than one column, please use the
+`\begin{figure*}...\end{figure*}` environment. Figures wider than one
+column should be sized to 11.4 cm or 17.8 cm wide.
+
+\begin{figure}
+\centering
+\includegraphics[width=17.8cm]{new.fig.3.temp.png}
+\caption{Response of effect sizes \(Z_\lambda\) and \(Z_\kappa\) to
+increasing strength of Brownian motion.{}}
+\end{figure}
+
+
+##NOTE: need to figure out how to force placement etc.

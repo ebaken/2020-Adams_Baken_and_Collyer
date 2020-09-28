@@ -4,10 +4,10 @@ library(geomorph)
 
 ##DCA: adjusted BC to not use observed in calculating the transformation,
 
-treesizes <- 2^(8) # 2^(5:7) done, 2^8 being run by EKB, still need to run 2^(9:10)
+treesizes <- 2^(10) # 2^(5:7) done, 2^8 being run by EKB, still need to run 2^(9:10)
 lambdas <- seq(0, 1, 0.05)
 ntrees <- 2
-ndatasets <- 50
+ndatasets <- 25  #was 50, put back
 physig_iter <- 999
 
 #### functions from develop branch ######
@@ -199,31 +199,33 @@ rownames(t1err_mat) <- treesizes
 errormeans <- colMeans(t1err_mat)
 cis <- lapply(1:length(lambdas), function(i) qnorm(0.975)*(sd(t1err_mat[,i])/sqrt(6)))
 
-library(gplots)
-png("results-DCA/fig.s21.png")
-plotCI(x = lambdas, y = errormeans, gap = 0.5,
-       xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
-       ylab = latex2exp::TeX("Type 1 Error/False Discovery Rates"), 
-       ylim = c(0,1), uiw = unlist(cis), pch = 19)
-points(x = lambdas, y = errormeans, type = "l", col =  "black")
+png("results-DCA/fig.4.png")
+
+plot(x = lambdas, y = unlist(type1error.zk$`32`), 
+     xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
+     ylab = latex2exp::TeX("Type 1 Error/False Discovery Rates"), 
+     type = "l", ylim = c(0,1), col = "purple")
+points(x = lambdas, y = unlist(type1error.zk$`64`), ltw=2, type = "l", col =  "blue")
+points(x = lambdas, y = unlist(type1error.zk$`128`), type = "l", col = "darkgreen")
+points(x = lambdas, y = unlist(type1error.zk$`256`), type = "l", col =  "green")
+points(x = lambdas, y = unlist(type1error.zk$`512`), type = "l", col = "yellow")
+points(x = lambdas, y = unlist(type1error.zk$`1024`), type = "l", col = "orange")
 abline(h = 0.05, col = "red")
+legend("topleft", paste("N = ",as.character(treesizes)), fill =  c("purple", "blue", "darkgreen", "green", "yellow", "orange")[1:length(treesizes)])
+
 dev.off()
 
 
 
 
 # 
-png("results-DCA/fig.S21-NotUsed.png")
-plot(x = lambdas, y = unlist(type1error.zk$`32`), 
-     xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
-     ylab = latex2exp::TeX("Type 1 Error/False Discovery Rates"), 
-     type = "l", ylim = c(0,1), col = "purple")
-points(x = lambdas, y = unlist(type1error.zk$`64`), type = "l", col =  "blue")
-points(x = lambdas, y = unlist(type1error.zk$`128`), type = "l", col = "darkgreen")
-#points(x = lambdas, y = unlist(type1error.zk$`256`), type = "l", col =  "green")
-#points(x = lambdas, y = unlist(type1error.zk$`512`), type = "l", col = "yellow")
-#points(x = lambdas, y = unlist(type1error.zk$`1024`), type = "l", col = "orange")
+library(gplots)
+png("results-DCA/fig.S4-NotUsed.png")
+plotCI(x = lambdas, y = errormeans, gap = 0.5,
+       xlab = latex2exp::TeX("Input Phylogenetic Signal ($\\lambda_{in}$)"),
+       ylab = latex2exp::TeX("Type 1 Error/False Discovery Rates"), 
+       ylim = c(0,1), uiw = unlist(cis), pch = 19)
+points(x = lambdas, y = errormeans, type = "l", col =  "black")
 abline(h = 0.05, col = "red")
 
-legend("topleft", as.character(treesizes), fill =  c("purple", "blue", "darkgreen", "green", "yellow", "orange")[1:length(treesizes)])
 dev.off()
