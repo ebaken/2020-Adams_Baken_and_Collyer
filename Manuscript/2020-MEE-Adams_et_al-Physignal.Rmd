@@ -29,7 +29,7 @@ $^{2}$Department of Science, Chatham University, Pittsburgh, Pennsylvania, USA.
 $^{*}$Correspondence: Dean C. Adams <dcadams@iastate.edu> 
 \hfill\break
 
-**Keywords**: phylogenetic signal, macroevolution, lambda, kappa \hfill\break
+**Keywords**: comparative analysis, macroevolution \hfill\break
 
 **Short Title**: Effect size for phylogenetic signal \hfill\break
 
