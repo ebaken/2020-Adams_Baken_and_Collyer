@@ -1,0 +1,31 @@
+MIKE's email: Jan 16
+
+Well, I apologize.  I hit a wall yesterday and had to check out circa 4 PM.  I think I am getting old or underestimating how exhausting teaching has become, what with all this fancy technology.
+
+This is indeed a good catch and I suspect — though I could be wrong and do not feel certain — it might make the Z curves more commensurate, in spite of tree size.
+
+It might also head off Reviewer 1’s main criticism, about the linear relationship between K and input signal.
+
+Also, in looking over the review, and having some time away from this, I think a mistake we made with this manuscript when we submitted it to MEE is that we kept it as a riveting problem fixer, like we intended for PNAS.  I think reviewer 1’s comment about the negative a priori on lambda is humbly apt, and that entire paragraph gives us a way we could turn a revision into something they would like.  
+
+Here is a possible way to go about this, just as a hypothetical suggestion.
+
+Can phylogenetic signals be compared?
+
+1. One way, compare CIs of lambda
+2. Another way, compare Z scores
+	2a. Lambdas cannot be converted to Z scores (In SI we show this, and illustrate why)
+	2b. K can and K can also be adjusted by lambda (via tree transformation)
+3. Do comparing overlap of CI of lambda and calculating pairwise Z scores return consistent results?
+	3a. Type I error rates
+	3b. Power curves
+4. Why scientists should use one or the other or under what conditions, one might be preferred
+	4a. Tree size considerations
+	4b. Tree type considerations
+	4c. Other considerations
+
+I think we used too much effort to show that lambda does not function appropriately as a test statistic rather than get to the point that it is not a test statistic.  We probably do not need to do this so much and get right to the point that CI is a CI for optimization of a parameter, that others have treated as a test statistic and shown to be better than K from certain points of view.  But if we want to compare the strength of phylogenetic signal in a test rather than ask if phylogenetic signal is significant, this is a whole new ball of wax.  We led reviewer 1 to take issue with previous work, as if it was wrong, and I am willing to bet the reviewer was one of the previous authors we implicated.  We do not need to do that — we should not be competing in the same arena.  
+
+I think it would be interesting to consider a combination of of Z scores calculated from original and lambda-transformed trees.  If there is strong phylogenetic signal, lambda will approach 1, and the Z scores will be similar.  If there is little signal, the Z scores are likely different.  I’m not sure if there is anything here, but I think I will try some simulations to see, if nothing more than for personal edification.  
+
+As a final comment, I think that Reviewer 1 might be Münkemüller (I will assume it is) and any revision sent back to her might be challenging to satisfy her.  The specific comments sounds like her mind is made up about lambda > K in all regards.  If we want to go back and we want to appeal to this reviewer, I think we have to have a paper that agrees that K might be silly for the same reasons she has shown, but K can be adjusted by lambda (like we did mistakenly) and converted to a Z score, which allows a statistical test to compare phylogenetic signals (that maybe functions better than comparing overlap of CIs).  She might like something like that (as it would still be based on lambda).  But if we do not want to go that way, we might have to consider a different journal (which might be more efficient).
