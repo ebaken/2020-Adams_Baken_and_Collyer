@@ -13,7 +13,7 @@ bibliography: Lambda-Refs.bib
 
 header-includes:
     - \usepackage{setspace}\doublespacing
-    - \usepackage{lineno}\linenumbers 
+    - \usepackage{lineno}\linenumbers
 
 ---
 \begin{center}
