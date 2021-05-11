@@ -4,10 +4,10 @@
 %
 \documentclass[
 ]{article}
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -41,7 +41,8 @@
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=1in]{geometry}
-\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
 \makeatletter
@@ -50,7 +51,7 @@
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
-\usepackage{graphicx,grffile}
+\usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -69,9 +70,32 @@
 \setcounter{secnumdepth}{5}
 \usepackage{setspace}\doublespacing
 \usepackage{lineno}\linenumbers
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
-\title{A Standardized Effect Size for Evaluating and Comparing the Strength of
-Phylogenetic Signal}
+\title{A Standardized Effect Size for Evaluating and Comparing the
+Strength of Phylogenetic Signal}
 \author{}
 \date{\vspace{-2.5em}}
 
@@ -82,7 +106,7 @@ Phylogenetic Signal}
 \textbf{Dean C. Adams$^{1,*}$, Erica K. Baken$^{1,2}$, and Michael L. Collyer$^2$}
 \end{center}
 
-\begin{center}29 September, 2020\end{center}
+\begin{center}11 May, 2021\end{center}
 
 \(^{1}\)Department of Ecology, Evolution, and Organismal Biology, Iowa
 State University, Ames, Iowa, USA.
@@ -102,10 +126,10 @@ Pennsylvania, USA.
 
 \begin{longtable}[]{@{}rr@{}}
 \toprule
-words & characters\tabularnewline
+words & characters \\
 \midrule
 \endhead
-4221 & 26597\tabularnewline
+4221 & 26597 \\
 \bottomrule
 \end{longtable}
 
@@ -278,7 +302,7 @@ might expect that for any \(\lambda\) used to generate data, estimates
 of \emph{K} might be a random variable that follows a normal
 distribution, with values distributed symmetrically (Forbes et al.,
 2011). This attribute seemed less reasonable based on the simulations
-performed by Münkemüller et al.~(2012), which suggested that
+performed by Münkemüller et al. (2012), which suggested that
 distributions were positively skewed and that Blomberg's \emph{K} might
 not behave as a statistic that follows a normal distribution. However,
 because their simulations used a weighted combination of simulated
@@ -558,8 +582,8 @@ It is common in comparative evolutionary studies to characterize the
 phylogenetic signal in phenotypic traits to determine the extent to
 which shared evolutionary history has generated trait covariation among
 taxa. However, while numerous analytical approaches may be used to
-quantify phylogenetic signal (e.g., Abouheif, 1999; Gittleman \& Kot,
-1990; Pagel, 1999; Blomberg et al., 2003; Adams, 2014a), methods that
+quantify phylogenetic signal (Gittleman \& Kot, 1990; e.g., Abouheif,
+1999; Pagel, 1999; Blomberg et al., 2003; Adams, 2014a), methods that
 explicitly measure the strength of phylogenetic signal, or facilitate
 comparisons among datasets, have remained underdeveloped. We evaluated
 the precision of one common measure, Pagel's \(\lambda\), and explored
@@ -607,7 +631,7 @@ phylogenetic signal on a common scale. By contrast, standardizing
 facilitates formal statistical comparisons of the strength of signal
 across datasets. Thus when viewed from this perspective, the approach
 developed here aligns well with other statistical approaches such as
-meta-analysis (sensu Hedges \& Olkin, 1985; Glass, 1976; Arnqvist \&
+meta-analysis (Glass, 1976; sensu Hedges \& Olkin, 1985; Arnqvist \&
 Wooster, 1995), where summary statistics across datasets are converted
 to standardized effect sizes for subsequent ``higher order'' statistical
 summaries or comparisons. As such, our approach enables evolutionary
@@ -649,7 +673,7 @@ generation of the empirical sampling distribution via permutation.
 This study is not the first to compare \(\lambda\) and \emph{K} for
 their ability as statistics to measure phylogenetic signal. Our results
 for \(\lambda\) and \emph{K} values are consistent with those found in
-the simulations performed by Münkemüller et al.~(2012), but that study
+the simulations performed by Münkemüller et al. (2012), but that study
 investigated type I error rates and statistical power, finding that
 \(\lambda\) performed better in both regards, irrespective of species
 number in trees. Although not the central focus of their study, the same
@@ -714,253 +738,256 @@ signal for different traits, different trees, or a combination of both.
 \setlength{\parskip}{8pt} \noindent
 
 \hypertarget{refs}{}
-\leavevmode\hypertarget{ref-Abouheif1999}{}%
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-Abouheif1999}{}}%
 Abouheif, E. (1999). A method for testing the assumption of phylogenetic
 independence in comparative data. \emph{Evolutionary Ecology Research},
 \emph{1}, 895--909. Journal Article.
 
-\leavevmode\hypertarget{ref-Adams2014a}{}%
-Adams, D. C. (2014a). A generalized Kappa statistic for estimating
+\leavevmode\vadjust pre{\hypertarget{ref-Adams2014a}{}}%
+Adams, D. C. (2014a). {A generalized Kappa statistic for estimating
 phylogenetic signal from shape and other high-dimensional dultivariate
-data. \emph{Systematic Biology}, \emph{63}, 685--697.
+data}. \emph{Systematic Biology}, \emph{63}, 685--697.
 
-\leavevmode\hypertarget{ref-Adams2014b}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Adams2014b}{}}%
 Adams, D. C. (2014b). A method for assessing phylogenetic least squares
 models for shape and other high-dimensional multivariate data.
 \emph{Evolution}, \emph{68}, 2675--2688.
 
-\leavevmode\hypertarget{ref-AdamsCollyer2016}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-AdamsCollyer2016}{}}%
 Adams, D. C., \& Collyer, M. L. (2016). On the comparison of the
 strength of morphological integration across morphometric datasets.
 \emph{Evolution}, \emph{70}, 2623--2631. Journal Article.
 
-\leavevmode\hypertarget{ref-AdamsCollyer2018b}{}%
-Adams, D. C., \& Collyer, M. L. (2018). Phylogenetic anova: Group-clade
+\leavevmode\vadjust pre{\hypertarget{ref-AdamsCollyer2018b}{}}%
+Adams, D. C., \& Collyer, M. L. (2018). Phylogenetic ANOVA: Group-clade
 aggregation, biological challenges, and a refined permutation procedure.
 \emph{Evolution}, \emph{72}(6), 1204--1215.
 
-\leavevmode\hypertarget{ref-AdamsCollyer2019b}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-AdamsCollyer2019b}{}}%
 Adams, D. C., \& Collyer, M. L. (2019a). Comparing the strength of
 modular signal, and evaluating alternative modular hypotheses, using
 covariance ratio effect sizes with morphometric data. \emph{Evolution},
 \emph{73}(12), 2352--2367.
 
-\leavevmode\hypertarget{ref-AdamsCollyer2019}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-AdamsCollyer2019}{}}%
 Adams, D. C., \& Collyer, M. L. (2019b). Phylogenetic comparative
 methods and the evolution of multivariate phenotypes. \emph{Annual
 Review of Ecology, Evolution, and Systematics}, \emph{50}, 405--425.
 
-\leavevmode\hypertarget{ref-AdamsGeomorph}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-AdamsGeomorph}{}}%
 Adams, D. C., Collyer, M. L., \& Kaliontzopoulou, A. (2020). Geomorph:
 Software for geometric morphometric analyses. R package version 3.3.1.
 Retrieved from \url{https://cran.r-project.org/package=geomorph}
 
-\leavevmode\hypertarget{ref-AdamsOtarola2013}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-AdamsOtarola2013}{}}%
 Adams, D. C., \& Otárola-Castillo, E. (2013). Geomorph: An r package for
 the collection and analysis of geometric morphometric shape data.
 \emph{Methods in Ecology and Evolution}, \emph{4}, 393--399.
 
-\leavevmode\hypertarget{ref-Arnqvist1995}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Arnqvist1995}{}}%
 Arnqvist, G., \& Wooster, D. (1995). Meta-analysis: Synthesizing
 research findings in ecology and evolution. \emph{Trends in Ecology and
 Evolution}, \emph{10}, 236--240.
 
-\leavevmode\hypertarget{ref-Baken2019}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Baken2019}{}}%
 Baken, E. K., \& Adams, D. C. (2019). Macroevolution of arboreality in
 salamanders. \emph{Ecology and Evolution}, \emph{9}(12), 7005--7016.
 
-\leavevmode\hypertarget{ref-Baken2020}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Baken2020}{}}%
 Baken, E. K., Mellenthin, L. E., \& Adams, D. C. (2020). Macroevolution
 of desiccation‐related morphology in plethodontid salamanders as
 inferred from a novel surface area to volume ratio estimation approach.
 \emph{Evolution}, \emph{74}, 476--486.
 
-\leavevmode\hypertarget{ref-Beaulieu_et_al2012}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Beaulieu_et_al2012}{}}%
 Beaulieu, J. M., Jhwueng, D. C., Boettiger, C., \& O'Meara, B. C.
 (2012). Modeling stabilizing selection: Expanding the ornstein-uhlenbeck
 model of adaptive evolution. \emph{Evolution}, \emph{66}, 2369--2383.
 Journal Article.
 
-\leavevmode\hypertarget{ref-Blomberg_et_al2003}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Blomberg_et_al2003}{}}%
 Blomberg, S. P., Garland, T., \& Ives, A. R. (2003). Testing for
 phylogenetic signal in comparative data: Behavioral traits are more
 labile. \emph{Evolution}, \emph{57}, 717--745.
 
-\leavevmode\hypertarget{ref-Boettiger_et_al2012}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Boettiger_et_al2012}{}}%
 Boettiger, C., Coop, G., \& Ralph, P. (2012). Is your phylogeny
 informative? Measuring the power of comparative methods.
 \emph{Evolution}, \emph{67}, 2240--2251. Journal Article.
 
-\leavevmode\hypertarget{ref-Bonett2017}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Bonett2017}{}}%
 Bonett, R. M., \& Blair, A. L. (2017). Evidence for complex life cycle
 constraints on salamander body form diversification. \emph{Proceedings
 of the National Academy of Sciences, U.S.A.}, \emph{114}, 9936--9941.
 doi:\href{https://doi.org/10.1073/pnas.1703877114}{10.1073/pnas.1703877114}
 
-\leavevmode\hypertarget{ref-Bose2019}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Bose2019}{}}%
 Bose, R., Ramesh, B. R., Pélissier, R., \& Munoz, F. (2019).
 Phylogenetic diversity in the western ghats biodiversity hotspot
 reflects environmental filtering and past niche diversification of
 trees. \emph{Journal of Biogeography}, \emph{46}(1), 145--157.
 
-\leavevmode\hypertarget{ref-Cohen1988}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Cohen1988}{}}%
 Cohen, J. (1988). \emph{Statistical power analysis for the behavioral
 sciences}. Routledge.
 
-\leavevmode\hypertarget{ref-CollyerAdams2018}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-CollyerAdams2018}{}}%
 Collyer, M. L., \& Adams, D. C. (2018). RRPP: An r package for fitting
 linear models to high-dimensional data using residual randomization.
 \emph{Methods in Ecology and Evolution}, \emph{9}, 1772--1779.
 
-\leavevmode\hypertarget{ref-Collyer_et_al2015a}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Collyer_et_al2015a}{}}%
 Collyer, M. L., Sekora, D. J., \& Adams, D. C. (2015). A method for
 analysis of phenotypic change for phenotypes described by
 high-dimensional data. \emph{Heredity}, \emph{115}, 357--365.
 
-\leavevmode\hypertarget{ref-Cooper2010}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Cooper2010}{}}%
 Cooper, N., Jetz, W., \& Freckleton, R. P. (2010). Phylogenetic
 comparative approaches for studying niche conservatism. \emph{Journal of
 Evolutionary Biology}, \emph{23}(12), 2529--2539.
 
-\leavevmode\hypertarget{ref-Davies2012}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Davies2012}{}}%
 Davies, T. J., Kraft, N. J., Salamin, N., \& Wolkovich, E. M. (2012).
 Incompletely resolved phylogenetic trees inflate estimates of
 phylogenetic conservatism. \emph{Ecology}, \emph{93}(2), 242--247.
 
-\leavevmode\hypertarget{ref-DeMeester2019}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-DeMeester2019}{}}%
 De Meester, G., Huyghe, K., \& Van Damme, R. (2019). Brain size, ecology
 and sociality: A reptilian perspective. \emph{Biological Journal of the
 Linnean Society}, \emph{126}(3), 381--391.
 
-\leavevmode\hypertarget{ref-DinizFilho2012}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-DinizFilho2012}{}}%
 Diniz-Filho, J. A. F., Santos, T., Rangel, T. F., \& Bini, L. M. (2012).
 A comparison of metrics for estimating phylogenetic signal under
 alternative evolutionary models. \emph{Genetics and Molecular Biology},
 \emph{35}(3), 673--679.
 
-\leavevmode\hypertarget{ref-Felsenstein1985}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Felsenstein1985}{}}%
 Felsenstein, J. (1985). Phylogenies and the comparative method.
 \emph{American Naturalist}, \emph{125}(1), 1--15. Journal Articl.
 
-\leavevmode\hypertarget{ref-Forbes2011}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Forbes2011}{}}%
 Forbes, C., Evans, M., Hastings, N., \& Peacock, B. (2011).
 \emph{Statistical distributions}. John Wiley \& Sons.
 
-\leavevmode\hypertarget{ref-Freckleton_et_al2002}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Freckleton_et_al2002}{}}%
 Freckleton, R. P., Harvey, P. H., \& Pagel, M. (2002). Phylogenetic
 analysis and comparative data: A test and review of evidence.
 \emph{American Naturalist}, \emph{160}, 712--726.
 
-\leavevmode\hypertarget{ref-GarlandIves2000}{}%
-Garland, T. J., \& Ives, A. R. (2000). Using the past to predict the
+\leavevmode\vadjust pre{\hypertarget{ref-GarlandIves2000}{}}%
+Garland, T. Jr., \& Ives, A. R. (2000). Using the past to predict the
 present: Confidence intervals for regression equations in phylogenetic
 comparative methods. \emph{American Naturalist}, \emph{155}, 346--364.
 
-\leavevmode\hypertarget{ref-Gittleman1990}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Gittleman1990}{}}%
 Gittleman, J. L., \& Kot, M. (1990). Adaptation: Statistics and a null
 model for estimating phylogenetic effects. \emph{Systematic Zoology},
 \emph{39}(3), 227--241.
 
-\leavevmode\hypertarget{ref-Glass1976}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Glass1976}{}}%
 Glass, G. V. (1976). Primary, secondary, and meta-analysis of research.
 \emph{Educational Researcher}, \emph{5}, 3--8.
 
-\leavevmode\hypertarget{ref-Grafen1989}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Grafen1989}{}}%
 Grafen, A. (1989). The phylogenetic regression. \emph{Philosophical
 Transactions of the Royal Society of London B, Biological Sciences},
 \emph{326}, 119--157.
 
-\leavevmode\hypertarget{ref-HarveyPagel1991}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-HarveyPagel1991}{}}%
 Harvey, P. H., \& Pagel, M. D. (1991). \emph{The comparative method in
-evolutionary biology}. Book, Oxford: Oxford University Press.
+evolutionary biology}. book, Oxford: Oxford University Press.
 
-\leavevmode\hypertarget{ref-HedgesOlkin1985}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-HedgesOlkin1985}{}}%
 Hedges, L. V., \& Olkin, I. (1985). \emph{Statistical methods for
 meta-analysis}. Elsevier.
 
-\leavevmode\hypertarget{ref-Klingenberg2010}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Klingenberg2010}{}}%
 Klingenberg, C. P., \& Gidaszewski, N. A. (2010). Testing and
 quantifying phylogenetic signals and homoplasy in morphometric data.
 \emph{Systematic Biology}, \emph{59}(3), 245--261.
 
-\leavevmode\hypertarget{ref-MartinsHansen1997}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-MartinsHansen1997}{}}%
 Martins, E. P., \& Hansen, T. F. (1997). Phylogenies and the comparative
 method: A general approach to incorporating phylogenetic information
 into the analysis of interspecific data. \emph{American Naturalist},
 \emph{149}, 646--667.
 
-\leavevmode\hypertarget{ref-MolinaVenegas2017}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-MolinaVenegas2017}{}}%
 Molina-Venegas, R., \& Rodríguez, M. A. (2017). Revisiting phylogenetic
 signal; strong or negligible impacts of polytomies and branch length
 information? \emph{BMC Evolutionary Biology}, \emph{17}(1), 53.
 
-\leavevmode\hypertarget{ref-Munkemuller_et_al2012}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Munkemuller_et_al2012}{}}%
 Münkemüller, T., Lavergne, S., Bzeznik, B., Dray, S., Jombart, T.,
 Schiffers, K., \& Thuiller, W. (2012). How to measure and test
 phylogenetic signal. \emph{Methods in Ecology and Evolution}, \emph{3},
 743--756. Journal Article.
 
-\leavevmode\hypertarget{ref-OMeara_et_al2006}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-OMeara_et_al2006}{}}%
 O'Meara, B. C., Ane, C., Sanderson, M. J., \& Wainwright, P. C. (2006).
 Testing for different rates of continuous trait evolution using
 likelihood. \emph{Evolution}, \emph{60}, 922--933. Journal Article.
 
-\leavevmode\hypertarget{ref-Orme2013}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Orme2013}{}}%
 Orme, D., Freckleton, R. P., Thomas, G. H., Petzoldt, T., Fritz, S. A.,
 \& Isaac, N. (2013). CAPER: Comparative analyses of phylogenetics and
 evolution in r. \emph{Methods in Ecology and Evolution}, \emph{3},
 145--151.
 
-\leavevmode\hypertarget{ref-Pagel1999}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Pagel1999}{}}%
 Pagel, M. D. (1999). Inferring the historical patterns of biological
 evolution. \emph{Nature}, \emph{401}, 877--884. Journal Article.
 
-\leavevmode\hypertarget{ref-Pavoine2012}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Pavoine2012}{}}%
 Pavoine, S., \& Ricotta, C. (2012). Testing for phylogenetic signal in
 biological traits: The ubiquity of cross-product statistics.
 \emph{Evolution: International Journal of Organic Evolution},
 \emph{67}(3), 828--840.
 
-\leavevmode\hypertarget{ref-Pintanel2019}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Pintanel2019}{}}%
 Pintanel, P., Tejedo, M., Ron, S. R., Llorente, G. A., \& Merino-Viteri,
 A. (2019). Elevational and microclimatic drivers of thermal tolerance in
 andean pristimantis frogs. \emph{Journal of Biogeography}, \emph{46}(8),
 1664--1675.
 
-\leavevmode\hypertarget{ref-Revell2010}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Revell2010}{}}%
 Revell, L. J. (2010). Phylogenetic signal and linear regression on
 species data. \emph{Methods in Ecology and Evolution}, \emph{1},
 319--329. Journal Article.
 
-\leavevmode\hypertarget{ref-Revell_et_al2008}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Revell_et_al2008}{}}%
 Revell, L. J., Harmon, L. J., \& Collar, D. C. (2008). Phylogenetic
 signal, evolutionary process, and rate. \emph{Systematic Biology},
 \emph{57}, 591--601. Journal Article.
 
-\leavevmode\hypertarget{ref-Rohlf2001}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Rohlf2001}{}}%
 Rohlf, F. J. (2001). Comparative methods for the analysis of continuous
 variables: Geometric interpretations. \emph{Evolution}, \emph{55},
 2143--2160. Journal Article.
 
-\leavevmode\hypertarget{ref-Rosenthal1994}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Rosenthal1994}{}}%
 Rosenthal, R. (1994). The handbook of research synthesis. In L. V.
 Cooper H Hedges (Ed.) (pp. 231--244). Russell Sage Foundation.
 
-\leavevmode\hypertarget{ref-SokalRohlf2012}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-SokalRohlf2012}{}}%
 Sokal, R. R., \& Rohlf, F. J. (2012). \emph{Biometry} (4th ed.). San
 Francisco: W.H. Freeman \& Co.
 
-\leavevmode\hypertarget{ref-Su2019}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Su2019}{}}%
 Su, G., Villéger, S., \& Brosse, S. (2019). Morphological diversity of
 freshwater fishes differs between realms, but morphologically extreme
 species are widespread. \emph{Global Ecology and Biogeography},
 \emph{28}(2), 211--221.
 
-\leavevmode\hypertarget{ref-Vandelook2019}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Vandelook2019}{}}%
 Vandelook, F., Janssens, S., Gijbels, P., Fischer, E., Van den Ende, W.,
 Honnay, O., \& Abrahamczyk, S. (2019). Nectar traits differ between
 pollination syndromes in balsaminaceae. \emph{Annals of Botany},
 \emph{124}(2), 269--279.
+
+\end{CSLReferences}
 
 \newpage
 
